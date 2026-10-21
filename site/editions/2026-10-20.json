@@ -43,7 +43,8 @@
         "行业动态",
         "海外AI",
         "Agent",
-        "OpenAI"
+        "OpenAI",
+        "AI赛道"
       ],
       "quote": "OpenAI has acquired Orchestra Bio",
       "region": "国外",
@@ -66,7 +67,9 @@
         "行业动态",
         "AI商业化",
         "海外AI",
-        "OpenAI"
+        "OpenAI",
+        "AI产品",
+        "AI赛道"
       ],
       "quote": "Reduction in time spent on monthly cash reconciliation",
       "region": "国外",
@@ -92,7 +95,9 @@
         "海外AI",
         "OpenAI",
         "Agent",
-        "评测/基准"
+        "评测/基准",
+        "AI产品",
+        "AI赛道"
       ],
       "quote": "Across 500 scored judgments",
       "region": "国外",
@@ -115,7 +120,8 @@
         "海外AI",
         "GitHub",
         "Agent",
-        "安全/对齐"
+        "安全/对齐",
+        "AI玩法"
       ],
       "quote": "without losing the conversation",
       "region": "国外",
@@ -137,7 +143,8 @@
       "tags": [
         "行业动态",
         "海外AI",
-        "AI商业化"
+        "AI商业化",
+        "AI创业"
       ],
       "quote": "Spain-Based Startups Advance Regional Innovation With Barcelona Supercomputing Center",
       "region": "国外",
@@ -156,7 +163,8 @@
       "category": "ai-models",
       "tags": [
         "行业动态",
-        "海外AI"
+        "海外AI",
+        "AI赛道"
       ],
       "quote": "Germany Wants to Lead the World in Industrial AI: How NVIDIA Will Help",
       "region": "国外",
@@ -180,7 +188,9 @@
         "海外AI",
         "AI商业化",
         "Agent",
-        "MCP/工具调用"
+        "MCP/工具调用",
+        "AI产品",
+        "AI赛道"
       ],
       "quote": "How Eon built multi-cloud investigation with an MCP Gateway on Amazon Bedrock AgentCore",
       "region": "国外",
@@ -224,7 +234,9 @@
         "产品更新",
         "海外AI",
         "成功产品",
-        "视频"
+        "视频",
+        "AI产品",
+        "AI赛道"
       ],
       "quote": "Pegasus 1.5 from TwelveLabs is now available in Amazon Bedrock",
       "region": "国外",
@@ -246,7 +258,8 @@
         "海外AI",
         "AI商业化",
         "语音",
-        "部署/工程"
+        "部署/工程",
+        "AI赛道"
       ],
       "quote": "How Deepgram optimized voice AI at scale with AWS Trainium",
       "region": "国外",
@@ -353,7 +366,8 @@
         "海外AI",
         "行业报告",
         "Agent",
-        "评测/基准"
+        "评测/基准",
+        "AI赛道"
       ],
       "quote": "ALTK-Evolve: How learned memory tops the τ²-bench leaderboard on customer service tasks without a frontier model",
       "region": "国外",
@@ -374,7 +388,8 @@
         "大佬观点",
         "国内AI",
         "AI创作者",
-        "视频"
+        "视频",
+        "AI玩法"
       ],
       "quote": "NotebookLM's Video Overview System Prompt: The Full Creation Workflow",
       "region": "国内",
@@ -460,7 +475,8 @@
       "tags": [
         "产品更新",
         "国内AI",
-        "成功产品"
+        "成功产品",
+        "AI产品"
       ],
       "quote": "Meshy推出Meshy Edit：基于全新自研AI模型，一句指令实现3D模型局部编辑",
       "region": "国内",

@@ -87,7 +87,8 @@
       "tags": [
         "教程/实践",
         "海外AI",
-        "MCP/工具调用"
+        "MCP/工具调用",
+        "AI玩法"
       ],
       "quote": "llm-echo 0.5",
       "region": "国外",
@@ -106,7 +107,8 @@
       "category": "tip",
       "tags": [
         "教程/实践",
-        "海外AI"
+        "海外AI",
+        "AI玩法"
       ],
       "quote": "llm-tools-datasette 0.1.1",
       "region": "国外",
@@ -127,7 +129,8 @@
         "产品更新",
         "成功产品",
         "海外AI",
-        "开源/仓库"
+        "开源/仓库",
+        "AI产品"
       ],
       "quote": "preview",
       "region": "国外",

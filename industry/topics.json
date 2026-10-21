@@ -404,6 +404,51 @@
         "公众号"
       ],
       "definition": "核对原始公众号文章的 AI 资讯与原创分析；无可读原文时不发布。"
+    },
+    {
+      "slug": "ai-products",
+      "name": "AI产品",
+      "group": "genre",
+      "tags": [
+        "AI产品"
+      ],
+      "definition": "产品发布、功能更新、上手评测与用户反馈；有产品不等于成功，成效须有证据。"
+    },
+    {
+      "slug": "ai-hardware",
+      "name": "AI硬件",
+      "group": "genre",
+      "tags": [
+        "AI硬件"
+      ],
+      "definition": "有具体设备或芯片的发布、实测与使用体验；纯软件性能文章不自动归入硬件。"
+    },
+    {
+      "slug": "ai-play",
+      "name": "AI玩法",
+      "group": "genre",
+      "tags": [
+        "AI玩法"
+      ],
+      "definition": "可操作的用法、创意实验和工作流；说明工具、步骤、门槛，未复测效果须明确。"
+    },
+    {
+      "slug": "ai-startups",
+      "name": "AI创业",
+      "group": "genre",
+      "tags": [
+        "AI创业"
+      ],
+      "definition": "创始人、创业团队、孵化计划与经营复盘；融资不等于收入，不能宣传保证收益。"
+    },
+    {
+      "slug": "ai-sectors",
+      "name": "AI赛道",
+      "group": "genre",
+      "tags": [
+        "AI赛道"
+      ],
+      "definition": "垂直行业需求、市场格局和应用方向的研究或落地案例；区分证据、预测与作者观点。"
     }
   ]
 }

@@ -1,0 +1,107 @@
+{
+  "mode": "local-codex-public-research",
+  "lookbackHours": 24,
+  "profiles": [
+    {
+      "id": "ai-products",
+      "name": "AI产品",
+      "keywords": [
+        "AI产品",
+        "AI工具",
+        "AI应用",
+        "AI新品",
+        "AI product",
+        "AI tools",
+        "AI app launch"
+      ],
+      "queries": [
+        "AI产品 新品 更新 评测",
+        "AI工具 用户 付费 定价",
+        "AI product launch changelog pricing"
+      ],
+      "guide": "产品发布、功能更新、上手评测与用户反馈；有产品不等于成功，成效须有证据。"
+    },
+    {
+      "id": "ai-hardware",
+      "name": "AI硬件",
+      "keywords": [
+        "AI硬件",
+        "AI眼镜",
+        "AI耳机",
+        "AI玩具",
+        "AI PC",
+        "AI穿戴",
+        "AI hardware",
+        "AI glasses",
+        "AI wearable"
+      ],
+      "queries": [
+        "AI硬件 AI眼镜 AI耳机 新品 评测",
+        "AI玩具 AI穿戴 AI PC 实测",
+        "AI hardware smart glasses wearable review launch"
+      ],
+      "guide": "有具体设备或芯片的发布、实测与使用体验；纯软件性能文章不自动归入硬件。"
+    },
+    {
+      "id": "ai-play",
+      "name": "AI玩法",
+      "keywords": [
+        "AI玩法",
+        "AI教程",
+        "提示词",
+        "AI工作流",
+        "Vibe Coding",
+        "AI workflow",
+        "AI tutorial"
+      ],
+      "queries": [
+        "AI玩法 提示词 实操 工作流",
+        "AI创作 AI编程 案例 教程",
+        "AI workflow tutorial creative experiment"
+      ],
+      "guide": "可操作的用法、创意实验和工作流；说明工具、步骤、门槛，未复测效果须明确。"
+    },
+    {
+      "id": "ai-startups",
+      "name": "AI创业",
+      "keywords": [
+        "AI创业",
+        "AI独立开发",
+        "AI创业公司",
+        "一人公司",
+        "AI startup",
+        "AI indie hacker",
+        "AI bootstrapped"
+      ],
+      "queries": [
+        "AI创业 创始人 独立开发 复盘",
+        "AI创业 融资 产品 用户 收入",
+        "AI startup founder bootstrapped lessons revenue"
+      ],
+      "guide": "创始人、创业团队、孵化计划与经营复盘；融资不等于收入，不能宣传保证收益。"
+    },
+    {
+      "id": "ai-sectors",
+      "name": "AI赛道",
+      "keywords": [
+        "AI赛道",
+        "AI垂直应用",
+        "AI行业机会",
+        "AI市场",
+        "vertical AI",
+        "AI market landscape"
+      ],
+      "queries": [
+        "AI赛道 垂直应用 行业报告",
+        "AI行业 市场格局 需求 竞争",
+        "vertical AI market landscape adoption report"
+      ],
+      "guide": "垂直行业需求、市场格局和应用方向的研究或落地案例；区分证据、预测与作者观点。"
+    }
+  ],
+  "notes": [
+    "每天逐组检索，结合既有RSS、公众号、小红书来源，打开原文核对日期与内容后才收录。",
+    "关键词用于发现候选，不代表已验证信源，不直接自动发布。",
+    "同文去重，原文不可读则记录原因并跳过，不按关键词命中次数加分。"
+  ]
+}
