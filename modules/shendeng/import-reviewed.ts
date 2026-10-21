@@ -3,7 +3,7 @@
 import { publishArticle } from "@aihot/backend/publication/publish";
 import { loadItemDetail } from "@aihot/backend/publication/detail";
 import type { EditionEntry } from "@aihot/backend/reports/edition";
-import { validateEdition, stableArticleId } from "./edition.ts";
+import { validateEdition, stableArticleId, publicationTags } from "./edition.ts";
 import { readFile } from "node:fs/promises";
 import { detachFromFact } from "@aihot/backend/events/corrections";
 import { sql, closeDb } from "@aihot/backend/db";
@@ -19,17 +19,18 @@ if (!source) throw new Error("Usage: node --env-file=.env modules/shendeng/impor
 const codex = process.argv.includes("--codex");
 const document = JSON.parse(await readFile(source, "utf8"));
 if(codex) validateEdition(document);
-const entries = (codex ? document.items : document) as Array<{id?:string;sourceId:string;sourceName:string;tier:string;entity:string|null;video?:string;region?:string;date:string;url:string;title:string;summary:string;reason:string;category:string;quote:string;image?:string;tags?:string[]}>;
+const entries = (codex ? document.items : document) as Array<{id?:string;sourceId:string;sourceName:string;tier:string;entity:string|null;subjects?:string[];video?:string;region?:string;date:string;url:string;title:string;summary:string;reason:string;category:string;quote:string;image?:string;tags?:string[]}>;
 const imported: Array<{id:string;source:typeof entries[number]}> = [];
 for (const a of entries) {
   await sql`INSERT INTO sources(id,name,kind,tier,owner_entity_id,participation_mode,enabled,site_fulltext,syndicate_fulltext) VALUES(${a.sourceId},${a.sourceName},'external',${a.tier},${a.entity},'editorial',false,false,false) ON CONFLICT(id) DO NOTHING`;
+  const tags=publicationTags({tags:a.tags??["行业动态"],entity:a.entity,subjects:a.subjects});
   const {articleId:id}=await upsertMaterial({id:a.id??stableArticleId(a.url),sourceId:a.sourceId,url:a.url,title:a.title,publishedAt:new Date(a.date),publicationTime:a.date,bodyText:a.quote,bodyStatus:"ok",via:"import",backfill:document.backfill?"source-checked-historical-archive":null,raw:{editorialReview:!codex,codexResearch:codex,originalDate:a.date,video:a.video??null},media:a.image?[{kind:"image",url:a.image}]:[]});
   const [{revision}]=await sql<{revision:number}[]>`SELECT revision FROM articles WHERE id=${id}`;
   const [prior]=await sql`SELECT 1 FROM analyses WHERE article_id=${id} AND input_revision=${revision}`;
   if(!prior)
-  await sql`INSERT INTO analyses(article_id,input_revision,origin,relevance,category,title_zh,summary_zh,reason_zh,score,selected,tags,subjects,output) VALUES(${id},${revision},'rule','pass',${a.category},${a.title},${a.summary},${a.reason},null,false,${a.tags??['行业动态']},${a.entity?[a.entity]:[]},${sql.json({manualReview:!codex,codexResearch:codex,source:a.url})})`;
+  await sql`INSERT INTO analyses(article_id,input_revision,origin,relevance,category,title_zh,summary_zh,reason_zh,score,selected,tags,subjects,output) VALUES(${id},${revision},'rule','pass',${a.category},${a.title},${a.summary},${a.reason},null,false,${tags},${a.subjects??(a.entity?[a.entity]:[])},${sql.json({manualReview:!codex,codexResearch:codex,source:a.url})})`;
   await detachFromFact(id,codex?"本地 Codex 核对公开来源，作为独立报道导入":"迁移时逐条人工核实为独立报道，后续自动采集不得重写该决定",codex?"shendeng-codex":"shendeng-setup");
-  await overrideFields(id,{fields:{title:a.title,summary:a.summary,reason:a.reason,category:a.category,tags:a.tags??["行业动态"],selected:true,score:null},version:Number((await sql`SELECT version FROM editorial_overrides WHERE article_id=${id}`)[0]?.version ?? 0),reason:codex?'本地 Codex 检索并核对公开来源，不代表原评分模型评分':'首次站点迁移：逐条核对原文的人工编辑导入，不代表模型评分'},codex?'shendeng-codex':'shendeng-setup');
+  await overrideFields(id,{fields:{title:a.title,summary:a.summary,reason:a.reason,category:a.category,tags,selected:true,score:null},version:Number((await sql`SELECT version FROM editorial_overrides WHERE article_id=${id}`)[0]?.version ?? 0),reason:codex?'本地 Codex 检索并核对公开来源，不代表原评分模型评分':'首次站点迁移：逐条核对原文的人工编辑导入，不代表模型评分'},codex?'shendeng-codex':'shendeng-setup');
   // This archive is indexed by verified source publication date, including historical backfill.
   if(codex) {
     await sql`UPDATE articles SET timeline_at=${new Date(a.date)} WHERE id=${id}`;

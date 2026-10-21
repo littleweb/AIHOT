@@ -81,6 +81,7 @@ function BackButton({ to, label }: BackTarget) {
   return (
     <button
       type="button"
+      data-static-back={to}
       onClick={() => {
         markBack();
         if (historyIndex() > 0) navigate(-1);

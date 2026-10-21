@@ -18,7 +18,8 @@ export { pageHeaders as headers } from "../lib/api.server";
 export const { clientLoader, shouldRevalidate } = pageReuse<typeof loader>();
 
 export async function loader({ request }: { request: Request }) {
-  return cachedPage(300, await apiGet<TopicsResponse>("/api/site/topics", { signal: request.signal }));
+  const data = await apiGet<TopicsResponse>("/api/site/topics", { signal: request.signal });
+  return cachedPage(300, { ...data, topics: data.topics.filter(t => t.total > 0) });
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
@@ -105,7 +106,7 @@ export default function TopicsPage() {
         <h1 data-page-title="" className="text-[24px] font-semibold leading-[1.3] text-ink">{subjectAfter("按主题看")}</h1>
         <p className="mt-1.5 text-[13px] leading-relaxed text-ink-3">
           {`按${groups.map((g) => g.name).join("、")}浏览 `}
-          <span className="num">{topics.length}</span> 个主题，追踪最新精选与重要进展。
+          <span className="num">{topics.length}</span> 个已有收录的主题，追踪最新精选与重要进展。
         </p>
       </header>
       {groups.map((g) => (

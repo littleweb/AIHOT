@@ -1,6 +1,6 @@
 {
   "date": "2026-10-21",
-  "researchedAt": "2026-10-21T09:51:33.807758+00:00",
+  "researchedAt": "2026-10-21T10:14:09.975843+00:00",
   "backfill": true,
   "items": [
     {
@@ -18,10 +18,12 @@
         "论文/研究",
         "行业报告",
         "海外AI",
-        "部署/工程"
+        "部署/工程",
+        "数据/训练"
       ],
       "quote": "Its recurrent state stays at 29.5 MB per sequence",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-aws-ml",
@@ -38,10 +40,12 @@
         "教程/实践",
         "海外AI",
         "MCP/工具调用",
-        "Agent"
+        "Agent",
+        "安全/对齐"
       ],
       "quote": "Business, Enterprise, or AWM plan",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-github-ai",
@@ -61,7 +65,10 @@
         "GitHub"
       ],
       "quote": "keep humans responsible for the results",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "microsoft"
+      ]
     },
     {
       "sourceId": "rss-simon-willison",
@@ -78,10 +85,12 @@
         "大佬观点",
         "AI创作者",
         "海外AI",
-        "编码"
+        "编码",
+        "Agent"
       ],
       "quote": "I’ve reviewed almost none of the code",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-microsoft-research",
@@ -98,10 +107,14 @@
         "论文/研究",
         "行业报告",
         "海外AI",
-        "Microsoft"
+        "Microsoft",
+        "部署/工程"
       ],
       "quote": "it is not a product",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "microsoft"
+      ]
     },
     {
       "sourceId": "rss-aws-ml",
@@ -116,10 +129,15 @@
       "category": "tip",
       "tags": [
         "教程/实践",
-        "海外AI"
+        "海外AI",
+        "Agent",
+        "部署/工程",
+        "安全/对齐",
+        "MCP/工具调用"
       ],
       "quote": "From data to decisions: Conversational supply chain intelligence with Amazon Quick and Amazon Bedrock AgentCore",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-aws-ml",
@@ -134,10 +152,14 @@
       "category": "tip",
       "tags": [
         "教程/实践",
-        "海外AI"
+        "海外AI",
+        "推理",
+        "数据/训练",
+        "评测/基准"
       ],
       "quote": "Fine-tuning GPT-OSS-20B for multilingual reasoning on Amazon SageMaker HyperPod",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-aws-ml",
@@ -153,10 +175,13 @@
       "tags": [
         "产品更新",
         "海外AI",
-        "成功产品"
+        "成功产品",
+        "Agent",
+        "安全/对齐"
       ],
       "quote": "How Octave built a secure multi-tenant AI foundation on Amazon Bedrock",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-aws-ml",
@@ -171,10 +196,14 @@
       "category": "tip",
       "tags": [
         "教程/实践",
-        "海外AI"
+        "海外AI",
+        "Agent",
+        "部署/工程",
+        "MCP/工具调用"
       ],
       "quote": "Discover tools at runtime with AWS Agent Registry",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-aws-ml",
@@ -189,10 +218,14 @@
       "category": "tip",
       "tags": [
         "教程/实践",
-        "海外AI"
+        "海外AI",
+        "Agent",
+        "安全/对齐",
+        "MCP/工具调用"
       ],
       "quote": "Securing AI agent identity with X.509 PKI on AWS",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-hugging-face",
@@ -208,10 +241,14 @@
       "tags": [
         "论文/研究",
         "海外AI",
-        "行业报告"
+        "行业报告",
+        "编码",
+        "安全/对齐",
+        "评测/基准"
       ],
       "quote": "FairStress: A deeper evaluation of fairness in LLM decision-making",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-hugging-face",
@@ -227,10 +264,16 @@
       "tags": [
         "论文/研究",
         "海外AI",
-        "行业报告"
+        "行业报告",
+        "多模态",
+        "视频",
+        "安全/对齐"
       ],
       "quote": "NVIDIA Cosmos3-H-Dreams: Bringing Clinical Surgery to Life Through Generative Simulation",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "nvidia"
+      ]
     },
     {
       "sourceId": "rss-sspai",
@@ -245,9 +288,34 @@
       "category": "tip",
       "tags": [
         "教程/实践",
-        "国内AI"
+        "国内AI",
+        "端侧"
       ],
       "quote": "App+1｜Vitals：什么在拖慢你的 Mac？它比「活动监视器」更直观易用",
+      "region": "国内",
+      "subjects": []
+    },
+    {
+      "sourceId": "xiaohongshu-guizang",
+      "sourceName": "小红书 · 歸藏",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "date": "2026-10-21",
+      "url": "https://www.xiaohongshu.com/explore/6ad87f2a000000002a0399b2",
+      "title": "归藏分享 AI 辅助定制电视界面的实践视频",
+      "summary": "归藏在小红书发布视频，回应近期用 AI 改造电视界面、减少广告干扰的讨论。原帖文字简介较短，具体操作和兼容条件应以作者视频为准；不能据此认为所有电视应用的广告都能移除。",
+      "reason": "Codex 来源核对 · 已核对公开作者主页、笔记简介及当天发布标识，未对视频操作效果进行独立复测。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "AI创作者",
+        "编码",
+        "国内AI",
+        "小红书",
+        "视频"
+      ],
+      "quote": "最近用 AI 给电视去广告很火",
       "region": "国内"
     }
   ]

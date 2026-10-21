@@ -17,10 +17,15 @@
       "tags": [
         "产品更新",
         "海外AI",
-        "成功产品"
+        "成功产品",
+        "Agent",
+        "编码"
       ],
       "quote": "Stack Overflow for Agents triples signups with ChatGPT plugin",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "openai"
+      ]
     },
     {
       "sourceId": "rss-openai-news",
@@ -36,10 +41,14 @@
       "tags": [
         "行业动态",
         "海外AI",
-        "AI商业化"
+        "AI商业化",
+        "编码"
       ],
       "quote": "Benefit Street Partners answers questions faster with Codex",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "openai"
+      ]
     },
     {
       "sourceId": "rss-openai-news",
@@ -58,7 +67,10 @@
         "成功产品"
       ],
       "quote": "Bringing GPT-Rosalind to academic research labs",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "openai"
+      ]
     },
     {
       "sourceId": "rss-google-deepmind",
@@ -77,7 +89,10 @@
         "行业报告"
       ],
       "quote": "Accelerating the search for antimicrobial peptides with Google Antigravity",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "google"
+      ]
     },
     {
       "sourceId": "rss-hugging-face",
@@ -92,10 +107,16 @@
       "category": "ai-models",
       "tags": [
         "行业动态",
-        "海外AI"
+        "海外AI",
+        "Agent",
+        "编码",
+        "开源/仓库",
+        "数据/训练",
+        "模型发布"
       ],
       "quote": "Welcome Beam: a 501B open model you can own, customize, and scale",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-hugging-face",
@@ -110,10 +131,13 @@
       "category": "ai-models",
       "tags": [
         "行业动态",
-        "海外AI"
+        "海外AI",
+        "语音",
+        "部署/工程"
       ],
       "quote": "Granite Switch 4.1: Chat, Decisions, and Speech from One Endpoint",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-simon-willison",
@@ -129,10 +153,13 @@
       "tags": [
         "大佬观点",
         "海外AI",
-        "AI创作者"
+        "AI创作者",
+        "Agent",
+        "编码"
       ],
       "quote": "Chirp Pong",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-qbitai",
@@ -148,10 +175,12 @@
       "tags": [
         "行业动态",
         "国内AI",
-        "AI商业化"
+        "AI商业化",
+        "视频"
       ],
       "quote": "清华特奖得主AI创业再+1：GeoPT一作入局物理世界模型",
-      "region": "国内"
+      "region": "国内",
+      "subjects": []
     },
     {
       "sourceId": "rss-qbitai",
@@ -170,7 +199,8 @@
         "AI创作者"
       ],
       "quote": "68岁亚马逊CTO：别让恐惧，替企业做AI决策",
-      "region": "国内"
+      "region": "国内",
+      "subjects": []
     }
   ]
 }

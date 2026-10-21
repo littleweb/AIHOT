@@ -386,6 +386,24 @@
         "AI创作者"
       ],
       "definition": "原创分析与实践分享"
+    },
+    {
+      "slug": "xiaohongshu",
+      "name": "小红书 AI 实践",
+      "group": "genre",
+      "tags": [
+        "小红书"
+      ],
+      "definition": "核对作者、原帖与发布日期的小红书 AI 实用分享。"
+    },
+    {
+      "slug": "wechat",
+      "name": "公众号 AI 观察",
+      "group": "genre",
+      "tags": [
+        "公众号"
+      ],
+      "definition": "核对原始公众号文章的 AI 资讯与原创分析；无可读原文时不发布。"
     }
   ]
 }

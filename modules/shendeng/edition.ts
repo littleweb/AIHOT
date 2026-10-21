@@ -2,8 +2,13 @@
 import { createHash } from "node:crypto";
 import { beijingDate } from "@aihot/contracts/time";
 import { CATEGORIES, ENTITIES } from "../../industry/taxonomy.ts";
-export interface CodexItem {id?:string;sourceId:string;sourceName:string;tier:"T1"|"T2";entity:string|null;date:string;url:string;title:string;summary:string;reason:string;category:string;quote:string;image?:string;video?:string;region:"国内"|"国外";tags:string[]}
+export interface CodexItem {id?:string;sourceId:string;sourceName:string;tier:"T1"|"T2";entity:string|null;subjects?:string[];date:string;url:string;title:string;summary:string;reason:string;category:string;quote:string;image?:string;video?:string;region:"国内"|"国外";tags:string[]}
 export interface CodexEdition {date:string;researchedAt:string;backfill?:boolean;items:CodexItem[]}
+/** Editorial overrides replace engine tags, so preserve topic subject keys explicitly. */
+export function publicationTags(item: Pick<CodexItem, "tags" | "entity" | "subjects">) {
+ const subjects = item.subjects ?? (item.entity ? [item.entity] : []);
+ return [...new Set([...item.tags, ...subjects.map(id => `entity:${id}`)])];
+}
 export function stableArticleId(url:string){return "r"+createHash("sha256").update(url).digest("hex").slice(0,24);}
 export function validateEdition(input:unknown):asserts input is CodexEdition {
  const d=input as CodexEdition;
@@ -15,6 +20,7 @@ export function validateEdition(input:unknown):asserts input is CodexEdition {
   for(const key of ["sourceId","sourceName","date","url","title","summary","reason","quote"] as const)if(typeof i[key]!=="string"||!i[key].trim())throw new Error(`Missing item ${key}`);
   if(!/^[a-z0-9-]+$/.test(i.sourceId)||!["T1","T2"].includes(i.tier)||!["国内","国外"].includes(i.region)||!CATEGORIES.some(c=>c.key===i.category)||!Array.isArray(i.tags)||i.tags.some(t=>typeof t!=="string")||i.entity!==null&&!Object.hasOwn(ENTITIES,i.entity))throw new Error("Invalid source, taxonomy or region");
   if(!/^\d{4}-\d{2}-\d{2}(?:T.*)?$/.test(i.date)||!Number.isFinite(Date.parse(i.date))||Date.parse(i.date)>Date.parse(d.researchedAt))throw new Error("Invalid or future source date");
+  if(i.subjects!==undefined&&(!Array.isArray(i.subjects)||i.subjects.some(s=>!Object.hasOwn(ENTITIES,s))))throw new Error("Invalid subject entity");
   if(i.id!==undefined&&!/^[a-zA-Z0-9_-]{1,80}$/.test(i.id))throw new Error("Invalid preserved article ID");
   https(i.url);if(i.image)https(i.image);if(i.video)https(i.video);if(seen.has(i.url))throw new Error("Duplicate source URL");seen.add(i.url);
  }

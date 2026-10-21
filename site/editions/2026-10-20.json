@@ -18,10 +18,15 @@
         "开源/仓库",
         "国内AI",
         "部署/工程",
-        "DeepSeek"
+        "DeepSeek",
+        "编码",
+        "模型发布"
       ],
       "quote": "This open-source release provides offline inference",
-      "region": "国内"
+      "region": "国内",
+      "subjects": [
+        "deepseek"
+      ]
     },
     {
       "sourceId": "rss-openai-news",
@@ -41,7 +46,10 @@
         "OpenAI"
       ],
       "quote": "OpenAI has acquired Orchestra Bio",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "openai"
+      ]
     },
     {
       "sourceId": "rss-openai-news",
@@ -61,7 +69,10 @@
         "OpenAI"
       ],
       "quote": "Reduction in time spent on monthly cash reconciliation",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "openai"
+      ]
     },
     {
       "sourceId": "rss-openai-news",
@@ -79,10 +90,13 @@
         "成功产品",
         "AI商业化",
         "海外AI",
-        "OpenAI"
+        "OpenAI",
+        "Agent",
+        "评测/基准"
       ],
       "quote": "Across 500 scored judgments",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-github-ai",
@@ -99,10 +113,15 @@
         "教程/实践",
         "编码",
         "海外AI",
-        "GitHub"
+        "GitHub",
+        "Agent",
+        "安全/对齐"
       ],
       "quote": "without losing the conversation",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "microsoft"
+      ]
     },
     {
       "sourceId": "rss-nvidia-blog",
@@ -121,7 +140,8 @@
         "AI商业化"
       ],
       "quote": "Spain-Based Startups Advance Regional Innovation With Barcelona Supercomputing Center",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-nvidia-blog",
@@ -139,7 +159,10 @@
         "海外AI"
       ],
       "quote": "Germany Wants to Lead the World in Industrial AI: How NVIDIA Will Help",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "nvidia"
+      ]
     },
     {
       "sourceId": "rss-aws-ml",
@@ -155,10 +178,13 @@
       "tags": [
         "行业动态",
         "海外AI",
-        "AI商业化"
+        "AI商业化",
+        "Agent",
+        "MCP/工具调用"
       ],
       "quote": "How Eon built multi-cloud investigation with an MCP Gateway on Amazon Bedrock AgentCore",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-aws-ml",
@@ -173,10 +199,15 @@
       "category": "tip",
       "tags": [
         "教程/实践",
-        "海外AI"
+        "海外AI",
+        "安全/对齐",
+        "MCP/工具调用"
       ],
       "quote": "Structured outputs for Anthropic Claude models on Amazon Bedrock",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "anthropic"
+      ]
     },
     {
       "sourceId": "rss-aws-ml",
@@ -192,10 +223,12 @@
       "tags": [
         "产品更新",
         "海外AI",
-        "成功产品"
+        "成功产品",
+        "视频"
       ],
       "quote": "Pegasus 1.5 from TwelveLabs is now available in Amazon Bedrock",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-aws-ml",
@@ -211,10 +244,13 @@
       "tags": [
         "行业动态",
         "海外AI",
-        "AI商业化"
+        "AI商业化",
+        "语音",
+        "部署/工程"
       ],
       "quote": "How Deepgram optimized voice AI at scale with AWS Trainium",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-aws-ml",
@@ -229,10 +265,12 @@
       "category": "tip",
       "tags": [
         "教程/实践",
-        "海外AI"
+        "海外AI",
+        "部署/工程"
       ],
       "quote": "Push-based KV transfer to improve TTFT and TPOT for disaggregated inference in vLLM",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-hugging-face",
@@ -247,10 +285,14 @@
       "category": "tip",
       "tags": [
         "教程/实践",
-        "海外AI"
+        "海外AI",
+        "部署/工程"
       ],
       "quote": "Hugging Face ❤️ TorchTPU: TPUs, Natively",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "hugging-face"
+      ]
     },
     {
       "sourceId": "rss-hugging-face",
@@ -265,10 +307,12 @@
       "category": "tip",
       "tags": [
         "教程/实践",
-        "海外AI"
+        "海外AI",
+        "端侧"
       ],
       "quote": "AnyLanguageModel 1.0: One Year of Local Models on Apple Platforms",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-hugging-face",
@@ -283,10 +327,15 @@
       "category": "tip",
       "tags": [
         "教程/实践",
-        "海外AI"
+        "海外AI",
+        "端侧",
+        "部署/工程"
       ],
       "quote": "MPS in PyTorch 2.15",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "hugging-face"
+      ]
     },
     {
       "sourceId": "rss-hugging-face",
@@ -302,10 +351,13 @@
       "tags": [
         "论文/研究",
         "海外AI",
-        "行业报告"
+        "行业报告",
+        "Agent",
+        "评测/基准"
       ],
       "quote": "ALTK-Evolve: How learned memory tops the τ²-bench leaderboard on customer service tasks without a frontier model",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-baoyu",
@@ -321,10 +373,14 @@
       "tags": [
         "大佬观点",
         "国内AI",
-        "AI创作者"
+        "AI创作者",
+        "视频"
       ],
       "quote": "NotebookLM's Video Overview System Prompt: The Full Creation Workflow",
-      "region": "国内"
+      "region": "国内",
+      "subjects": [
+        "google"
+      ]
     },
     {
       "sourceId": "rss-simon-willison",
@@ -340,10 +396,13 @@
       "tags": [
         "大佬观点",
         "海外AI",
-        "AI创作者"
+        "AI创作者",
+        "Agent",
+        "编码"
       ],
       "quote": "My obituary for programming",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-qbitai",
@@ -359,10 +418,12 @@
       "tags": [
         "论文/研究",
         "国内AI",
-        "行业报告"
+        "行业报告",
+        "部署/工程"
       ],
       "quote": "首Token延迟降低32.4%！是石科技集群调度大招，国产推理再提效",
-      "region": "国内"
+      "region": "国内",
+      "subjects": []
     },
     {
       "sourceId": "rss-qbitai",
@@ -378,10 +439,12 @@
       "tags": [
         "论文/研究",
         "国内AI",
-        "行业报告"
+        "行业报告",
+        "数据/训练"
       ],
       "quote": "RSI三块关键拼图，MemT 1.0从模型层补上「记忆」",
-      "region": "国内"
+      "region": "国内",
+      "subjects": []
     },
     {
       "sourceId": "rss-qbitai",
@@ -400,7 +463,8 @@
         "成功产品"
       ],
       "quote": "Meshy推出Meshy Edit：基于全新自研AI模型，一句指令实现3D模型局部编辑",
-      "region": "国内"
+      "region": "国内",
+      "subjects": []
     }
   ]
 }

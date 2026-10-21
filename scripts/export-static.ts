@@ -20,7 +20,7 @@ await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 await cp("apps/web/build/client", output, { recursive: true });
 const brandFiles = ["logo.svg", "favicon.ico", "icon.png", "icon-192.png", "apple-icon.png"];
-for (const file of brandFiles) await cp(path.join("site/brand", file), path.join(output, file));
+for (const file of brandFiles) await cp(new URL(`../site/brand/${file}`, import.meta.url), path.join(output, file));
 await mkdir(path.join(output, "assets"), { recursive: true });
 await cp(new URL("../site/static/theme.js", import.meta.url), path.join(output, "assets/static-theme.js"));
 const pending = ["/", "/all", "/hot", "/daily", "/daily/archive", "/weekly", "/monthly", "/topics", "/about", "/terms", "/privacy", "/changelog", "/more"].map((p) => new URL(p, origin));
@@ -86,6 +86,13 @@ while (pending.length) {
     if(buttons.length !== 3) throw new Error("Upstream appearance controls changed; review the static theme adapter");
     buttons.each((_i, button) => { const choice=choices[$(button).attr("title")??""]; if(!choice)throw new Error("Unknown upstream appearance choice"); $(button).attr("data-theme-choice",choice).removeAttr("disabled"); });
   }
+  // Preserve native parent navigation even when JavaScript or browser history is unavailable.
+  $("button[data-static-back]").each((_i, el) => {
+    const button = $(el);
+    const parent = new URL(button.attr("data-static-back")!, origin);
+    pending.push(parent);
+    button.replaceWith($("<a>").attr("href", pageHref(parent)).attr("data-static-back", "").attr("class", button.attr("class") ?? "").append(button.contents()));
+  });
   $("button").not("[data-theme-choice]").each((_i, el) => { const b = $(el); b.attr("disabled", "disabled").attr("title", "此操作需使用动态服务；静态版保留阅读和页面导航。"); });
   $("head").append('<style>button:disabled{cursor:default}#static-edition{font:12px/1.7 system-ui;color:#89979d;padding:12px 16px;border-top:1px solid #ffffff14}</style>');
   $("body").append(`<script src="${prefix}/assets/static-theme.js" defer></script>`);

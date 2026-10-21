@@ -17,10 +17,14 @@
       "tags": [
         "产品更新",
         "海外AI",
-        "成功产品"
+        "成功产品",
+        "端侧"
       ],
       "quote": "RTX Spark Ignites Global Celebration as New Windows PCs Arrive",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "nvidia"
+      ]
     },
     {
       "sourceId": "anthropic-news",
@@ -40,7 +44,10 @@
         "Anthropic"
       ],
       "quote": "Subject to stockholder approval",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "anthropic"
+      ]
     }
   ]
 }

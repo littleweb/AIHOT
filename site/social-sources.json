@@ -1,0 +1,126 @@
+{
+  "reviewedAt": "2026-10-21T10:14:09.974404+00:00",
+  "mode": "local-codex-public-research",
+  "sources": [
+    {
+      "id": "wechat-qbitai",
+      "name": "微信公众号 · 量子位",
+      "platform": "wechat",
+      "discovery": "public-search",
+      "keyword": "量子位",
+      "publicHandle": "QbitAI",
+      "searchQuery": "site:mp.weixin.qq.com/s/ \"量子位\" AI",
+      "profileUrl": null,
+      "identityStatus": "verify-author-on-each-original",
+      "focus": [
+        "AI热点",
+        "实用AI",
+        "AI产品",
+        "AI商业化"
+      ],
+      "notes": "通过公开原文查阅；账号ID未核验前不启用付费自动采集。只收原创或授权内容的短摘要与原文链接。"
+    },
+    {
+      "id": "wechat-jiqizhixin",
+      "name": "微信公众号 · 机器之心",
+      "platform": "wechat",
+      "discovery": "public-search",
+      "keyword": "机器之心",
+      "publicHandle": null,
+      "searchQuery": "site:mp.weixin.qq.com/s/ \"机器之心\" AI",
+      "profileUrl": null,
+      "identityStatus": "verify-author-on-each-original",
+      "focus": [
+        "AI热点",
+        "实用AI",
+        "AI产品",
+        "AI商业化"
+      ],
+      "notes": "通过公开原文查阅；账号ID未核验前不启用付费自动采集。只收原创或授权内容的短摘要与原文链接。"
+    },
+    {
+      "id": "wechat-baoyu",
+      "name": "微信公众号 · 宝玉",
+      "platform": "wechat",
+      "discovery": "public-search",
+      "keyword": "宝玉",
+      "publicHandle": null,
+      "searchQuery": "site:mp.weixin.qq.com/s/ \"宝玉\" AI",
+      "profileUrl": null,
+      "identityStatus": "verify-author-on-each-original",
+      "focus": [
+        "AI热点",
+        "实用AI",
+        "AI产品",
+        "AI商业化"
+      ],
+      "notes": "通过公开原文查阅；账号ID未核验前不启用付费自动采集。只收原创或授权内容的短摘要与原文链接。"
+    },
+    {
+      "id": "wechat-guizang",
+      "name": "微信公众号 · 归藏",
+      "platform": "wechat",
+      "discovery": "public-search",
+      "keyword": "归藏的AI工具箱",
+      "publicHandle": null,
+      "searchQuery": "site:mp.weixin.qq.com/s/ \"归藏的AI工具箱\" AI",
+      "profileUrl": null,
+      "identityStatus": "verify-author-on-each-original",
+      "focus": [
+        "AI热点",
+        "实用AI",
+        "AI产品",
+        "AI商业化"
+      ],
+      "notes": "通过公开原文查阅；账号ID未核验前不启用付费自动采集。只收原创或授权内容的短摘要与原文链接。"
+    },
+    {
+      "id": "wechat-kazike",
+      "name": "微信公众号 · 数字生命卡兹克",
+      "platform": "wechat",
+      "discovery": "public-search",
+      "keyword": "数字生命卡兹克",
+      "publicHandle": null,
+      "searchQuery": "site:mp.weixin.qq.com/s/ \"数字生命卡兹克\" AI",
+      "profileUrl": null,
+      "identityStatus": "verify-author-on-each-original",
+      "focus": [
+        "AI热点",
+        "实用AI",
+        "AI产品",
+        "AI商业化"
+      ],
+      "notes": "通过公开原文查阅；账号ID未核验前不启用付费自动采集。只收原创或授权内容的短摘要与原文链接。"
+    },
+    {
+      "id": "xiaohongshu-guizang",
+      "name": "小红书 · 歸藏",
+      "platform": "xiaohongshu",
+      "discovery": "public-profile",
+      "keyword": "歸藏",
+      "profileUrl": "https://www.xiaohongshu.com/user/profile/5c696b98000000001003043b",
+      "identityStatus": "profile-and-first-note-checked",
+      "focus": [
+        "实用AI",
+        "AI编码",
+        "AI创作者"
+      ],
+      "notes": "已在公开主页核对名称、简介与原帖；需要浏览器现有登录时使用公开页面，不能上传登录态。"
+    },
+    {
+      "id": "xiaohongshu-kazike",
+      "name": "小红书 · 数字生命卡兹克",
+      "platform": "xiaohongshu",
+      "discovery": "public-profile",
+      "keyword": "数字生命卡兹克",
+      "profileUrl": "https://www.xiaohongshu.com/user/profile/62c98736000000001501e075",
+      "identityStatus": "profile-listed-by-platform-search",
+      "focus": [
+        "AI热点",
+        "AI产品",
+        "AI创作者"
+      ],
+      "notes": "平台搜索已匹配公开账号；每篇笔记需再核对作者、发布日期及原文。"
+    }
+  ]
+}

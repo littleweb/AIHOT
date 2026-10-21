@@ -20,7 +20,8 @@
         "成功产品"
       ],
       "quote": "How Itaú is building generative AI for its entire customer base",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-aws-ml",
@@ -35,10 +36,14 @@
       "category": "tip",
       "tags": [
         "教程/实践",
-        "海外AI"
+        "海外AI",
+        "Agent",
+        "编码",
+        "评测/基准"
       ],
       "quote": "Building trust in AI agents: A production-ready evaluation framework with Amazon Bedrock AgentCore",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-simon-willison",
@@ -54,10 +59,13 @@
       "tags": [
         "大佬观点",
         "海外AI",
-        "AI创作者"
+        "AI创作者",
+        "Agent",
+        "编码"
       ],
       "quote": "Quoting Addy Osmani, Morgan Westlee Lunt, and Qing Wang",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-simon-willison",
@@ -75,7 +83,8 @@
         "海外AI"
       ],
       "quote": "web-edit 0.1a2",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-qbitai",
@@ -90,10 +99,14 @@
       "category": "tip",
       "tags": [
         "教程/实践",
-        "国内AI"
+        "国内AI",
+        "Agent",
+        "开源/仓库",
+        "MCP/工具调用"
       ],
       "quote": "清华开源！智能体操作系统任务成本降83%，AI记忆可查可改",
-      "region": "国内"
+      "region": "国内",
+      "subjects": []
     },
     {
       "sourceId": "rss-qbitai",
@@ -108,10 +121,15 @@
       "category": "ai-models",
       "tags": [
         "行业动态",
-        "国内AI"
+        "国内AI",
+        "评测/基准",
+        "模型发布"
       ],
       "quote": "智谱新模型，懂法方面全球第一了",
-      "region": "国内"
+      "region": "国内",
+      "subjects": [
+        "zhipu"
+      ]
     },
     {
       "sourceId": "rss-qbitai",
@@ -126,10 +144,16 @@
       "category": "ai-models",
       "tags": [
         "行业动态",
-        "国内AI"
+        "国内AI",
+        "Agent",
+        "评测/基准",
+        "模型发布"
       ],
       "quote": "突发！DeepSeek新模型发布，超级性价比斩杀一切",
-      "region": "国内"
+      "region": "国内",
+      "subjects": [
+        "deepseek"
+      ]
     }
   ]
 }

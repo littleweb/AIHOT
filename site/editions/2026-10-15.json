@@ -19,7 +19,10 @@
         "海外AI"
       ],
       "quote": "Teaching students to think and learn through questions",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "openai"
+      ]
     },
     {
       "sourceId": "rss-openai-news",
@@ -38,7 +41,8 @@
         "成功产品"
       ],
       "quote": "Sullivan & Cromwell brings legal expertise into agreement review",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-nvidia-blog",
@@ -53,10 +57,19 @@
       "category": "ai-models",
       "tags": [
         "行业动态",
-        "海外AI"
+        "海外AI",
+        "Agent",
+        "多模态",
+        "端侧",
+        "部署/工程",
+        "评测/基准",
+        "模型发布"
       ],
       "quote": "Open From Data Center to Desktop: NVIDIA Expands Nemotron Family With Highest Efficiency Super VL and Bolt Models",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "nvidia"
+      ]
     },
     {
       "sourceId": "rss-nvidia-blog",
@@ -75,7 +88,10 @@
         "AI商业化"
       ],
       "quote": "NVIDIA Expands Advanced Technology Access for Europe’s Scientific Community Through Open Learning Resources, Collaborations and Compute",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "nvidia"
+      ]
     },
     {
       "sourceId": "rss-hugging-face",
@@ -91,10 +107,14 @@
       "tags": [
         "论文/研究",
         "海外AI",
-        "行业报告"
+        "行业报告",
+        "多模态",
+        "语音",
+        "数据/训练"
       ],
       "quote": "Apertus 1.5 Release Notes",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-hugging-face",
@@ -109,10 +129,20 @@
       "category": "ai-models",
       "tags": [
         "行业动态",
-        "海外AI"
+        "海外AI",
+        "多模态",
+        "视频",
+        "语音",
+        "开源/仓库",
+        "数据/训练",
+        "模型发布"
       ],
       "quote": "Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "meta",
+        "hugging-face"
+      ]
     },
     {
       "sourceId": "rss-hugging-face",
@@ -127,10 +157,13 @@
       "category": "tip",
       "tags": [
         "教程/实践",
-        "海外AI"
+        "海外AI",
+        "编码",
+        "图像生成"
       ],
       "quote": "Welcome FLUX.3 Image Klein in Diffusers",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-qbitai",
@@ -146,10 +179,12 @@
       "tags": [
         "论文/研究",
         "国内AI",
-        "行业报告"
+        "行业报告",
+        "Agent"
       ],
       "quote": "量子位智库发布Agent落地报告！拆解企业智能化六大断点，附全链路破局框架",
-      "region": "国内"
+      "region": "国内",
+      "subjects": []
     },
     {
       "sourceId": "rss-qbitai",
@@ -165,10 +200,14 @@
       "tags": [
         "行业动态",
         "国内AI",
-        "AI商业化"
+        "AI商业化",
+        "Agent"
       ],
       "quote": "7天几百元开一家店！用千问办公电商版，立省启动资金5万元",
-      "region": "国内"
+      "region": "国内",
+      "subjects": [
+        "qwen"
+      ]
     },
     {
       "sourceId": "rss-qbitai",
@@ -183,10 +222,13 @@
       "category": "ai-models",
       "tags": [
         "行业动态",
-        "国内AI"
+        "国内AI",
+        "视频",
+        "开源/仓库"
       ],
       "quote": "全球首款 ！中国团队把游戏世界模型塞进一张5090，还开源了",
-      "region": "国内"
+      "region": "国内",
+      "subjects": []
     },
     {
       "sourceId": "anthropic-news",
@@ -206,7 +248,10 @@
         "行业报告"
       ],
       "quote": "METR will publish the results",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "anthropic"
+      ]
     }
   ]
 }

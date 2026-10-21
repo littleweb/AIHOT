@@ -330,7 +330,7 @@ function ItemView({ item }: { item: SiteItemDetail }) {
   };
   // In the left rail (a flex column) it keeps its own height and width.
   const backButton = (
-    <button type="button" onClick={back} className="-ml-1.5 inline-flex h-8 shrink-0 items-center gap-1.5 self-start rounded-full px-1.5 text-[13px] text-ink-3 transition-colors hover:text-ink">
+    <button type="button" data-static-back={item.selected ? "/" : "/all"} onClick={back} className="-ml-1.5 inline-flex h-8 shrink-0 items-center gap-1.5 self-start rounded-full px-1.5 text-[13px] text-ink-3 transition-colors hover:text-ink">
       <IconArrowLeft size={16} /> 返回
     </button>
   );

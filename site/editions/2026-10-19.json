@@ -17,10 +17,15 @@
       "tags": [
         "论文/研究",
         "海外AI",
-        "行业报告"
+        "行业报告",
+        "编码",
+        "评测/基准"
       ],
       "quote": "Advancing coding in low‑resource programming languages",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "openai"
+      ]
     },
     {
       "sourceId": "rss-nvidia-blog",
@@ -36,10 +41,15 @@
       "tags": [
         "论文/研究",
         "海外AI",
-        "行业报告"
+        "行业报告",
+        "Agent",
+        "安全/对齐"
       ],
       "quote": "NVIDIA Advances Agentic Security for Media, From European Public Service Broadcasting to Global Content Production",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "nvidia"
+      ]
     },
     {
       "sourceId": "rss-hugging-face",
@@ -54,10 +64,14 @@
       "category": "tip",
       "tags": [
         "教程/实践",
-        "海外AI"
+        "海外AI",
+        "部署/工程"
       ],
       "quote": "TorchNeuron: running HF models on AWS Trainium is easier than ever",
-      "region": "国外"
+      "region": "国外",
+      "subjects": [
+        "hugging-face"
+      ]
     },
     {
       "sourceId": "rss-simon-willison",
@@ -72,10 +86,12 @@
       "category": "tip",
       "tags": [
         "教程/实践",
-        "海外AI"
+        "海外AI",
+        "MCP/工具调用"
       ],
       "quote": "llm-echo 0.5",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "rss-simon-willison",
@@ -93,7 +109,8 @@
         "海外AI"
       ],
       "quote": "llm-tools-datasette 0.1.1",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     },
     {
       "sourceId": "cloudflare-blog",
@@ -109,10 +126,12 @@
       "tags": [
         "产品更新",
         "成功产品",
-        "海外AI"
+        "海外AI",
+        "开源/仓库"
       ],
       "quote": "preview",
-      "region": "国外"
+      "region": "国外",
+      "subjects": []
     }
   ]
 }
