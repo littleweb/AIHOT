@@ -1,6 +1,6 @@
 // Snapshot the original public SSR pages; never reads the database or admin routes.
 // Serve the result with any static host. Links are rewritten for GitHub project Pages.
-import { mkdir, writeFile, cp, rm } from "node:fs/promises";
+import { mkdir, readFile, writeFile, cp, rm } from "node:fs/promises";
 import path from "node:path";
 import { adaptFeaturedFilters } from "../modules/shendeng/static-featured-filters.ts";
 import { SITE } from "@aihot/site";
@@ -21,14 +21,19 @@ await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 await cp("apps/web/build/client", output, { recursive: true });
 const brandFiles = ["logo.svg", "favicon.ico", "icon.png", "icon-192.png", "apple-icon.png"];
-for (const file of brandFiles) await cp(new URL(`../site/brand/${file}`, import.meta.url), path.join(output, file));
+const brandVersions = new Map<string, string>();
+for (const file of brandFiles) {
+  const source = new URL(`../site/brand/${file}`, import.meta.url);
+  await cp(source, path.join(output, file));
+  brandVersions.set(file, createHash("sha256").update(await readFile(source)).digest("hex").slice(0, 12));
+}
 await mkdir(path.join(output, "assets"), { recursive: true });
 await cp(new URL("../site/static/theme.js", import.meta.url), path.join(output, "assets/static-theme.js"));
 const pending = ["/", "/all", "/hot", "/daily", "/daily/archive", "/weekly", "/monthly", "/topics", "/about", "/terms", "/privacy", "/changelog", "/more"].map((p) => new URL(p, origin));
 const seen = new Set<string>();
 const assets = new Map<string, string>();
 async function asset(u: URL) {
-  if (brandFiles.includes(u.pathname.slice(1))) return prefix + u.pathname;
+  if (brandFiles.includes(u.pathname.slice(1))) return `${prefix}${u.pathname}?v=${brandVersions.get(u.pathname.slice(1))}`;
   if (u.pathname.startsWith("/assets/") && !u.search) return prefix + u.pathname;
   const id = u.pathname + u.search;
   if (assets.has(id)) return assets.get(id)!;
