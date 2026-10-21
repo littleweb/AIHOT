@@ -1,0 +1,372 @@
+{
+  "date": "2026-10-22",
+  "researchedAt": "2026-10-21T21:39:59.788353+00:00",
+  "items": [
+    {
+      "sourceId": "rss-the-verge-ai",
+      "sourceName": "The Verge",
+      "tier": "T1",
+      "entity": "anthropic",
+      "subjects": [
+        "anthropic"
+      ],
+      "date": "2026-10-21T19:53:20.000Z",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1015843/anthropic-claude-duet-ai-agent",
+      "title": "Claude Duet 开启研究预览，面向专业人士和小企业提供主动式智能体",
+      "summary": "The Verge 报道并经 Anthropic 产品说明交叉核对，Duet 可整理连接应用中的重点事项，并在独立虚拟机中继续处理任务。研究预览先面向美国 Pro、Max 用户开放候补，共享套餐额度，后台检查也计入用量；重要操作须先获用户批准。",
+      "reason": "Codex 来源核对 · 区分候补预览与全面可用，保留地区、套餐和后台用量条件。",
+      "category": "ai-products",
+      "quote": "research preview",
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "Agent",
+        "AI商业化",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "subjects": [
+        "openai",
+        "google"
+      ],
+      "date": "2026-10-21T12:00:00.000Z",
+      "url": "https://openai.com/index/openai-models-google-cloud",
+      "title": "OpenAI 与 Google Cloud 宣布合作，模型及 Codex 工作流将进入 Model Garden",
+      "summary": "官方宣布将通过 Google Cloud Model Garden 提供 OpenAI 模型及 Codex 工作流，并可经 Marketplace 购买、使用 GCP 消费承诺额度。全面可用计划在未来数周，不能理解为所有客户现在已经可用；微软仍是 OpenAI 主要云合作伙伴。",
+      "reason": "Codex 来源核对 · 保留上线计划与现状的区别，便于企业评估采购及部署路径。",
+      "category": "industry",
+      "quote": "General availability is planned in the coming weeks.",
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "AI产品",
+        "AI赛道",
+        "编码",
+        "Agent",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "subjects": [
+        "openai"
+      ],
+      "date": "2026-10-21T17:00:00.000Z",
+      "url": "https://openai.com/index/att-legal",
+      "title": "AT&T 与 OpenAI 探索法律知识工作流，律师继续负责最终判断",
+      "summary": "官方客户案例介绍 LegalEdge 团队如何连接既有法律经验与新请求。下一步计划用自然语言入口分类、排序并关联先例和历史资料，辅助律师准备判断；文章描述合作方向，没有提供可独立复核的降本比例或已全面交付的证明。",
+      "reason": "Codex 来源核对 · 将计划中的知识流程与已经实现的经营成效分开。",
+      "category": "industry",
+      "quote": "The decision making will always remain with the lawyers.",
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "AI产品",
+        "AI赛道",
+        "AI商业化",
+        "Agent",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "subjects": [
+        "openai"
+      ],
+      "date": "2026-10-21T13:00:00.000Z",
+      "url": "https://openai.com/index/chatgpt-ads-expands-26-new-countries",
+      "title": "ChatGPT Ads 扩展至新增 26 国，官方称累计超过十万广告主使用",
+      "summary": "OpenAI 宣布广告投放新增 26 个国家，覆盖范围达到 89 国，并称累计已有超过十万广告主投放。广告出现在 Free、Go 套餐，付费高阶套餐继续无广告；官方强调广告须标注并与回答分离。覆盖和广告主数量为平台披露，不代表投放一定盈利。",
+      "reason": "Codex 来源核对 · 为 AI 商业化提供可查的渠道变化，不把平台规模当作收益保证。",
+      "category": "ai-products",
+      "quote": "over 100,000 advertisers",
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "AI商业化",
+        "AI赛道",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "subjects": [
+        "openai"
+      ],
+      "date": "2026-10-21T04:50:00.000Z",
+      "url": "https://openai.com/index/scaling-ai-research-for-complex-biological-data",
+      "title": "OpenAI、PerturbAI 与 Scripps 用并行智能体整理脑细胞研究线索",
+      "summary": "研究团队介绍用 GPT-Rosalind 驱动数千智能体，分析小鼠脑细胞实验数据并与文献建立关联，形成可查阅的推理图谱。文中的 32 分钟是特定分析实验用时；提出的生物机制仍需后续实验验证，不能当作已经发现治疗方法。",
+      "reason": "Codex 来源核对 · 强调研究线索、数据与实验范围，不把分析结果升级为临床结论。",
+      "category": "paper",
+      "quote": "thousands of AI agents",
+      "region": "国外",
+      "tags": [
+        "论文/研究",
+        "Agent",
+        "数据/训练",
+        "AI赛道",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "subjects": [
+        "openai"
+      ],
+      "date": "2026-10-21T07:00:00.000Z",
+      "url": "https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities",
+      "title": "OpenAI 介绍 Patch the Planet，协同维护者响应 AI 发现的严重漏洞",
+      "summary": "官方以 PHP 漏洞为例，说明研究者、维护者与安全服务商如何协作验证、修复并部署更新，同时提供 PHP 版本检查的 Codex 技能入口。重点是维护者主导的补丁与披露协作，使用检查工具不能代替确认补丁已经生效。",
+      "reason": "Codex 来源核对 · 保留官方修复和协作入口，避免把工具扫描当作修复完成。",
+      "category": "industry",
+      "quote": "maintainers led the fixes and release",
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "安全/对齐",
+        "Agent",
+        "编码",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "date": "2026-10-21T21:23:26.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/adaptive-agentic-intelligence-framework-using-strands-agents/",
+      "title": "AWS 演示端云混合智能体，用小模型分流例行任务",
+      "summary": "教程基于 Strands Agents，以 Ollama 运行本地小模型处理传感器查询和图像分析，再把复杂请求路由至 Amazon Bedrock。文章给出环境准备、工具和编排示例；设备数据为演示模拟，云模型需配置访问权限，成本与延迟仍应在自己的任务上验证。",
+      "reason": "Codex 来源核对 · 提供可跟随的实现入口，同时说明模拟数据、硬件和云访问条件。",
+      "category": "tip",
+      "quote": "uses small language models",
+      "region": "国外",
+      "tags": [
+        "教程/实践",
+        "AI玩法",
+        "AI产品",
+        "端侧",
+        "Agent",
+        "部署/工程",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "tier": "T1",
+      "entity": "qwen",
+      "subjects": [
+        "qwen"
+      ],
+      "date": "2026-10-21T20:00:22.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/train-qwen3-on-aws-trainium-with-torchtitan/",
+      "title": "AWS 给出 Qwen3 在 Trainium 上训练的三条 torchtitan 路径",
+      "summary": "教程在一台 trn2.48xlarge 上依次演示 Transformers v5 建模后端、torchtitan 原生 Qwen3 与 NKI MoE 内核，保留同一启动和配置模式，并说明 Hugging Face 权重读写。需匹配文中 Neuron、PyTorch 和 Transformers 版本；这不是 Qwen 新模型发布。",
+      "reason": "Codex 来源核对 · 区分现有模型的训练教程与新模型消息，保留机器规格和版本前提。",
+      "category": "tip",
+      "quote": "Train Qwen3 three ways",
+      "region": "国外",
+      "tags": [
+        "教程/实践",
+        "AI玩法",
+        "AI硬件",
+        "数据/训练",
+        "部署/工程",
+        "国内AI"
+      ]
+    },
+    {
+      "sourceId": "rss-nvidia-blog",
+      "sourceName": "NVIDIA Blog",
+      "tier": "T1",
+      "entity": "nvidia",
+      "subjects": [
+        "nvidia"
+      ],
+      "date": "2026-10-21T10:00:07.000Z",
+      "url": "https://blogs.nvidia.com/blog/open-models-europe-industry/",
+      "title": "NVIDIA 扩展开源模型组合，覆盖语言、结构化数据和物理 AI",
+      "summary": "官方介绍 Nemotron 3.5 Super VL、Nemotron 3.5 Bolt，以及 Retriever、Kumo、Cosmos 3.5 等模型和工具组合，支持行业定制与本地部署。不同项目的权重、许可和资源要求需分别查看原入口；合作伙伴采用情况来自厂商披露，未独立复测。",
+      "reason": "Codex 来源核对 · 汇总模型更新与获取方向，不把整个组合视为同一许可或交付状态。",
+      "category": "ai-models",
+      "quote": "Nemotron 3.5 Super VL",
+      "region": "国外",
+      "tags": [
+        "模型发布",
+        "多模态",
+        "数据/训练",
+        "AI产品",
+        "AI赛道",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "rss-nvidia-blog",
+      "sourceName": "NVIDIA Blog",
+      "tier": "T1",
+      "entity": "nvidia",
+      "subjects": [
+        "nvidia"
+      ],
+      "date": "2026-10-21T10:30:02.000Z",
+      "url": "https://blogs.nvidia.com/blog/confidential-computing-model-builders-infrastructure/",
+      "title": "NVIDIA 新增 Confidential Bare Metal，扩展模型运行时的硬件保护",
+      "summary": "NVIDIA 介绍在第三方专用裸金属基础设施运行敏感模型和数据的新部署选项，并区分裸金属、容器和虚拟机三种机密计算方式。文章提到对 Grace Blackwell、Rubin 系统的扩展；合作伙伴中的计划集成应与已可交付服务分别核验。",
+      "reason": "Codex 来源核对 · 关注具体基础设施能力与部署边界，不把硬件保护等同于所有应用风险消失。",
+      "category": "ai-products",
+      "quote": "Confidential Bare Metal",
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI硬件",
+        "AI产品",
+        "安全/对齐",
+        "部署/工程",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "external-google-blog",
+      "sourceName": "Google 官方博客",
+      "tier": "T1",
+      "entity": "google",
+      "subjects": [
+        "google"
+      ],
+      "date": "2026-10-21",
+      "url": "https://blog.google/company-news/inside-google/around-the-globe/google-asia/e-conomy-sea-report-2026/",
+      "title": "e-Conomy SEA 2026 报告讨论东南亚 AI 采用与商业机会",
+      "summary": "Google、淡马锡与贝恩的新报告称，东南亚已有约 2.43 亿人使用生成式 AI，并讨论电商、旅游和金融等应用。报告预测 2026 年数字经济 GMV 达 3680 亿美元；这是区域数字经济交易额口径及预测，不能当作 AI 企业收入或创业者收益。",
+      "reason": "Codex 来源核对 · 保留市场范围、统计口径与预测性质，避免混淆交易额和营收。",
+      "category": "paper",
+      "quote": "243 million people",
+      "region": "国外",
+      "tags": [
+        "论文/研究",
+        "行业报告",
+        "AI赛道",
+        "AI商业化",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "external-google-blog",
+      "sourceName": "Google 官方博客",
+      "tier": "T1",
+      "entity": "google",
+      "subjects": [
+        "google"
+      ],
+      "date": "2026-10-21",
+      "url": "https://blog.google/company-news/outreach-and-initiatives/arts-culture/visionaries-petit-palais-art-basel-paris-prune-nourry/",
+      "title": "Google Arts & Culture 展示 AI 重建雕塑家工作室的创作流程",
+      "summary": "Visionaries 项目以艺术史学者整理的信件、日记和照片为基础，结合生成式图像编辑与 Gemini 定制工具创建 3D 场景和镜头路径，呈现女性雕塑家的创作空间。它属于有史料支持的艺术重建，不等于恢复出原始现场影像。",
+      "reason": "Codex 来源核对 · 提炼史料、建模和影像表达的工作流，明确创作重建的性质。",
+      "category": "tip",
+      "quote": "created 3D models from archival photos",
+      "region": "国外",
+      "tags": [
+        "教程/实践",
+        "AI玩法",
+        "AI创作者",
+        "图像生成",
+        "视频",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "rss-simon-willison",
+      "sourceName": "Simon Willison",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "date": "2026-10-21T16:25:16.000Z",
+      "url": "https://simonwillison.net/2026/Oct/21/panache/",
+      "title": "Simon Willison 分享 RTS 游戏的法国蒸汽朋克分支，展示开源复用",
+      "summary": "作者介绍 Battle Drones 在 Apache 2.0 许可下发布后出现的 Panache 分支，新增法语、蒸汽朋克模型、音乐和动画开场。当前主要变化是美术与呈现，不能据此宣称玩法已经重做，也没有提供商业成功数据。",
+      "reason": "Codex 来源核对 · 作为 AI 编码项目后续迭代案例，区别素材重制、玩法变化与商业成效。",
+      "category": "tip",
+      "quote": "mostly just aesthetic updates",
+      "region": "国外",
+      "tags": [
+        "教程/实践",
+        "AI玩法",
+        "AI创作者",
+        "编码",
+        "开源生态",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "rss-latent-space",
+      "sourceName": "Latent Space",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [
+        "anthropic"
+      ],
+      "date": "2026-10-21T13:04:19.000Z",
+      "url": "https://www.latent.space/p/claude-mods",
+      "title": "Claude Mods 实践讨论：智能体界面该如何分配人的注意力",
+      "summary": "Dan McAteer 结合自己的 Claude Code 工作流，讨论用事件驱动的 TypeScript、JavaScript 模块调整界面呈现、提示和后续任务。文章把这种能力解释为面向人的注意力接口，并给出个人经验；平台将如何发展属于作者判断，未将其作为行业定论。",
+      "reason": "Codex 来源核对 · 区分已经展示的个人用法和作者对平台演进的观点。",
+      "category": "opinion",
+      "quote": "Attention Interface",
+      "region": "国外",
+      "tags": [
+        "大佬观点",
+        "AI玩法",
+        "AI创作者",
+        "Agent",
+        "编码",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "external-36kr-finance",
+      "sourceName": "36氪财经",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "date": "2026-10-21T18:53:00+08:00",
+      "url": "https://eu.36kr.com/en/p/4035389851260038",
+      "title": "传音参投 Today AI，探索个人智能体与智能终端结合",
+      "summary": "36氪财经报道传音参与 Today AI 的 A 轮融资，双方拟结合软件、终端和本地化经验，探索手机等设备上的个人智能助手。报道讨论记忆、主动交互和授权执行等方向；融资不是经营收入，合作探索也不代表联名硬件或全部功能已交付。",
+      "reason": "Codex 来源核对 · 已读取媒体完整报道，区分融资、合作方向与已经验证的商业成果。",
+      "category": "industry",
+      "quote": "participated in the Series A financing",
+      "region": "国内",
+      "tags": [
+        "行业动态",
+        "AI创业",
+        "AI赛道",
+        "AI产品",
+        "AI硬件",
+        "国内AI"
+      ]
+    }
+  ]
+}
