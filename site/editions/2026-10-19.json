@@ -1,0 +1,118 @@
+{
+  "date": "2026-10-19",
+  "researchedAt": "2026-10-21T09:51:33.807758+00:00",
+  "backfill": true,
+  "items": [
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "date": "2026-10-19T12:00:00.000Z",
+      "url": "https://openai.com/index/low-resource-programming-languages",
+      "title": "OpenAI 发布低资源编程语言评测，关注 COBOL 与 SQLite",
+      "summary": "OpenAI 介绍为低资源语言补充的软件工程评测，涵盖旧系统迁移与数据库任务。文章提供比较模型的方法，适合维护遗留系统的团队评估；评测成绩仍需用自家代码验证。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "paper",
+      "tags": [
+        "论文/研究",
+        "海外AI",
+        "行业报告"
+      ],
+      "quote": "Advancing coding in low‑resource programming languages",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-nvidia-blog",
+      "sourceName": "NVIDIA Blog",
+      "tier": "T1",
+      "entity": "nvidia",
+      "date": "2026-10-19T15:00:31.000Z",
+      "url": "https://blogs.nvidia.com/blog/media-agentic-security-european-public-service-broadcasting-global-content-production/",
+      "title": "NVIDIA 与媒体行业讨论主权 AI 和智能体安全",
+      "summary": "官方文章介绍欧洲公共广播与内容生产领域的技术合作，涉及开放模型、主权框架和云端集成。适合媒体技术团队跟踪数据控制与智能体安全方案。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "paper",
+      "tags": [
+        "论文/研究",
+        "海外AI",
+        "行业报告"
+      ],
+      "quote": "NVIDIA Advances Agentic Security for Media, From European Public Service Broadcasting to Global Content Production",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-hugging-face",
+      "sourceName": "Hugging Face Blog",
+      "tier": "T1",
+      "entity": "hugging-face",
+      "date": "2026-10-19T00:00:00+00:00",
+      "url": "https://huggingface.co/blog/hf-torchneuron",
+      "title": "TorchNeuron 为 Hugging Face 模型提供 Trainium 原生后端",
+      "summary": "官方文章介绍 PyTorch 插件对 eager mode、torch.compile 和分布式 API 的支持，并说明 Transformers、Diffusers 的集成路径。公开测试版的环境要求应在原文核对。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "海外AI"
+      ],
+      "quote": "TorchNeuron: running HF models on AWS Trainium is easier than ever",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-simon-willison",
+      "sourceName": "Simon Willison",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-18T23:16:16.000Z",
+      "url": "https://simonwillison.net/2026/Oct/18/llm-echo/",
+      "title": "llm-echo 0.5 更新调试插件，不调用模型即可检查提示输入",
+      "summary": "Simon Willison 的调试插件把输入提示原样回显，并更新模拟的 token 用量统计。开发者可用它检查工具调用、系统提示等结构，适合本地排错和理解调用过程。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "海外AI"
+      ],
+      "quote": "llm-echo 0.5",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-simon-willison",
+      "sourceName": "Simon Willison",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-18T23:43:09.000Z",
+      "url": "https://simonwillison.net/2026/Oct/18/llm-tools-datasette/",
+      "title": "llm-tools-datasette 0.1.1 修复 HTTP 依赖兼容问题",
+      "summary": "Simon Willison 发布插件修订，修复 LLM 切换 HTTP 客户端后对未显式声明依赖的插件造成的影响。使用 Datasette 与 LLM 工具链的开发者可查看升级说明。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "海外AI"
+      ],
+      "quote": "llm-tools-datasette 0.1.1",
+      "region": "国外"
+    },
+    {
+      "sourceId": "cloudflare-blog",
+      "sourceName": "Cloudflare 官方博客",
+      "tier": "T1",
+      "entity": null,
+      "date": "2026-10-19",
+      "url": "https://blog.cloudflare.com/clairic-extraction-model/",
+      "title": "Cloudflare 预览 Clairic，从非结构化资料提取数据",
+      "summary": "Clairic 在 Workers AI 上提供预览，面向从非结构化输入中提取、计算及估计值。官方将其定位为快速提取模型，并计划开放权重；性能和成本优势需按自己的数据复测。",
+      "reason": "Codex 来源核对 · 区分预览可用、未来开放权重与性能主张。",
+      "category": "ai-products",
+      "tags": [
+        "产品更新",
+        "成功产品",
+        "海外AI"
+      ],
+      "quote": "preview",
+      "region": "国外"
+    }
+  ]
+}

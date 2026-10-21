@@ -1,4 +1,4 @@
-# 神灯AI研究院
+# 神灯AI热点
 
 - [正式站点](https://shendeng.news/)
 - [运行与发布](docs/shengdeng.md)

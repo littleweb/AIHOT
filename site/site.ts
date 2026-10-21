@@ -20,14 +20,14 @@ export const EDITION_WHEN = {
 
 export const SITE = {
   /** 站名：导航、页面标题、分享图、RSS、MCP、后台都用它。 */
-  name: "神灯AI研究院",
+  name: "神灯AI热点",
   /**
    * 行业词：拼进默认说法里，比如“AI 日报”“AI 动态”。
    * 改成“法律”“HR”“黄金”之类，页面上就会变成“法律日报”“法律动态”。
    */
   subject: "AI",
   /** 首页的完整标题（浏览器标签、搜索结果）。 */
-  homeTitle: "神灯AI研究院 — 全球 AI 热点与实用机会",
+  homeTitle: "神灯AI热点 — 全球 AI 热点与实用机会",
   /** 主题目录页（/topics）的标题。 */
   topicsTitle: "AI 主题：公司与模型、技术方向、内容形态的最新动态",
   /** 反馈表单输入框里的示例。 */
@@ -43,7 +43,7 @@ export const SITE = {
   /** 一行小字：分享图、海报下方。 */
   tagline: "看见 AI 变化，找到实用机会",
   /** 搜索引擎读到的关键词（首页结构化数据）。 */
-  keywords: ["神灯AI研究院", "AI 热点", "实用 AI", "AI 产品", "AI 赚钱", "AI 报告", "AI 博主"] as string[],
+  keywords: ["神灯AI热点", "AI 热点", "实用 AI", "AI 产品", "AI 赚钱", "AI 报告", "AI 博主"] as string[],
   /** 网站开始收录的年份（结构化数据的时间范围，选填）。 */
   since: null as string | null,
   /** 界面语言（HTML lang、og:locale）。 */
@@ -71,10 +71,10 @@ export const SITE = {
   /** 中国大陆网站的公安备案信息（选填），填了显示在侧栏底部和“我的”页底部。 */
   psb: null as string | null,
   /** 源码的 GitHub 仓库地址（选填），填了就在侧栏底部和“我的”页底部显示“GitHub 开源”。 */
-  github: "https://github.com/littleweb/shengdeng.news" as string | null,
+  github: null as string | null,
   /** 结构化数据里的网站运营者（搜索引擎用）。 */
   organization: {
-    name: "神灯AI研究院",
+    name: "神灯AI热点",
     /** 创始人（选填）。 */
     founder: null as Founder | null,
   },

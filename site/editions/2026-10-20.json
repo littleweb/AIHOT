@@ -1,0 +1,406 @@
+{
+  "date": "2026-10-20",
+  "researchedAt": "2026-10-21T09:51:33.807758+00:00",
+  "backfill": true,
+  "items": [
+    {
+      "sourceId": "deepseek-official-repository",
+      "sourceName": "DeepSeek 官方仓库",
+      "tier": "T1",
+      "entity": "deepseek",
+      "date": "2026-10-20T09:12:00Z",
+      "url": "https://github.com/deepseek-ai/DeepInfer",
+      "title": "DeepSeek 开源 DeepInfer 推理框架，首批支持 V4.1-Flash",
+      "summary": "DeepSeek 发布其大规模推理框架 DeepInfer 的开源代码，采用 Apache 2.0 许可，当前支持 DeepSeek-V4.1-Flash。公开版本提供离线推理及多项运行时优化，不等于可直接替代完整在线服务的全部基础设施。",
+      "reason": "Codex 来源核对 · 国内一手工程发布；按代码范围介绍，不把第三方利润估算当成官方经营数据。",
+      "category": "ai-models",
+      "tags": [
+        "开源/仓库",
+        "国内AI",
+        "部署/工程",
+        "DeepSeek"
+      ],
+      "quote": "This open-source release provides offline inference",
+      "region": "国内"
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "date": "2026-10-20T00:00:00.000Z",
+      "url": "https://openai.com/index/openai-to-acquire-orchestra-bio",
+      "title": "OpenAI 收购 Orchestra Bio，将药物研发协作接入 Rosalind",
+      "summary": "OpenAI 宣布已收购 Orchestra Bio，计划将其团队与技术并入生命科学研究平台 Rosalind，帮助生物医药团队协调研究、试验和后续决策。公告描述的是产品整合方向，不能据此声称已缩短临床周期或获得疗效验证。",
+      "reason": "Codex 来源核对 · 官方收购消息，区分已完成收购与未来应用目标。",
+      "category": "ai-models",
+      "tags": [
+        "行业动态",
+        "海外AI",
+        "Agent",
+        "OpenAI"
+      ],
+      "quote": "OpenAI has acquired Orchestra Bio",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "date": "2026-10-20T10:00:00.000Z",
+      "url": "https://openai.com/index/ted-taylor-restaurant",
+      "title": "餐饮经营者用 ChatGPT Work 做对账，官方案例称耗时减少 94%",
+      "summary": "OpenAI 的客户案例介绍了三家餐厅的菜单定价、排班和现金对账工作流。案例称月度对账从三小时缩至五至十分钟；每年释放五万至十万美元现金流仍是优化排班后的估算，并非已实现利润。",
+      "reason": "Codex 来源核对 · 保留效率与现金流估算的边界，适合作为小企业 AI 应用复盘。",
+      "category": "industry",
+      "tags": [
+        "行业动态",
+        "AI商业化",
+        "海外AI",
+        "OpenAI"
+      ],
+      "quote": "Reduction in time spent on monthly cash reconciliation",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "date": "2026-10-20T07:00:00.000Z",
+      "url": "https://openai.com/index/terminal-x",
+      "title": "Terminal X 用评测智能体检查投资分析，披露 88.6% 判断一致率",
+      "summary": "据 OpenAI 发布的 Terminal X 案例，其评测智能体按照 54 项标准检查输出，在 500 次判断中与资深人工评审的一致率为 88.6%。这些是企业披露的内部评测结果，不代表通用投资表现或收益保证。",
+      "reason": "Codex 来源核对 · 有具体任务、样本与评测口径的 AI 产品案例，数据未经本站独立复测。",
+      "category": "ai-products",
+      "tags": [
+        "产品更新",
+        "成功产品",
+        "AI商业化",
+        "海外AI",
+        "OpenAI"
+      ],
+      "quote": "Across 500 scored judgments",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-github-ai",
+      "sourceName": "GitHub Blog · AI & ML",
+      "tier": "T1",
+      "entity": null,
+      "date": "2026-10-19T18:47:22.000Z",
+      "url": "https://github.blog/ai-and-ml/github-copilot/how-to-continue-a-github-copilot-app-session-in-vs-code/",
+      "title": "GitHub 介绍如何将 Copilot 应用会话接续到 VS Code",
+      "summary": "GitHub 发布操作指南，说明如何将 Copilot 应用中的智能体会话接到 VS Code，延续对话、代码变更和工作上下文。具体可用性与权限要求以原文和当前客户端为准。",
+      "reason": "Codex 来源核对 · 减少工具切换时的上下文丢失，提供原文操作入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "编码",
+        "海外AI",
+        "GitHub"
+      ],
+      "quote": "without losing the conversation",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-nvidia-blog",
+      "sourceName": "NVIDIA Blog",
+      "tier": "T1",
+      "entity": "nvidia",
+      "date": "2026-10-20T05:00:00.000Z",
+      "url": "https://blogs.nvidia.com/blog/spain-startups-barcelona-supercomputing-center/",
+      "title": "巴塞罗那超算中心向创业团队开放 AI 工厂加速计划",
+      "summary": "NVIDIA 介绍 Barcelona Supercomputing Center 的 AI Factory Accelerator Programme，为创业团队提供计算资源、技术支持和培训。它展示了算力与创业服务结合的路径，具体资格需查项目说明。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "industry",
+      "tags": [
+        "行业动态",
+        "海外AI",
+        "AI商业化"
+      ],
+      "quote": "Spain-Based Startups Advance Regional Innovation With Barcelona Supercomputing Center",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-nvidia-blog",
+      "sourceName": "NVIDIA Blog",
+      "tier": "T1",
+      "entity": "nvidia",
+      "date": "2026-10-19T19:27:08.000Z",
+      "url": "https://blogs.nvidia.com/blog/germany-wants-to-lead-the-world-in-industrial-ai-how-nvidia-will-help/",
+      "title": "德国与 NVIDIA 讨论工业 AI 路线，聚焦产业应用",
+      "summary": "NVIDIA 官方活动报道记录德国工业 AI 路线讨论，强调制造业与本地产业基础结合。该内容属于合作方向与战略交流，不能据此推断具体项目已交付或产生收益。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "ai-models",
+      "tags": [
+        "行业动态",
+        "海外AI"
+      ],
+      "quote": "Germany Wants to Lead the World in Industrial AI: How NVIDIA Will Help",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "tier": "T1",
+      "entity": null,
+      "date": "2026-10-20T15:57:57.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/how-eon-built-multi-cloud-investigation-with-an-mcp-gateway-on-amazon-bedrock-agentcore/",
+      "title": "Eon 用统一 MCP 网关整合多云生产排障",
+      "summary": "AWS 客户案例介绍把 AWS、GCP、Azure 的排障工具接入统一认证网关，减少每个工具单独配置凭据的负担。案例中的入职提速是企业披露结果，实际收益取决于原有流程。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "industry",
+      "tags": [
+        "行业动态",
+        "海外AI",
+        "AI商业化"
+      ],
+      "quote": "How Eon built multi-cloud investigation with an MCP Gateway on Amazon Bedrock AgentCore",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "tier": "T1",
+      "entity": null,
+      "date": "2026-10-19T23:32:19.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/structured-outputs-for-anthropic-claude-models-on-amazon-bedrock/",
+      "title": "Bedrock 为 Claude 模型提供结构化输出与严格工具调用",
+      "summary": "AWS 公告介绍通过 JSON Schema 和 strict tool use 约束输出结构，减少自行解析和修补格式的工作。结构符合约定并不保证业务内容正确，仍应保留数据与权限检查。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "海外AI"
+      ],
+      "quote": "Structured outputs for Anthropic Claude models on Amazon Bedrock",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "tier": "T1",
+      "entity": null,
+      "date": "2026-10-19T16:49:19.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/pegasus-1-5-from-twelvelabs-is-now-available-in-amazon-bedrock/",
+      "title": "TwelveLabs Pegasus 1.5 接入 Bedrock，输出视频片段元数据",
+      "summary": "AWS 介绍以自然语言定义目标片段并返回带时间戳 JSON 的视频模型能力，涵盖视频分段、参考图提示与长视频处理。适合内容检索和媒体资产管理场景评估。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "ai-products",
+      "tags": [
+        "产品更新",
+        "海外AI",
+        "成功产品"
+      ],
+      "quote": "Pegasus 1.5 from TwelveLabs is now available in Amazon Bedrock",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "tier": "T1",
+      "entity": null,
+      "date": "2026-10-19T16:23:22.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/how-deepgram-optimized-voice-ai-at-scale-with-aws-trainium/",
+      "title": "Deepgram 分享把语音转写模型迁移到 Trainium2 的工程实践",
+      "summary": "AWS 客户文章介绍 Nova-3 离线批量转写的移植、内核优化和 Rust 数据并行运行时。适合参考迁移过程与成本评估方式，吞吐和成本表现具有硬件与工作负载前提。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "industry",
+      "tags": [
+        "行业动态",
+        "海外AI",
+        "AI商业化"
+      ],
+      "quote": "How Deepgram optimized voice AI at scale with AWS Trainium",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "tier": "T1",
+      "entity": null,
+      "date": "2026-10-19T16:05:17.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/push-based-kv-transfer-to-improve-ttft-and-tpot-for-disaggregated-inference-in-vllm/",
+      "title": "AWS 为 vLLM 分离式推理介绍推送式 KV 传输",
+      "summary": "教程讨论预填充与解码分离时的 KV 缓存传输，通过 NIXL 连接器减少关键路径上的协调。性能数据来自特定 EC2 与 EFA 环境，部署前应复现实测。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "海外AI"
+      ],
+      "quote": "Push-based KV transfer to improve TTFT and TPOT for disaggregated inference in vLLM",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-hugging-face",
+      "sourceName": "Hugging Face Blog",
+      "tier": "T1",
+      "entity": "hugging-face",
+      "date": "2026-10-20T00:00:00+00:00",
+      "url": "https://huggingface.co/blog/hf-torchtpu",
+      "title": "Hugging Face 介绍 TorchTPU，让 PyTorch 原生运行于 TPU",
+      "summary": "官方开发文章介绍以原生 PyTorch 后端连接 TPU，并支持 Transformers、Diffusers 与 Kernels。适合计划使用 TPU 的团队了解生态集成和迁移路径。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "海外AI"
+      ],
+      "quote": "Hugging Face ❤️ TorchTPU: TPUs, Natively",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-hugging-face",
+      "sourceName": "Hugging Face Blog",
+      "tier": "T1",
+      "entity": "hugging-face",
+      "date": "2026-10-20T00:00:00+00:00",
+      "url": "https://huggingface.co/blog/anylanguagemodel-1-0",
+      "title": "AnyLanguageModel 1.0 统一苹果平台本地与托管模型接口",
+      "summary": "开发者可沿用 Foundation Models 风格的会话 API，在系统模型、llama.cpp、MLX、Core ML 和托管服务之间选择。文章同时介绍 Swift 配套库，适合苹果应用开发者参考。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "海外AI"
+      ],
+      "quote": "AnyLanguageModel 1.0: One Year of Local Models on Apple Platforms",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-hugging-face",
+      "sourceName": "Hugging Face Blog",
+      "tier": "T1",
+      "entity": "hugging-face",
+      "date": "2026-10-20T00:00:00+00:00",
+      "url": "https://huggingface.co/blog/mps-pytorch-2-15",
+      "title": "PyTorch 2.15 的 MPS 更新聚焦 Mac 本地模型性能",
+      "summary": "Hugging Face 的 PyTorch 团队介绍 MPS 的 FP8、解码路径、Metal 内核与内存优化。不同模型收益不同，可按文中工作负载在自己的 Mac 上复测。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "海外AI"
+      ],
+      "quote": "MPS in PyTorch 2.15",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-hugging-face",
+      "sourceName": "Hugging Face Blog",
+      "tier": "T1",
+      "entity": "hugging-face",
+      "date": "2026-10-20T15:19:48+00:00",
+      "url": "https://huggingface.co/blog/ibm-research/altk-evolve-bc",
+      "title": "IBM 研究用可学习记忆改善客服智能体表现",
+      "summary": "ALTK-Evolve 让智能体学习并复用操作指南，在不更新基础模型权重的情况下改善客服基准表现。文章同时讨论额外 token 成本与不同业务领域的指导强度，避免只看榜单结果。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "paper",
+      "tags": [
+        "论文/研究",
+        "海外AI",
+        "行业报告"
+      ],
+      "quote": "ALTK-Evolve: How learned memory tops the τ²-bench leaderboard on customer service tasks without a frontier model",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-baoyu",
+      "sourceName": "宝玉的分享",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-20T00:00:00.000Z",
+      "url": "https://baoyu.io/blog/2026-10-20/notebooklm-video-overview-system-prompt",
+      "title": "宝玉拆解 NotebookLM 视频概览的创作编排流程",
+      "summary": "文章介绍从理解意图、收集上下文到评审卡片和视频生成的多步骤流程。作者提示其中工具和结构依赖 NotebookLM 的专用组件，不能把整份内容当成通用提示词直接运行。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "opinion",
+      "tags": [
+        "大佬观点",
+        "国内AI",
+        "AI创作者"
+      ],
+      "quote": "NotebookLM's Video Overview System Prompt: The Full Creation Workflow",
+      "region": "国内"
+    },
+    {
+      "sourceId": "rss-simon-willison",
+      "sourceName": "Simon Willison",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-19T23:58:25.000Z",
+      "url": "https://simonwillison.net/2026/Oct/19/my-obituary-for-programming/",
+      "title": "Simon Willison 转介编程职业变化讨论，记录开发者的失落感",
+      "summary": "文章转引开发者对编码智能体改变工作体验的反思，关注解题过程、职业认同与创造乐趣。适合作为技术变迁中的个人视角阅读，并非就业趋势的统计研究。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "opinion",
+      "tags": [
+        "大佬观点",
+        "海外AI",
+        "AI创作者"
+      ],
+      "quote": "My obituary for programming",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-qbitai",
+      "sourceName": "量子位",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-20T08:01:25.000Z",
+      "url": "https://www.qbitai.com/2026/10/504421.html",
+      "title": "TokenFleet 探索国产推理集群调度，优化首 token 延迟",
+      "summary": "量子位介绍是石科技的推理调度框架，围绕集群资源组织和请求处理降低等待时间。文中的延迟提升有测试环境前提，适合研究推理基础设施的团队跟踪。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "paper",
+      "tags": [
+        "论文/研究",
+        "国内AI",
+        "行业报告"
+      ],
+      "quote": "首Token延迟降低32.4%！是石科技集群调度大招，国产推理再提效",
+      "region": "国内"
+    },
+    {
+      "sourceId": "rss-qbitai",
+      "sourceName": "量子位",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-20T12:50:34.000Z",
+      "url": "https://www.qbitai.com/2026/10/504456.html",
+      "title": "MemT 1.0 把经验写入模型内可更新状态，探索原生记忆",
+      "summary": "量子位介绍记忆张量团队的模型路线，在注意力旁加入记忆计算分支，训练经验的写入、更新与读取。文章提供论文入口，模型内记忆与外部检索方案的取舍需结合任务评估。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "paper",
+      "tags": [
+        "论文/研究",
+        "国内AI",
+        "行业报告"
+      ],
+      "quote": "RSI三块关键拼图，MemT 1.0从模型层补上「记忆」",
+      "region": "国内"
+    },
+    {
+      "sourceId": "rss-qbitai",
+      "sourceName": "量子位",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-20T04:59:04.000Z",
+      "url": "https://www.qbitai.com/2026/10/504415.html",
+      "title": "Meshy Edit 支持圈选区域与文字指令进行 3D 局部编辑",
+      "summary": "产品方发布稿介绍用套索或画笔选区，再描述局部改动，可保留原模型并生成新版本。适合 3D 打印与游戏角色变体制作；可用模型、贴图限制和积分消耗需查原文。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "ai-products",
+      "tags": [
+        "产品更新",
+        "国内AI",
+        "成功产品"
+      ],
+      "quote": "Meshy推出Meshy Edit：基于全新自研AI模型，一句指令实现3D模型局部编辑",
+      "region": "国内"
+    }
+  ]
+}

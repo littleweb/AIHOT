@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-18",
+  "researchedAt": "2026-10-21T09:51:33.807758+00:00",
+  "backfill": true,
+  "items": [
+    {
+      "sourceId": "rss-nvidia-blog",
+      "sourceName": "NVIDIA Blog",
+      "tier": "T1",
+      "entity": "nvidia",
+      "date": "2026-10-17T21:00:13.000Z",
+      "url": "https://blogs.nvidia.com/blog/local-ai-rtx-spark-windows-laptops-celebration/",
+      "title": "RTX Spark Windows 笔记本上市，面向本地 AI 与创作",
+      "summary": "NVIDIA 介绍搭载 Blackwell RTX、最高 128GB 统一内存的合作伙伴笔记本，定位本地 AI、内容创作和游戏。配置与起价来自厂商公告，购买前应按实际机型核对。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "ai-products",
+      "tags": [
+        "产品更新",
+        "海外AI",
+        "成功产品"
+      ],
+      "quote": "RTX Spark Ignites Global Celebration as New Windows PCs Arrive",
+      "region": "国外"
+    },
+    {
+      "sourceId": "anthropic-news",
+      "sourceName": "Anthropic 官方",
+      "tier": "T1",
+      "entity": "anthropic",
+      "date": "2026-10-18",
+      "url": "https://www.anthropic.com/news/public-benefit-fund",
+      "title": "Anthropic 宣布设立公益基金，拟将部分股权用于公共利益",
+      "summary": "官方公告提出向公益基金配置部分公司股权，并随估值增长设置追加机制。首批配置仍需股东批准，基金结构和治理后续披露，不能把公告中的计划写成已完成捐款。",
+      "reason": "Codex 来源核对 · 区分股权承诺、批准条件与实际公益支出。",
+      "category": "industry",
+      "tags": [
+        "行业动态",
+        "海外AI",
+        "AI商业化",
+        "Anthropic"
+      ],
+      "quote": "Subject to stockholder approval",
+      "region": "国外"
+    }
+  ]
+}

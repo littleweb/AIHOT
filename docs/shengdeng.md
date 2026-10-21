@@ -1,4 +1,4 @@
-# 神灯AI研究院运行与发布
+# 神灯AI热点运行与发布
 
 正式域名 https://shendeng.news/ ，源码仓库 https://github.com/littleweb/shengdeng.news 。域名与仓库名不同是已确认的安排，不要误改成 shengdeng.news 域名。
 
@@ -39,3 +39,7 @@ npm run export:static -- --base http://localhost:3090 --prefix '' --site-url htt
 ## DNS
 
 阿里云 @ 的四条 A 记录为 185.199.108.153、185.199.109.153、185.199.110.153、185.199.111.153；www 的 CNAME 为 littleweb.github.io，TTL 10 分钟。Pages 绑定 shendeng.news，主域名 HTTPS 已验证并开启强制 HTTPS；www 证书的状态需要另外核对。
+
+## 2026-10-21 内容扩充
+
+站名为神灯AI热点，左侧不显示反馈和 GitHub 开源入口。已保存 69 条来源记录（含一条区间外研究背景），10 月 15 日至 21 日建立七期日报；日期按北京时间的原始发布时间归档。历史期标明本次回填，researchedAt 保留实际检索时间。三款品牌 Logo 方案另行交付，选定后再应用。

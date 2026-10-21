@@ -8,5 +8,7 @@ test("Codex edition keeps original source dates and rejects unpublishable eviden
  for(const update of [{url:"javascript:alert(1)"},{url:"http://localhost/private"},{date:"2099-01-01"},{category:"not-a-category"},{entity:"unknown"},{summary:""}]){const bad=edition();Object.assign(bad.items[0],update);assert.throws(()=>validateEdition(bad));}
  const duplicate=edition();duplicate.items.push({...duplicate.items[0]});assert.throws(()=>validateEdition(duplicate));
  assert.throws(()=>validateEdition({...edition(),date:"2026-10-20"}));
+ assert.doesNotThrow(()=>validateEdition({...edition(),date:"2026-10-15",backfill:true}));
+ assert.throws(()=>validateEdition({...edition(),date:"2099-01-01",backfill:true}));
  assert.throws(()=>validateEdition({...edition(),items:[]}));
 });

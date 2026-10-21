@@ -1,0 +1,135 @@
+{
+  "date": "2026-10-17",
+  "researchedAt": "2026-10-21T09:51:33.807758+00:00",
+  "backfill": true,
+  "items": [
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "date": "2026-10-16T19:00:00.000Z",
+      "url": "https://openai.com/index/itau-generative-ai",
+      "title": "Itaú 分享面向客户与员工的生成式 AI 建设",
+      "summary": "巴西银行 Itaú 介绍对话界面 ia.i 和治理平台 IARA，展示受监管行业如何把生成式 AI 纳入服务流程。重点是业务入口与治理配套，企业案例不等于所有客户已获得同样效果。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "ai-products",
+      "tags": [
+        "产品更新",
+        "海外AI",
+        "成功产品"
+      ],
+      "quote": "How Itaú is building generative AI for its entire customer base",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "tier": "T1",
+      "entity": null,
+      "date": "2026-10-16T20:48:16.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/building-trust-in-ai-agents-a-production-ready-evaluation-framework-with-amazon-bedrock-agentcore/",
+      "title": "AWS 发布智能体全生命周期评估框架实践",
+      "summary": "文章用九阶段框架覆盖从提交代码到生产运行的智能体评估，特别关注延迟正常但回答质量下降的静默回归。可借鉴测试数据、评估检查和线上监控的衔接方法。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "海外AI"
+      ],
+      "quote": "Building trust in AI agents: A production-ready evaluation framework with Amazon Bedrock AgentCore",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-simon-willison",
+      "sourceName": "Simon Willison",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-16T22:06:37.000Z",
+      "url": "https://simonwillison.net/2026/Oct/16/code-review/",
+      "title": "Simon Willison 引述代码审查观点：按风险选择验证方法",
+      "summary": "作者分享关于智能体编码审查的讨论，强调比起只问有没有人读过代码，更应识别变更可能出错的地方，并选择合适的自动检查或人工复核。它是实践观点，不能替代项目自身的质量要求。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "opinion",
+      "tags": [
+        "大佬观点",
+        "海外AI",
+        "AI创作者"
+      ],
+      "quote": "Quoting Addy Osmani, Morgan Westlee Lunt, and Qing Wang",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-simon-willison",
+      "sourceName": "Simon Willison",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-17T13:16:49.000Z",
+      "url": "https://simonwillison.net/2026/Oct/17/web-edit/",
+      "title": "web-edit 增加文字与图片复制，辅助手机远程编辑工作流",
+      "summary": "Simon Willison 的轻量文件浏览编辑应用加入复制选项，服务于通过手机操作异地机器与提示工具的个人流程。文章提供实际需求背景，远程访问仍需自行配置认证与网络。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "海外AI"
+      ],
+      "quote": "web-edit 0.1a2",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-qbitai",
+      "sourceName": "量子位",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-17T12:10:35+00:00",
+      "url": "https://www.qbitai.com/2026/10/503935.html",
+      "title": "PilotDeck 2.0 开源，围绕工作舱管理智能体记忆与任务",
+      "summary": "量子位介绍清华 THUNLP 等团队的项目，覆盖项目隔离、可查看修改的长期记忆、后台任务与模型路由，并原生支持 MCP。成本下降来自团队测试，应结合自己的长任务复验。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "国内AI"
+      ],
+      "quote": "清华开源！智能体操作系统任务成本降83%，AI记忆可查可改",
+      "region": "国内"
+    },
+    {
+      "sourceId": "rss-qbitai",
+      "sourceName": "量子位",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-17T12:13:45+00:00",
+      "url": "https://www.qbitai.com/2026/10/503965.html",
+      "title": "智谱推出 GLM-Legal，面向合同、证据与合规任务",
+      "summary": "量子位报道法律专用开放模型，展示协议审查、证据串联和跨境合规的应用。榜单表现来自指定评测，真实法律工作中的输出仍应由专业人员核对。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "ai-models",
+      "tags": [
+        "行业动态",
+        "国内AI"
+      ],
+      "quote": "智谱新模型，懂法方面全球第一了",
+      "region": "国内"
+    },
+    {
+      "sourceId": "rss-qbitai",
+      "sourceName": "量子位",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-17T12:21:09+00:00",
+      "url": "https://www.qbitai.com/2026/10/504067.html",
+      "title": "DeepSeek 更新 V4.1-Flash-1017，并开放搜索 API",
+      "summary": "量子位报道 DeepSeek 新版本与自研搜索 API，关注智能体和工具使用场景。使用时应区分模型更新、搜索能力与实际计费条件，媒体评测不能替代自己的任务验证。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "ai-models",
+      "tags": [
+        "行业动态",
+        "国内AI"
+      ],
+      "quote": "突发！DeepSeek新模型发布，超级性价比斩杀一切",
+      "region": "国内"
+    }
+  ]
+}

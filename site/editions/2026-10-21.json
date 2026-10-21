@@ -1,88 +1,8 @@
 {
   "date": "2026-10-21",
-  "researchedAt": "2026-10-21T09:19:57.404954+00:00",
+  "researchedAt": "2026-10-21T09:51:33.807758+00:00",
+  "backfill": true,
   "items": [
-    {
-      "sourceId": "deepseek-official-repository",
-      "sourceName": "DeepSeek 官方仓库",
-      "tier": "T1",
-      "entity": "deepseek",
-      "date": "2026-10-20T09:12:00Z",
-      "url": "https://github.com/deepseek-ai/DeepInfer",
-      "title": "DeepSeek 开源 DeepInfer 推理框架，首批支持 V4.1-Flash",
-      "summary": "DeepSeek 发布其大规模推理框架 DeepInfer 的开源代码，采用 Apache 2.0 许可，当前支持 DeepSeek-V4.1-Flash。公开版本提供离线推理及多项运行时优化，不等于可直接替代完整在线服务的全部基础设施。",
-      "reason": "Codex 来源核对 · 国内一手工程发布；按代码范围介绍，不把第三方利润估算当成官方经营数据。",
-      "category": "ai-models",
-      "tags": [
-        "开源/仓库",
-        "国内AI",
-        "部署/工程",
-        "DeepSeek"
-      ],
-      "quote": "This open-source release provides offline inference",
-      "region": "国内"
-    },
-    {
-      "sourceId": "rss-openai-news",
-      "sourceName": "OpenAI News",
-      "tier": "T1",
-      "entity": "openai",
-      "date": "2026-10-20T00:00:00.000Z",
-      "url": "https://openai.com/index/openai-to-acquire-orchestra-bio",
-      "title": "OpenAI 收购 Orchestra Bio，将药物研发协作接入 Rosalind",
-      "summary": "OpenAI 宣布已收购 Orchestra Bio，计划将其团队与技术并入生命科学研究平台 Rosalind，帮助生物医药团队协调研究、试验和后续决策。公告描述的是产品整合方向，不能据此声称已缩短临床周期或获得疗效验证。",
-      "reason": "Codex 来源核对 · 官方收购消息，区分已完成收购与未来应用目标。",
-      "category": "ai-models",
-      "tags": [
-        "行业动态",
-        "海外AI",
-        "Agent",
-        "OpenAI"
-      ],
-      "quote": "OpenAI has acquired Orchestra Bio",
-      "region": "国外"
-    },
-    {
-      "sourceId": "rss-openai-news",
-      "sourceName": "OpenAI News",
-      "tier": "T1",
-      "entity": "openai",
-      "date": "2026-10-20T10:00:00.000Z",
-      "url": "https://openai.com/index/ted-taylor-restaurant",
-      "title": "餐饮经营者用 ChatGPT Work 做对账，官方案例称耗时减少 94%",
-      "summary": "OpenAI 的客户案例介绍了三家餐厅的菜单定价、排班和现金对账工作流。案例称月度对账从三小时缩至五至十分钟；每年释放五万至十万美元现金流仍是优化排班后的估算，并非已实现利润。",
-      "reason": "Codex 来源核对 · 保留效率与现金流估算的边界，适合作为小企业 AI 应用复盘。",
-      "category": "industry",
-      "tags": [
-        "行业动态",
-        "AI商业化",
-        "海外AI",
-        "OpenAI"
-      ],
-      "quote": "Reduction in time spent on monthly cash reconciliation",
-      "region": "国外"
-    },
-    {
-      "sourceId": "rss-openai-news",
-      "sourceName": "OpenAI News",
-      "tier": "T1",
-      "entity": "openai",
-      "date": "2026-10-20T07:00:00.000Z",
-      "url": "https://openai.com/index/terminal-x",
-      "title": "Terminal X 用评测智能体检查投资分析，披露 88.6% 判断一致率",
-      "summary": "据 OpenAI 发布的 Terminal X 案例，其评测智能体按照 54 项标准检查输出，在 500 次判断中与资深人工评审的一致率为 88.6%。这些是企业披露的内部评测结果，不代表通用投资表现或收益保证。",
-      "reason": "Codex 来源核对 · 有具体任务、样本与评测口径的 AI 产品案例，数据未经本站独立复测。",
-      "category": "ai-products",
-      "tags": [
-        "产品更新",
-        "成功产品",
-        "AI商业化",
-        "海外AI",
-        "OpenAI"
-      ],
-      "quote": "Across 500 scored judgments",
-      "region": "国外"
-    },
     {
       "sourceId": "rss-aws-ml",
       "sourceName": "AWS Machine Learning Blog",
@@ -144,26 +64,6 @@
       "region": "国外"
     },
     {
-      "sourceId": "rss-github-ai",
-      "sourceName": "GitHub Blog · AI & ML",
-      "tier": "T1",
-      "entity": null,
-      "date": "2026-10-19T18:47:22.000Z",
-      "url": "https://github.blog/ai-and-ml/github-copilot/how-to-continue-a-github-copilot-app-session-in-vs-code/",
-      "title": "GitHub 介绍如何将 Copilot 应用会话接续到 VS Code",
-      "summary": "GitHub 发布操作指南，说明如何将 Copilot 应用中的智能体会话接到 VS Code，延续对话、代码变更和工作上下文。具体可用性与权限要求以原文和当前客户端为准。",
-      "reason": "Codex 来源核对 · 减少工具切换时的上下文丢失，提供原文操作入口。",
-      "category": "tip",
-      "tags": [
-        "教程/实践",
-        "编码",
-        "海外AI",
-        "GitHub"
-      ],
-      "quote": "without losing the conversation",
-      "region": "国外"
-    },
-    {
       "sourceId": "rss-simon-willison",
       "sourceName": "Simon Willison",
       "tier": "T2",
@@ -202,6 +102,153 @@
       ],
       "quote": "it is not a product",
       "region": "国外"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "tier": "T1",
+      "entity": null,
+      "date": "2026-10-20T17:52:50.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/from-data-to-decisions-conversational-supply-chain-intelligence-with-amazon-quick-and-amazon-bedrock-agentcore/",
+      "title": "AWS 给出供应链对话分析方案，连接业务数据与工具",
+      "summary": "教程使用 Amazon Quick 和 Bedrock AgentCore，把 ERP、采购、监控等分散系统组织成受治理的工具层。读者可参考部署步骤与权限设计，再用自身供应链数据验证。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "海外AI"
+      ],
+      "quote": "From data to decisions: Conversational supply chain intelligence with Amazon Quick and Amazon Bedrock AgentCore",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "tier": "T1",
+      "entity": null,
+      "date": "2026-10-20T17:48:27.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/fine-tuning-gpt-oss-20b-for-multilingual-reasoning-on-amazon-sagemaker-hyperpod/",
+      "title": "AWS 对比 SFT 与 GRPO，演示多语言推理微调",
+      "summary": "教程基于 GPT-OSS-20B 与 SageMaker HyperPod，比较监督微调和 GRPO 在推理语言一致性上的作用。文中的提升来自特定数据和评测，适合学习实验设计与路线选择。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "海外AI"
+      ],
+      "quote": "Fine-tuning GPT-OSS-20B for multilingual reasoning on Amazon SageMaker HyperPod",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "tier": "T1",
+      "entity": null,
+      "date": "2026-10-20T17:34:04.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/how-octave-built-a-secure-multi-tenant-ai-foundation-on-amazon-bedrock/",
+      "title": "Octave 分享多租户 AI 文档检索架构",
+      "summary": "AWS 客户案例介绍 Octave 使用 Cohere Embed v4 与 AgentCore 隔离执行，构建面向受监管文档的投诉分流助手。值得关注的是租户隔离与检索权限，而非只看文档规模。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "ai-products",
+      "tags": [
+        "产品更新",
+        "海外AI",
+        "成功产品"
+      ],
+      "quote": "How Octave built a secure multi-tenant AI foundation on Amazon Bedrock",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "tier": "T1",
+      "entity": null,
+      "date": "2026-10-20T16:22:24.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/discover-tools-at-runtime-with-aws-agent-registry/",
+      "title": "AWS 演示运行时发现 MCP 服务器与 A2A 智能体",
+      "summary": "教程通过 AWS Agent Registry 的语义检索实现工具发现、实例化与执行，减少大型工具目录的硬编码。适合工具数量增长的团队参考，并核对运行时授权边界。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "海外AI"
+      ],
+      "quote": "Discover tools at runtime with AWS Agent Registry",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "tier": "T1",
+      "entity": null,
+      "date": "2026-10-20T16:03:48.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/securing-ai-agent-identity-with-x-509-pki-on-aws/",
+      "title": "AWS 给出多智能体身份验证与委托授权参考架构",
+      "summary": "文章把 X.509 身份、签名请求、限定受众的令牌与实时吊销结合起来，处理智能体之间及 MCP 工具调用的身份问题。适合有安全治理需求的团队阅读架构和实施前提。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "海外AI"
+      ],
+      "quote": "Securing AI agent identity with X.509 PKI on AWS",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-hugging-face",
+      "sourceName": "Hugging Face Blog",
+      "tier": "T1",
+      "entity": "hugging-face",
+      "date": "2026-10-20T16:09:19+00:00",
+      "url": "https://huggingface.co/blog/allenai/fairstress",
+      "title": "Ai2 发布 FairStress，测量模型决策过程中的公平性",
+      "summary": "新基准将关注点从最终选择扩展到决策稳定性，研究在人口属性变化时模型是否同样坚持正确判断。作者公开报告、数据与代码，适合负责模型评估的团队研究。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "paper",
+      "tags": [
+        "论文/研究",
+        "海外AI",
+        "行业报告"
+      ],
+      "quote": "FairStress: A deeper evaluation of fairness in LLM decision-making",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-hugging-face",
+      "sourceName": "Hugging Face Blog",
+      "tier": "T1",
+      "entity": "hugging-face",
+      "date": "2026-10-20T18:17:47+00:00",
+      "url": "https://huggingface.co/blog/nvidia/cosmos3-h-dreams",
+      "title": "NVIDIA 发布 Cosmos3-H-Dreams，研究交互式手术场景生成",
+      "summary": "团队把生成式仿真从桌面缝合任务推进到更复杂的临床手术视觉场景，并介绍蒸馏、流式生成与数据适配。该工作属于仿真研究，不能直接当作临床安全或疗效验证。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "paper",
+      "tags": [
+        "论文/研究",
+        "海外AI",
+        "行业报告"
+      ],
+      "quote": "NVIDIA Cosmos3-H-Dreams: Bringing Clinical Surgery to Life Through Generative Simulation",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-sspai",
+      "sourceName": "少数派",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-21T07:00:00.000Z",
+      "url": "https://sspai.com/post/116445",
+      "title": "Vitals 用更直观的资源监控辅助 Mac 本地 AI 工作流",
+      "summary": "少数派体验文章介绍应用资源消耗与历史追踪，把本地 AI 推理的性能排查作为使用场景之一。适合经常在 Mac 上运行开发和模型任务的读者参考。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "国内AI"
+      ],
+      "quote": "App+1｜Vitals：什么在拖慢你的 Mac？它比「活动监视器」更直观易用",
+      "region": "国内"
     }
   ]
 }

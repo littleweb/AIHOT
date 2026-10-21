@@ -1,0 +1,212 @@
+{
+  "date": "2026-10-15",
+  "researchedAt": "2026-10-21T09:51:33.807758+00:00",
+  "backfill": true,
+  "items": [
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "date": "2026-10-15T13:00:00.000Z",
+      "url": "https://openai.com/index/teaching-students-to-think-and-learn-through-questions",
+      "title": "OpenAI 分享用 Study Mode 引导学生逐步思考的方法",
+      "summary": "面向教育者的文章以提问和分步学习为核心，结合巴西葡萄牙语教师资源介绍 Study Mode。适合参考课堂提示与学习流程设计，实际教学仍需教师结合学生情况调整。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "海外AI"
+      ],
+      "quote": "Teaching students to think and learn through questions",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "date": "2026-10-15T00:00:00.000Z",
+      "url": "https://openai.com/index/sullivan-cromwell",
+      "title": "Sullivan & Cromwell 将律师经验融入协议审查工具",
+      "summary": "律所与 OpenAI 合作开发 Agreement Analyzer，用来识别协议草稿中的问题。案例展示专业判断如何嵌入审查流程；自动识别结果仍须由负责的法律专业人员核对。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "ai-products",
+      "tags": [
+        "产品更新",
+        "海外AI",
+        "成功产品"
+      ],
+      "quote": "Sullivan & Cromwell brings legal expertise into agreement review",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-nvidia-blog",
+      "sourceName": "NVIDIA Blog",
+      "tier": "T1",
+      "entity": "nvidia",
+      "date": "2026-10-15T15:00:24.000Z",
+      "url": "https://blogs.nvidia.com/blog/nemotron-3-5-super-vl/",
+      "title": "NVIDIA 扩展 Nemotron 家族，发布 Super VL 与端侧 Bolt 模型",
+      "summary": "NVIDIA 官方介绍新的开放模型，覆盖持续运行的智能体、多模态理解和本地推理。选择时应结合模型许可、显存要求及自己的任务测试，官方基准不能替代部署验证。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "ai-models",
+      "tags": [
+        "行业动态",
+        "海外AI"
+      ],
+      "quote": "Open From Data Center to Desktop: NVIDIA Expands Nemotron Family With Highest Efficiency Super VL and Bolt Models",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-nvidia-blog",
+      "sourceName": "NVIDIA Blog",
+      "tier": "T1",
+      "entity": "nvidia",
+      "date": "2026-10-15T10:00:12.000Z",
+      "url": "https://blogs.nvidia.com/blog/ec-scientific-computing-pledge/",
+      "title": "NVIDIA 为欧洲科研提供开放学习资源与计算合作",
+      "summary": "官方公告介绍面向科研群体的学习资源、合作与计算支持，关注小型实验室和早期研究者的使用门槛。适合跟踪科研基础设施机会，具体参与条件以项目入口为准。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "industry",
+      "tags": [
+        "行业动态",
+        "海外AI",
+        "AI商业化"
+      ],
+      "quote": "NVIDIA Expands Advanced Technology Access for Europe’s Scientific Community Through Open Learning Resources, Collaborations and Compute",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-hugging-face",
+      "sourceName": "Hugging Face Blog",
+      "tier": "T1",
+      "entity": "hugging-face",
+      "date": "2026-10-15T09:08:45+00:00",
+      "url": "https://huggingface.co/blog/swiss-ai/apertus-v15-release-notes",
+      "title": "Apertus 1.5 发布技术说明，补充多模态与可复现评估细节",
+      "summary": "Swiss AI 团队整理 8B 与 70B 模型的训练、图像音频理解、可选思考模式和评估资料。文中说明权重已在 7 月发布，本次收录的是 10 月更新的技术解读。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "paper",
+      "tags": [
+        "论文/研究",
+        "海外AI",
+        "行业报告"
+      ],
+      "quote": "Apertus 1.5 Release Notes",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-hugging-face",
+      "sourceName": "Hugging Face Blog",
+      "tier": "T1",
+      "entity": "hugging-face",
+      "date": "2026-10-15T00:00:00+00:00",
+      "url": "https://huggingface.co/blog/meta-muse-spark-open",
+      "title": "Muse Spark Open 开放权重，Hugging Face 整理推理与微调入口",
+      "summary": "官方生态文章介绍 Meta 多模态 MoE 模型的文本、图像、音频与视频能力，并列出 Transformers、MLX 等推理支持和微调示例。使用前需核对模型许可与硬件门槛。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "ai-models",
+      "tags": [
+        "行业动态",
+        "海外AI"
+      ],
+      "quote": "Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-hugging-face",
+      "sourceName": "Hugging Face Blog",
+      "tier": "T1",
+      "entity": "hugging-face",
+      "date": "2026-10-15T00:00:00+00:00",
+      "url": "https://huggingface.co/blog/flux-3",
+      "title": "FLUX.3 Image Klein 接入 Diffusers，支持布局控制",
+      "summary": "Hugging Face 教程介绍文生图、多参考图编辑及通过边界框指定布局，并给出基础模型、量化与 LoRA 路径。适合希望用代码组织图像生成流程的开发者。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "海外AI"
+      ],
+      "quote": "Welcome FLUX.3 Image Klein in Diffusers",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-qbitai",
+      "sourceName": "量子位",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-15T08:48:31+00:00",
+      "url": "https://www.qbitai.com/2026/10/503614.html",
+      "title": "量子位智库发布 Agent 落地报告，分析企业应用六类断点",
+      "summary": "报告围绕任务定义、数据可信度、判断验证、行动落地、权责与价值衡量，解释企业 Agent 从单点提效走向系统应用的困难。适合企业团队对照自身项目检查。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "paper",
+      "tags": [
+        "论文/研究",
+        "国内AI",
+        "行业报告"
+      ],
+      "quote": "量子位智库发布Agent落地报告！拆解企业智能化六大断点，附全链路破局框架",
+      "region": "国内"
+    },
+    {
+      "sourceId": "rss-qbitai",
+      "sourceName": "量子位",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-15T01:56:20+00:00",
+      "url": "https://www.qbitai.com/2026/10/503303.html",
+      "title": "千问办公电商版案例：把选品、素材和经营分析接入 Agent",
+      "summary": "量子位报道商家借助千问办公做调研、商品素材和测款，并介绍电商版的经营功能。文中省时、省资金来自受访者案例，不代表普遍利润或保证成功。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "industry",
+      "tags": [
+        "行业动态",
+        "国内AI",
+        "AI商业化"
+      ],
+      "quote": "7天几百元开一家店！用千问办公电商版，立省启动资金5万元",
+      "region": "国内"
+    },
+    {
+      "sourceId": "rss-qbitai",
+      "sourceName": "量子位",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-15T03:50:51+00:00",
+      "url": "https://www.qbitai.com/2026/10/503353.html",
+      "title": "Skywork Matrix-Game 4.0 用游戏引擎维护状态、视频模型生成画面",
+      "summary": "量子位介绍国产游戏世界模型的开源方案，以显式游戏逻辑管理血量、任务等状态，再生成视觉表现。单卡实时演示有画质与硬件前提，适合关注世界模型工程路线。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "ai-models",
+      "tags": [
+        "行业动态",
+        "国内AI"
+      ],
+      "quote": "全球首款 ！中国团队把游戏世界模型塞进一张5090，还开源了",
+      "region": "国内"
+    },
+    {
+      "sourceId": "anthropic-news",
+      "sourceName": "Anthropic 官方",
+      "tier": "T1",
+      "entity": "anthropic",
+      "date": "2026-10-15",
+      "url": "https://www.anthropic.com/news/an-update-on-independent-evaluators",
+      "title": "Anthropic 为 METR 评估团队开放更深入的内部访问",
+      "summary": "官方介绍向外部评估者提供接近员工层级的访问，以审查前沿模型风险，并由 METR 公布评估结果。访问范围仍有敏感技术信息等限制，开放评估本身不等于已经通过安全验证。",
+      "reason": "Codex 来源核对 · 关注风险评估过程与公开问责机制。",
+      "category": "paper",
+      "tags": [
+        "论文/研究",
+        "安全/对齐",
+        "海外AI",
+        "行业报告"
+      ],
+      "quote": "METR will publish the results",
+      "region": "国外"
+    }
+  ]
+}

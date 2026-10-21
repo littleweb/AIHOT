@@ -1,0 +1,176 @@
+{
+  "date": "2026-10-16",
+  "researchedAt": "2026-10-21T09:51:33.807758+00:00",
+  "backfill": true,
+  "items": [
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "date": "2026-10-16T00:00:00.000Z",
+      "url": "https://openai.com/index/stack-overflow-chatgpt-plugin",
+      "title": "Stack Overflow 分享用 Codex 开发智能体产品的过程",
+      "summary": "OpenAI 客户案例称，两名工程师用数周完成 Stack Overflow for Agents，并通过 ChatGPT 插件带动注册与智能体创建增长。增长数字来自企业披露，不能直接当成收入或利润。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "ai-products",
+      "tags": [
+        "产品更新",
+        "海外AI",
+        "成功产品"
+      ],
+      "quote": "Stack Overflow for Agents triples signups with ChatGPT plugin",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "date": "2026-10-16T00:00:00.000Z",
+      "url": "https://openai.com/index/benefit-street-partners",
+      "title": "Benefit Street Partners 用 Codex 辅助信贷分析工具开发",
+      "summary": "客户案例介绍用 Codex 构建贷款估值比较、信贷协议分析工具，并辅助代码审查和后续追问。可借鉴的是具体业务工具的开发流程，文章未提供可推广的投资收益结论。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "industry",
+      "tags": [
+        "行业动态",
+        "海外AI",
+        "AI商业化"
+      ],
+      "quote": "Benefit Street Partners answers questions faster with Codex",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "date": "2026-10-15T19:00:00.000Z",
+      "url": "https://openai.com/index/introducing-the-rosalind-academic-plan",
+      "title": "OpenAI 推出 Rosalind 学术计划，向合资格实验室提供资助访问",
+      "summary": "Rosalind Academic Plan 面向符合条件的学术实验室，提供 GPT-Rosalind 与相关生命科学研究工具的资助访问。申请资格和资源安排需查看原文，工具访问不代表科研成果或临床验证。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "ai-products",
+      "tags": [
+        "产品更新",
+        "海外AI",
+        "成功产品"
+      ],
+      "quote": "Bringing GPT-Rosalind to academic research labs",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-google-deepmind",
+      "sourceName": "Google DeepMind",
+      "tier": "T1",
+      "entity": "google",
+      "date": "2026-10-15T16:08:03.000Z",
+      "url": "https://deepmind.google/blog/accelerating-antimicrobial-discovery/",
+      "title": "Google 用 Antigravity 辅助筛选抗菌肽候选",
+      "summary": "DeepMind 技术文章介绍把数据库检索、蛋白功能预测和结构分析放进同一研究工作台，帮助筛选候选抗菌肽。候选仍在湿实验验证阶段，不能视为已发现可用药物。",
+      "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
+      "category": "paper",
+      "tags": [
+        "论文/研究",
+        "海外AI",
+        "行业报告"
+      ],
+      "quote": "Accelerating the search for antimicrobial peptides with Google Antigravity",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-hugging-face",
+      "sourceName": "Hugging Face Blog",
+      "tier": "T1",
+      "entity": "hugging-face",
+      "date": "2026-10-16T00:00:00+00:00",
+      "url": "https://huggingface.co/blog/reflection-beam",
+      "title": "Reflection Beam 开放权重，面向编程与智能体任务",
+      "summary": "Hugging Face 介绍 Beam 的 501B 总参数、每 token 23B 激活参数与长上下文设计，采用 Apache 2.0 许可。文章附推理、微调及硬件要求，适合评估自托管条件。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "ai-models",
+      "tags": [
+        "行业动态",
+        "海外AI"
+      ],
+      "quote": "Welcome Beam: a 501B open model you can own, customize, and scale",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-hugging-face",
+      "sourceName": "Hugging Face Blog",
+      "tier": "T1",
+      "entity": "hugging-face",
+      "date": "2026-10-15T20:34:01+00:00",
+      "url": "https://huggingface.co/blog/ibm-granite/granite-switch-4-1",
+      "title": "IBM Granite Switch 4.1 以模块化端点覆盖对话、决策和语音",
+      "summary": "IBM 团队介绍通过适配器组合对话、专门决策和语音识别能力，并提供库与使用资源。适合需要多类能力的企业应用参考模块化设计及部署条件。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "ai-models",
+      "tags": [
+        "行业动态",
+        "海外AI"
+      ],
+      "quote": "Granite Switch 4.1: Chat, Decisions, and Speech from One Endpoint",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-simon-willison",
+      "sourceName": "Simon Willison",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-15T19:47:52.000Z",
+      "url": "https://simonwillison.net/2026/Oct/15/chirp-pong/",
+      "title": "Simon Willison 尝试用声音让两台手机玩静态网页乒乓球",
+      "summary": "作者公开一个通过提示构建的静态 HTML 游戏实验，用麦克风声信号同步相邻手机状态。适合作为智能体编程与原型测试案例，实验可玩性不等于成熟商用产品。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "opinion",
+      "tags": [
+        "大佬观点",
+        "海外AI",
+        "AI创作者"
+      ],
+      "quote": "Chirp Pong",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-qbitai",
+      "sourceName": "量子位",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-16T12:54:54+00:00",
+      "url": "https://www.qbitai.com/2026/10/503880.html",
+      "title": "GeoPT 第一作者吴海旭创业，选择物理世界模型方向",
+      "summary": "量子位报道物原科技的创业与融资进展，并回顾创始人在时序预测和物理建模方向的研究。融资与估值为报道口径，尚不能作为产品市场验证或实际营收的证明。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "industry",
+      "tags": [
+        "行业动态",
+        "国内AI",
+        "AI商业化"
+      ],
+      "quote": "清华特奖得主AI创业再+1：GeoPT一作入局物理世界模型",
+      "region": "国内"
+    },
+    {
+      "sourceId": "rss-qbitai",
+      "sourceName": "量子位",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-16T07:01:31+00:00",
+      "url": "https://www.qbitai.com/2026/10/503815.html",
+      "title": "亚马逊 CTO 谈企业 AI：先定义问题，再选技术",
+      "summary": "量子位访谈整理 Werner Vogels 对企业采用 AI 的判断，提醒团队关注真实访问方式、任务是否适合大模型以及业务标准。适合企业技术负责人参考决策方法。",
+      "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
+      "category": "opinion",
+      "tags": [
+        "大佬观点",
+        "国内AI",
+        "AI创作者"
+      ],
+      "quote": "68岁亚马逊CTO：别让恐惧，替企业做AI决策",
+      "region": "国内"
+    }
+  ]
+}

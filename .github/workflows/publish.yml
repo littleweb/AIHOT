@@ -1,4 +1,4 @@
-name: 神灯AI研究院 · 原界面静态发布
+name: 神灯AI热点 · 原界面静态发布
 on:
   workflow_dispatch:
   push:
