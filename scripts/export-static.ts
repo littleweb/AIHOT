@@ -90,8 +90,9 @@ while (pending.length) {
   $("button[data-static-back]").each((_i, el) => {
     const button = $(el);
     const parent = new URL(button.attr("data-static-back")!, origin);
+    button.find("span").last().text("返回");
     pending.push(parent);
-    button.replaceWith($("<a>").attr("href", pageHref(parent)).attr("data-static-back", "").attr("class", button.attr("class") ?? "").append(button.contents()));
+    button.replaceWith($("<a>").attr("href", pageHref(parent)).attr("data-static-back", "").attr("aria-label", "返回").attr("class", button.attr("class") ?? "").append(button.contents()));
   });
   $("button").not("[data-theme-choice]").each((_i, el) => { const b = $(el); b.attr("disabled", "disabled").attr("title", "此操作需使用动态服务；静态版保留阅读和页面导航。"); });
   $("head").append('<style>button:disabled{cursor:default}#static-edition{font:12px/1.7 system-ui;color:#89979d;padding:12px 16px;border-top:1px solid #ffffff14}</style>');
