@@ -39,7 +39,7 @@ export const SITE = {
   /** 一句话介绍：搜索引擎、分享卡片、RSS、llms.txt 会用。 */
   description: `聚合国内外 AI 热点、实用分享、成功产品、商业化案例、报告与博主观点，${EDITION_WHEN.daily} 出一份日报。`,
   /** llms.txt 里一句话介绍下面的一段详细介绍（选填）。 */
-  llmsIntro: null as string | null,
+  llmsIntro: "静态阅读版由本地 Codex 核对公开来源后编排，保留原项目页面；不提供实时 API 或 MCP 服务。" as string | null,
   /** 一行小字：分享图、海报下方。 */
   tagline: "看见 AI 变化，找到实用机会",
   /** 搜索引擎读到的关键词（首页结构化数据）。 */
@@ -149,14 +149,14 @@ export const ABOUT = {
   /** 大标题：第一行正常颜色，第二行强调色。 */
   headline: ["全球 AI，每天一站看清，", "从热点到真正有用的实践。"] as [string, string],
   /** 标题下面的一段话。{sources} 会换成实时的信源数（两边自动加空格，所以 {sources} 两边不写空格）；统计没取到时换成 sourcesFallback。 */
-  lead: `${SITE.name} 替你盯着{sources}个信源：抓取、归并、打分、精选，${EDITION_WHEN.daily} 出一份日报。免费，不用注册。`,
+  lead: `${SITE.name} 关注{sources}个公开信源，由本地 Codex 核对出处、整理中文摘要并编排日报，目标每天早八点前发布。免费，不用注册。`,
   sourcesFallback: "十几",
   /** 信源河动画下面的四个环节。 */
   steps: {
-    collect: "官方博客、媒体和个人的订阅源都在看；更新越勤的源看得越勤，最快 15 分钟看一次。",
-    store: "抓到的都存下来，同一件事的报道归到一起，热点榜就是从这里算出来的。",
-    select: `模型先看是不是这个行业的事、有没有实际信息，再写中文标题、摘要和${ITEM_COPY.reasonLabel}；营销稿和重复转发进不来。`,
-    publish: `${EDITION_WHEN.daily} 出日报，${EDITION_WHEN.weekly} 出周报，${EDITION_WHEN.monthly} 出月报。`,
+    collect: "本地 Codex 查阅官方博客、媒体和创作者的公开内容，优先原始出处，保留实际发布日期。",
+    store: "核对后的结构化资料保存在公开仓库，发布时恢复临时数据库，再经原项目公开读取层生成页面。",
+    select: `由 Codex 写中文标题、摘要和${ITEM_COPY.reasonLabel}，不冒充人工审核，不生成未经校准的模型评分。`,
+    publish: "静态站保留原项目日报、周报、月报和主题入口。已有期刊按真实日期展示，尚未生成的报告不会伪造。",
   },
   /**
    * 作者块（选填），null 就不显示。

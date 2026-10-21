@@ -1,10 +1,10 @@
 # 神灯AI研究院
 
-全球 AI 热点、实用分享、成功产品、商业化、报告与博主阅读站。
+- [正式站点](https://shendeng.news/)
+- [运行与发布](docs/shengdeng.md)
+- [本地 Codex 每日采编](docs/local-codex-update.md)
 
-- [线上静态站](https://littleweb.github.io/shengdeng.news/)
-- [神灯AI研究院 运行、发布与待确认事项](docs/shengdeng.md)
-- 静态版通过 GitHub Actions 每天北京时间 07:00 启动，目标 08:00 前发布；目前发布原始标题与链接，未启用模型精选。
+保留 AIHOT 原项目界面，采用与 robot-taxi.news 相同的原页面静态导出流程。中文内容由本地 Codex 核对公开来源后编排，每天 05:30 启动，目标 08:00 前发布。
 
 以下为上游框架说明，产品品牌与 Logo 已替换。
 

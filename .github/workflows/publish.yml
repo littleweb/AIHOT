@@ -1,50 +1,85 @@
-name: Update 神灯AI研究院 and publish static site
+name: 神灯AI研究院 · 原界面静态发布
 on:
-  schedule:
-    - cron: '0 23 * * *' # 07:00 Asia/Shanghai; GitHub may queue scheduled jobs.
   workflow_dispatch:
   push:
     branches: [main]
-    paths:
-      - 'site/**'
-      - 'industry/**'
-      - 'modules/static/**'
-      - 'packages/backend/src/publication/briefing.ts'
-      - '.github/workflows/publish.yml'
+    paths: ['site/**', 'industry/**', 'scripts/export-static.ts', 'modules/shendeng/**', '.github/workflows/publish.yml']
 permissions:
   contents: read
   pages: write
   id-token: write
 concurrency:
-  group: shengdeng-pages
+  group: shendeng-publication
   cancel-in-progress: false
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 45
     environment:
       name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_PASSWORD: bootstrap-only
+          POSTGRES_DB: shendeng
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U postgres" --health-interval 2s --health-timeout 5s --health-retries 30
+    env:
+      DATABASE_URL: postgres://postgres:bootstrap-only@127.0.0.1:5432/shendeng
+      SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+      IMG_PROXY_SIGN_SECRET: ${{ secrets.IMG_PROXY_SIGN_SECRET }}
+      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+      SITE_URL: http://127.0.0.1:3100
+      WEB_PORT: '3100'
+      COLLECT_ENABLED: 'false'
+      MODEL_CALLS_ENABLED: 'false'
+      FEISHU_CONTENT_PUSH_ENABLED: 'false'
+      FEISHU_INTERNAL_ENABLED: 'false'
+      INDEXNOW_SUBMIT_ENABLED: 'false'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 24
+          package-manager-cache: false
+      - name: Read Pages domain and base path
+        id: pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - run: npm ci --no-audit --no-fund
-      - name: Collect public RSS titles and render static HTML
-        run: node modules/static/scripts/build.ts
-        env:
-          COLLECT_ENABLED: 'true'
-          MODEL_CALLS_ENABLED: 'false'
-      - uses: actions/configure-pages@v5
-      - name: Save downloadable HTML artifact
+      - name: Validate configuration and create ephemeral bootstrap secrets
+        run: |
+          node --input-type=module <<'JS'
+          import {appendFileSync} from 'node:fs';import {randomBytes} from 'node:crypto';
+          for(const key of ['SESSION_SECRET','IMG_PROXY_SIGN_SECRET','ADMIN_PASSWORD'])if(!process.env[key]){const value=randomBytes(32).toString('hex');console.log('::add-mask::'+value);appendFileSync(process.env.GITHUB_ENV,key+'='+value+'\n');}
+          JS
+      - run: npm run db:migrate && node scripts/seed.ts
+      - name: Validate and import source-checked Codex editions
+        run: |
+          node modules/shendeng/validate-editions.ts
+          for edition in site/editions/*.json; do
+            test -f "$edition" || { echo "No local Codex editions found"; exit 1; }
+            node modules/shendeng/import-reviewed.ts "$edition" --codex
+          done
+      - run: npm run typecheck && npm run build -w @aihot/web
+      - name: Start original API and web servers
+        run: |
+          node apps/api/src/main.ts > /tmp/api.log 2>&1 &
+          (cd apps/web && node server.ts) > /tmp/web.log 2>&1 &
+          node --input-type=module <<'JS'
+          for(let n=0;n<60;n++){try{if((await fetch('http://127.0.0.1:3100/api/health')).ok)process.exit(0)}catch{}await new Promise(r=>setTimeout(r,1000))}throw new Error('Site did not start');
+          JS
+      - run: node scripts/smoke.ts --base http://127.0.0.1:3100
+      - run: npm run export:static -- --base http://127.0.0.1:3100 --prefix "${{ steps.pages.outputs.base_path }}" --site-url "${{ steps.pages.outputs.base_url }}"
+      - name: Preserve downloadable static HTML
         uses: actions/upload-artifact@v4
         with:
-          name: shengdeng-static-html
-          path: dist
+          name: shendeng-static-html
+          path: dist/static
           retention-days: 30
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: dist/static
       - uses: actions/deploy-pages@v4
-        id: deploy
+        id: deployment

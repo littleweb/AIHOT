@@ -1,0 +1,207 @@
+{
+  "date": "2026-10-21",
+  "researchedAt": "2026-10-21T09:19:57.404954+00:00",
+  "items": [
+    {
+      "sourceId": "deepseek-official-repository",
+      "sourceName": "DeepSeek 官方仓库",
+      "tier": "T1",
+      "entity": "deepseek",
+      "date": "2026-10-20T09:12:00Z",
+      "url": "https://github.com/deepseek-ai/DeepInfer",
+      "title": "DeepSeek 开源 DeepInfer 推理框架，首批支持 V4.1-Flash",
+      "summary": "DeepSeek 发布其大规模推理框架 DeepInfer 的开源代码，采用 Apache 2.0 许可，当前支持 DeepSeek-V4.1-Flash。公开版本提供离线推理及多项运行时优化，不等于可直接替代完整在线服务的全部基础设施。",
+      "reason": "Codex 来源核对 · 国内一手工程发布；按代码范围介绍，不把第三方利润估算当成官方经营数据。",
+      "category": "ai-models",
+      "tags": [
+        "开源/仓库",
+        "国内AI",
+        "部署/工程",
+        "DeepSeek"
+      ],
+      "quote": "This open-source release provides offline inference",
+      "region": "国内"
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "date": "2026-10-20T00:00:00.000Z",
+      "url": "https://openai.com/index/openai-to-acquire-orchestra-bio",
+      "title": "OpenAI 收购 Orchestra Bio，将药物研发协作接入 Rosalind",
+      "summary": "OpenAI 宣布已收购 Orchestra Bio，计划将其团队与技术并入生命科学研究平台 Rosalind，帮助生物医药团队协调研究、试验和后续决策。公告描述的是产品整合方向，不能据此声称已缩短临床周期或获得疗效验证。",
+      "reason": "Codex 来源核对 · 官方收购消息，区分已完成收购与未来应用目标。",
+      "category": "ai-models",
+      "tags": [
+        "行业动态",
+        "海外AI",
+        "Agent",
+        "OpenAI"
+      ],
+      "quote": "OpenAI has acquired Orchestra Bio",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "date": "2026-10-20T10:00:00.000Z",
+      "url": "https://openai.com/index/ted-taylor-restaurant",
+      "title": "餐饮经营者用 ChatGPT Work 做对账，官方案例称耗时减少 94%",
+      "summary": "OpenAI 的客户案例介绍了三家餐厅的菜单定价、排班和现金对账工作流。案例称月度对账从三小时缩至五至十分钟；每年释放五万至十万美元现金流仍是优化排班后的估算，并非已实现利润。",
+      "reason": "Codex 来源核对 · 保留效率与现金流估算的边界，适合作为小企业 AI 应用复盘。",
+      "category": "industry",
+      "tags": [
+        "行业动态",
+        "AI商业化",
+        "海外AI",
+        "OpenAI"
+      ],
+      "quote": "Reduction in time spent on monthly cash reconciliation",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "tier": "T1",
+      "entity": "openai",
+      "date": "2026-10-20T07:00:00.000Z",
+      "url": "https://openai.com/index/terminal-x",
+      "title": "Terminal X 用评测智能体检查投资分析，披露 88.6% 判断一致率",
+      "summary": "据 OpenAI 发布的 Terminal X 案例，其评测智能体按照 54 项标准检查输出，在 500 次判断中与资深人工评审的一致率为 88.6%。这些是企业披露的内部评测结果，不代表通用投资表现或收益保证。",
+      "reason": "Codex 来源核对 · 有具体任务、样本与评测口径的 AI 产品案例，数据未经本站独立复测。",
+      "category": "ai-products",
+      "tags": [
+        "产品更新",
+        "成功产品",
+        "AI商业化",
+        "海外AI",
+        "OpenAI"
+      ],
+      "quote": "Across 500 scored judgments",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "tier": "T1",
+      "entity": null,
+      "date": "2026-10-20T21:14:10.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/beyond-the-kv-cache-training-and-serving-i14s-laplace-3b-linear-attention-model-on-aws-trainium2-with-native-pytorch/",
+      "title": "AWS 与 i14 披露 Laplace 3B 实验，每序列状态固定为 29.5 MB",
+      "summary": "AWS 技术报告介绍了在线性注意力模型 Laplace 3B 上使用 Trainium2 和原生 PyTorch 进行训练、推理的实现。其循环状态保持每序列 29.5 MB，与上下文长度无关；压缩历史也意味着需要针对实际任务评估检索质量。",
+      "reason": "Codex 来源核对 · 关注成本与内存机制，同时保留硬件条件和任务质量的限制。",
+      "category": "paper",
+      "tags": [
+        "论文/研究",
+        "行业报告",
+        "海外AI",
+        "部署/工程"
+      ],
+      "quote": "Its recurrent state stays at 29.5 MB per sequence",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "tier": "T1",
+      "entity": null,
+      "date": "2026-10-20T17:59:07.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/work-management-context-for-ai-agents-with-smartsheet-mcp-on-aws/",
+      "title": "AWS 分享 Smartsheet MCP 实践，连接项目表格与智能体",
+      "summary": "AWS 给出通过 Amazon Quick 和 Kiro 接入 Smartsheet MCP 的两套流程，覆盖读取项目状态与更新任务。使用前需要合适的 Smartsheet 付费计划及访问凭据，写入权限应与业务所需范围一致。",
+      "reason": "Codex 来源核对 · 可操作的业务集成案例，说明账号与授权前提。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "海外AI",
+        "MCP/工具调用",
+        "Agent"
+      ],
+      "quote": "Business, Enterprise, or AWM plan",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-github-ai",
+      "sourceName": "GitHub Blog · AI & ML",
+      "tier": "T1",
+      "entity": null,
+      "date": "2026-10-20T16:05:03.000Z",
+      "url": "https://github.blog/ai-and-ml/github-copilot/how-3-java-champions-are-using-github-copilot-for-increased-productivity/",
+      "title": "三位 Java 开发者分享 Copilot 实践，强调上下文与人工复核",
+      "summary": "GitHub 采访三位 Java 社区专家，介绍他们用 Copilot 开展功能原型、代码分析和文档工作的方法。共同经验是提供项目上下文、检验输出并保留工程责任；案例中的开发提速不能直接推广到所有团队。",
+      "reason": "Codex 来源核对 · 有具体任务和复核方法，适合开发者参考。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "编码",
+        "海外AI",
+        "GitHub"
+      ],
+      "quote": "keep humans responsible for the results",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-github-ai",
+      "sourceName": "GitHub Blog · AI & ML",
+      "tier": "T1",
+      "entity": null,
+      "date": "2026-10-19T18:47:22.000Z",
+      "url": "https://github.blog/ai-and-ml/github-copilot/how-to-continue-a-github-copilot-app-session-in-vs-code/",
+      "title": "GitHub 介绍如何将 Copilot 应用会话接续到 VS Code",
+      "summary": "GitHub 发布操作指南，说明如何将 Copilot 应用中的智能体会话接到 VS Code，延续对话、代码变更和工作上下文。具体可用性与权限要求以原文和当前客户端为准。",
+      "reason": "Codex 来源核对 · 减少工具切换时的上下文丢失，提供原文操作入口。",
+      "category": "tip",
+      "tags": [
+        "教程/实践",
+        "编码",
+        "海外AI",
+        "GitHub"
+      ],
+      "quote": "without losing the conversation",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-simon-willison",
+      "sourceName": "Simon Willison",
+      "tier": "T2",
+      "entity": null,
+      "date": "2026-10-20T19:34:19.000Z",
+      "url": "https://simonwillison.net/2026/Oct/20/battledrones/",
+      "title": "Simon Willison 复盘用编码智能体迭代浏览器 RTS 游戏",
+      "summary": "Simon Willison 分享 Battle Drones 的开发过程，通过多轮提示与试玩把原型改进为支持手机和桌面的策略游戏，并尝试设备间通过声音同步多人状态。作者明确表示大部分代码未经逐行审阅，文章展示的是个人实验。",
+      "reason": "Codex 来源核对 · 保留原作者的风险说明，把项目迭代经验与产品成功证明区分开。",
+      "category": "opinion",
+      "tags": [
+        "大佬观点",
+        "AI创作者",
+        "海外AI",
+        "编码"
+      ],
+      "quote": "I’ve reviewed almost none of the code",
+      "region": "国外"
+    },
+    {
+      "sourceId": "rss-microsoft-research",
+      "sourceName": "Microsoft Research",
+      "tier": "T1",
+      "entity": "microsoft",
+      "date": "2026-10-12T16:00:00.000Z",
+      "url": "https://www.microsoft.com/en-us/research/blog/simulating-student-learning-for-better-ai-tutoring/",
+      "title": "研究回看：微软用 StudentSim 模拟学习者，评估 AI 辅导系统",
+      "summary": "微软研究院在 10 月 12 日介绍 StudentSim，尝试在真实学生测试前模拟学习反馈，帮助研究人员改进 AI 辅导系统。该系统属于研究用途，尚未作为课堂产品部署，也不用于替代教师。",
+      "reason": "Codex 来源核对 · 历史研究背景，保留原日期，不放入今天新消息的统计。",
+      "category": "paper",
+      "tags": [
+        "论文/研究",
+        "行业报告",
+        "海外AI",
+        "Microsoft"
+      ],
+      "quote": "it is not a product",
+      "region": "国外"
+    }
+  ]
+}
