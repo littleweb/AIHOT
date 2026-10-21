@@ -12,12 +12,12 @@
  * feedLabel 是分类 RSS 标题里的名字（不写就用 label）。公开接口、RSS 和 MCP 里要把一类并进另一类发布，写在站点设置里（site/site.ts 的 PUBLIC_CATEGORIES）。
  */
 export const CATEGORIES = [
-  { key: "ai-models", tagColor: "indigo", label: "AI热点", feedLabel: "国内外 AI 热点", section: "国内外AI热点", guide: "国内外模型发布、能力价格变化、重大融资并购、政策与安全事件。没有可核验经营数据的行业新闻归这里。" },
-  { key: "tip", tagColor: "green", label: "实用AI", section: "实用AI分享", guide: "可照做的方法、提示词、开源工具和工程实践，写清步骤、成本、适用条件及局限。单纯发布产品归产品。", commentary: true },
-  { key: "ai-products", tagColor: "turquoise", label: "成功产品", feedLabel: "AI 成功产品", section: "AI成功产品", guide: "可使用的AI产品及更新，优先有真实用户、留存、收入或效率证据的案例。发布不等于成功，未验证数据必须注明。" },
-  { key: "industry", tagColor: "orange", label: "AI赚钱", section: "AI商业化与赚钱", guide: "AI商业化、独立开发、定价获客及经营复盘。需要明确收入来源、时间、成本和证据；融资额、流水不当利润，不把收益承诺当事实。" },
-  { key: "paper", tagColor: "violet", label: "AI报告", feedLabel: "AI 报告与研究", section: "AI报告与研究", guide: "行业报告、调查、论文、技术报告与研究数据，注明发布机构、样本、时间和方法局限。" },
-  { key: "opinion", tagColor: "purple", label: "AI博主", section: "AI博主与观点", guide: "AI创作者原创分析、访谈和经验，优先有资料和实践证据的内容。作者是博主不自动归此类，具体新闻与教程按主要内容归类。", commentary: true },
+  { key: "ai-models", tagColor: "indigo", label: "模型", feedLabel: "AI 模型", section: "模型发布/更新", guide: "模型本身的发布、版本、权重开放、能力或价格变化，以及既有榜单上的模型成绩。公布一次跑分不是发布新基准，也不是教程。" },
+  { key: "ai-products", tagColor: "turquoise", label: "产品", feedLabel: "AI 产品", section: "产品发布/更新", guide: "可使用的 AI 产品、功能、应用、工具、API、平台和工程组件的发布更新。模型厂商发布的推理框架、算子库、硬件适配组件仍是产品，不能因为厂商名归成模型。" },
+  { key: "industry", tagColor: "orange", label: "行业", feedLabel: "行业动态", section: "行业动态", guide: "已发生的公司经营、融资并购、人事、合作、诉讼、政策、真实安全事故及调查进展。新闻由当事人发帖、带有态度，也不因此变成观点。" },
+  { key: "tip", tagColor: "green", label: "教程", section: "技巧与观点", guide: "读者可以照着使用的方法、提示词、工具用法、工程实践复盘与技术讲解。重点是可复用的做法；单纯发布工具归产品，只有态度和预测而无做法归观点。", commentary: true },
+  { key: "paper", tagColor: "violet", label: "论文", feedLabel: "论文", section: "论文研究", guide: "以新研究方法、实验设计与发现为核心的论文、技术报告、新基准或研究数据集。系统性红队实验属于研究；既有榜单成绩归模型，真实事故的新闻调查归行业。" },
+  { key: "opinion", tagColor: "purple", label: "观点", section: "技巧与观点", guide: "重点是作者的解释、判断、主张、预测、评论或访谈观点。讨论市场不自动归行业，作者是名人不自动归观点。", commentary: true },
 ] as const satisfies ReadonlyArray<{ key: string; tagColor: string; label: string; feedLabel?: string; section: string; guide: string; commentary?: true }>;
 
 /**

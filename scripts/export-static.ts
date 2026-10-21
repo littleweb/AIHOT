@@ -2,6 +2,7 @@
 // Serve the result with any static host. Links are rewritten for GitHub project Pages.
 import { mkdir, writeFile, cp, rm } from "node:fs/promises";
 import path from "node:path";
+import { adaptFeaturedFilters } from "../modules/shendeng/static-featured-filters.ts";
 import { SITE } from "@aihot/site";
 import { createHash } from "node:crypto";
 import { load } from "cheerio";
@@ -56,6 +57,7 @@ while (pending.length) {
   $("link[rel=canonical]").attr("href", publishedUrl + u.pathname + u.search);
   $("meta[property='og:url']").attr("content", publishedUrl + u.pathname + u.search);
   $("meta[property='og:image'], meta[name='twitter:image']").remove();
+  adaptFeaturedFilters($, u);
   for (const a of $("a[href]").toArray()) {
     const href = $(a).attr("href")!;
     if (/^(#|mailto:|tel:)/.test(href)) continue;

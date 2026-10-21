@@ -1,6 +1,7 @@
 // Failure cases: a benchmark, price change, tool or follow-up is counted as a new model; a category
 // correction leaves frozen daily/weekly/monthly columns stale, rewrites the lead or selection, triggers
 // a paid digest, leaves an obsolete section introduction, or commits without its audit/revision.
+import { CATEGORIES } from "../industry/taxonomy.ts";
 import { tag } from "./setup.ts";
 import assert from "node:assert/strict";
 import { after, test } from "node:test";
@@ -11,6 +12,9 @@ import { publishArticle } from "@aihot/backend/publication/publish";
 import { dailyMetrics } from "@aihot/backend/reports/compose";
 import type { EditionEntry } from "@aihot/backend/reports/edition";
 import { QUEUES, getBoss, stopBoss } from "@aihot/backend/jobs/queue";
+
+const modelSection = CATEGORIES.find(c => c.key === "ai-models")!.section;
+const productSection = CATEGORIES.find(c => c.key === "ai-products")!.section;
 
 after(async () => { await stopBoss(); await closeDb(); });
 
@@ -37,8 +41,8 @@ test("category corrections revise every standard report atomically without selec
   await publishArticle(articleId, { releasedAt: new Date() });
   const entry = { itemId: articleId, title: "冻结标题", summary: "冻结摘要", sourceId, firstParty: true, role: "官方" };
   const contents = [
-    { kind: "daily", key: "2097-01-02", content: { leadItemId: articleId, lead: { title: "冻结头条" }, highlights: [articleId], flashes: [], sections: [{ label: "国内外AI热点", items: [entry] }], metrics: { totalEvents: 1, modelsReleased: 1 } } },
-    ...(["weekly", "monthly"] as const).map(kind => ({ kind, key: kind === "weekly" ? "2097-W01" : "2097-01", content: { headline: "冻结头条", leadItemId: articleId, storyOrder: [articleId], overview: "保留总述", themes: [{ heading: "国内外AI热点", summary: "旧模型导读", storyRefs: [entry] }], metrics: { totalStories: 1 } } })),
+    { kind: "daily", key: "2097-01-02", content: { leadItemId: articleId, lead: { title: "冻结头条" }, highlights: [articleId], flashes: [], sections: [{ label: modelSection, items: [entry] }], metrics: { totalEvents: 1, modelsReleased: 1 } } },
+    ...(["weekly", "monthly"] as const).map(kind => ({ kind, key: kind === "weekly" ? "2097-W01" : "2097-01", content: { headline: "冻结头条", leadItemId: articleId, storyOrder: [articleId], overview: "保留总述", themes: [{ heading: modelSection, summary: "旧模型导读", storyRefs: [entry] }], metrics: { totalStories: 1 } } })),
   ];
   for (const r of contents) await sql`INSERT INTO reports (kind,key,window_start,window_end,content,generated_at,origin)
     VALUES (${r.kind},${r.key},now(),now(),${sql.json(r.content as never)},now(),'imported')`;
@@ -62,12 +66,12 @@ test("category corrections revise every standard report atomically without selec
     const c = saved!.content;
     assert.equal(c.leadItemId, articleId);
     if (r.kind === "daily") {
-      assert.deepEqual(c.sections, [{ label: "AI成功产品", items: [entry] }]);
+      assert.deepEqual(c.sections, [{ label: productSection, items: [entry] }]);
       assert.equal(c.metrics.modelsReleased, 0);
       assert.deepEqual(c.highlights, [articleId]);
       assert.equal(c.lead.title, "冻结头条");
     } else {
-      assert.deepEqual(c.themes, [{ heading: "AI成功产品", summary: null, storyRefs: [entry] }]);
+      assert.deepEqual(c.themes, [{ heading: productSection, summary: null, storyRefs: [entry] }]);
       assert.deepEqual(c.storyOrder, [articleId]);
       assert.equal(c.overview, "保留总述");
     }
@@ -76,6 +80,6 @@ test("category corrections revise every standard report atomically without selec
   assert.equal((await sql`SELECT count(*)::int AS n FROM pgboss.job WHERE name=${QUEUES.digest}`)[0]!.n, digestCount);
   await overrideFields(articleId, { fields: {}, clear: ["category", "tags"], version: 1, reason: "验证撤销纠错" }, "test-category");
   const [restored] = await sql`SELECT content FROM reports WHERE kind='daily' AND key='2097-01-02'`;
-  assert.equal(restored!.content.sections[0].label, "国内外AI热点");
+  assert.equal(restored!.content.sections[0].label, modelSection);
   assert.equal(restored!.content.metrics.modelsReleased, 1);
 });

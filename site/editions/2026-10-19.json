@@ -61,9 +61,9 @@
       "title": "NVIDIA 与媒体行业讨论主权 AI 和智能体安全",
       "summary": "官方文章介绍欧洲公共广播与内容生产领域的技术合作，涉及开放模型、主权框架和云端集成。适合媒体技术团队跟踪数据控制与智能体安全方案。",
       "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
-      "category": "paper",
+      "category": "industry",
       "tags": [
-        "论文/研究",
+        "行业动态",
         "海外AI",
         "行业报告",
         "Agent",
@@ -85,9 +85,9 @@
       "title": "TorchNeuron 为 Hugging Face 模型提供 Trainium 原生后端",
       "summary": "官方文章介绍 PyTorch 插件对 eager mode、torch.compile 和分布式 API 的支持，并说明 Transformers、Diffusers 的集成路径。公开测试版的环境要求应在原文核对。",
       "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
-      "category": "tip",
+      "category": "ai-products",
       "tags": [
-        "教程/实践",
+        "开源/仓库",
         "海外AI",
         "部署/工程"
       ],
@@ -107,9 +107,9 @@
       "title": "llm-echo 0.5 更新调试插件，不调用模型即可检查提示输入",
       "summary": "Simon Willison 的调试插件把输入提示原样回显，并更新模拟的 token 用量统计。开发者可用它检查工具调用、系统提示等结构，适合本地排错和理解调用过程。",
       "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
-      "category": "tip",
+      "category": "ai-products",
       "tags": [
-        "教程/实践",
+        "产品更新",
         "海外AI",
         "MCP/工具调用",
         "AI玩法"
@@ -128,9 +128,9 @@
       "title": "llm-tools-datasette 0.1.1 修复 HTTP 依赖兼容问题",
       "summary": "Simon Willison 发布插件修订，修复 LLM 切换 HTTP 客户端后对未显式声明依赖的插件造成的影响。使用 Datasette 与 LLM 工具链的开发者可查看升级说明。",
       "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
-      "category": "tip",
+      "category": "ai-products",
       "tags": [
-        "教程/实践",
+        "产品更新",
         "海外AI",
         "AI玩法"
       ],

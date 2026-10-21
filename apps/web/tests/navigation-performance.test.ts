@@ -10,6 +10,7 @@
 // - offscreen code downloads/runs immediately, visible code stays plain, or raw copying changes;
 // - tiny/linked pictures become zoom buttons, or language changes keep old handlers;
 // - a deep return loses its anchor, or folded dates confuse the anchor search.
+import { CATEGORY_LABELS } from "@aihot/contracts/taxonomy";
 import assert from "node:assert/strict";
 import { before, after, test } from "node:test";
 import { chromium, webkit, expect, type Browser } from "@playwright/test";
@@ -92,10 +93,10 @@ test('SSR list and visited query variants return offline without another read',a
     await expect(page.getByRole('link',{name:'性能检查文章',exact:true})).toBeVisible({timeout:1500});
     await context.setOffline(false);
     await page.getByRole('button',{name:/^筛选/}).click();
-    await page.getByRole('link',{name:'AI热点',exact:true}).click();
+    await page.getByRole('link',{name:CATEGORY_LABELS['ai-models'],exact:true}).click();
     await expect(page.getByRole('link',{name:'分类 ai-models',exact:true})).toBeVisible();
     await page.getByRole('button',{name:/^筛选/}).click();
-    await page.getByRole('link',{name:'成功产品',exact:true}).click();
+    await page.getByRole('link',{name:CATEGORY_LABELS['ai-products'],exact:true}).click();
     await expect(page.getByRole('link',{name:'分类 ai-products',exact:true})).toBeVisible();
     await context.setOffline(true);
     await page.goBack();
@@ -153,16 +154,16 @@ test('a press on a selected link preserves visited data and the next revisit sta
   page.on('request',request=>{if(request.url().includes('.data'))requests.push(request.url());});
   try{
     await visit(page,origin+'/');
-    await page.getByRole('link',{name:'AI热点',exact:true}).click();
+    await page.getByRole('link',{name:CATEGORY_LABELS['ai-models'],exact:true}).click();
     await expect(page.getByRole('link',{name:'分类 ai-models',exact:true})).toBeVisible();
-    await page.getByRole('link',{name:'AI热点',exact:true}).dispatchEvent('pointerdown',{button:0,pointerType:'mouse',isPrimary:true});
+    await page.getByRole('link',{name:CATEGORY_LABELS['ai-models'],exact:true}).dispatchEvent('pointerdown',{button:0,pointerType:'mouse',isPrimary:true});
     await page.waitForTimeout(150);
-    await page.getByRole('link',{name:'成功产品',exact:true}).click();
+    await page.getByRole('link',{name:CATEGORY_LABELS['ai-products'],exact:true}).click();
     await expect(page.getByRole('link',{name:'分类 ai-products',exact:true})).toBeVisible();
-    await page.getByRole('link',{name:'成功产品',exact:true}).dispatchEvent('pointerdown',{button:0,pointerType:'mouse',isPrimary:true});
+    await page.getByRole('link',{name:CATEGORY_LABELS['ai-products'],exact:true}).dispatchEvent('pointerdown',{button:0,pointerType:'mouse',isPrimary:true});
     await page.waitForTimeout(150);
     const before=requests.length;
-    await page.getByRole('link',{name:'AI热点',exact:true}).click();
+    await page.getByRole('link',{name:CATEGORY_LABELS['ai-models'],exact:true}).click();
     await expect(page.getByRole('link',{name:'分类 ai-models',exact:true})).toBeVisible();
     assert.deepEqual(requests.slice(before),[],'neither prefetch nor navigation may evict and reload a still-valid visited page');
   }finally{await context.close();}

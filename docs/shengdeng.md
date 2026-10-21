@@ -55,3 +55,9 @@ site/social-sources.json 配置了 5 个公众号观察来源（量子位、机�
 ## 关键词观察
 
 site/research-keywords.json 保存 AI产品、AI硬件、AI玩法、AI创业、AI赛道五组中英文关键词、检索式及收录边界。每日采编逐组检索，再与既有信源交叉核验。候选脚本另存 .data/keyword-research-plan.json，关键词命中不等于已核实或自动发布。五组对应同名主题入口；已有来源记录按原文范围补标签，保留原始日期。
+
+## 持续兼容上游
+
+用户要求非必要不改上游原始代码。优先使用原有 site/、industry/ 配置，特有能力集中在 modules/shendeng/ 和 scripts/export-static.ts。精选六类由 industry/taxonomy.ts 配置为模型、产品、行业、教程、论文、观点，分类 key 不变；汇总入口“头条”和隐藏精选一手入口由 site/featured-filters.json 配置，经 modules/shendeng/static-featured-filters.ts 在静态导出时适配。手机复用同一组原生分类链接。未修改 apps/ 或 packages/ 的分类组件。
+
+上游升级先在隔离分支核对配置结构和公开接口，运行类型、后端、网页与冒烟检查，再验证电脑与手机的分类、详情返回、主题、报告日历和导出结果。现有核心差异（静态返回标记、主题空项过滤、原生报告日历）应在升级时逐项复核；上游具备等价能力后优先删除本站对应适配，不复制旧版本核心文件覆盖新版本。

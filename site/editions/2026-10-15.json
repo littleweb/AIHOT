@@ -158,9 +158,9 @@
       "title": "FLUX.3 Image Klein 接入 Diffusers，支持布局控制",
       "summary": "Hugging Face 教程介绍文生图、多参考图编辑及通过边界框指定布局，并给出基础模型、量化与 LoRA 路径。适合希望用代码组织图像生成流程的开发者。",
       "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
-      "category": "tip",
+      "category": "ai-products",
       "tags": [
-        "教程/实践",
+        "产品更新",
         "海外AI",
         "编码",
         "图像生成"
@@ -248,9 +248,9 @@
       "title": "Anthropic 为 METR 评估团队开放更深入的内部访问",
       "summary": "官方介绍向外部评估者提供接近员工层级的访问，以审查前沿模型风险，并由 METR 公布评估结果。访问范围仍有敏感技术信息等限制，开放评估本身不等于已经通过安全验证。",
       "reason": "Codex 来源核对 · 关注风险评估过程与公开问责机制。",
-      "category": "paper",
+      "category": "industry",
       "tags": [
-        "论文/研究",
+        "行业动态",
         "安全/对齐",
         "海外AI",
         "行业报告"

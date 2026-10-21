@@ -80,14 +80,13 @@
       "title": "DeepSeek 开源 DeepInfer 推理框架，首批支持 V4.1-Flash",
       "summary": "DeepSeek 发布其大规模推理框架 DeepInfer 的开源代码，采用 Apache 2.0 许可，当前支持 DeepSeek-V4.1-Flash。公开版本提供离线推理及多项运行时优化，不等于可直接替代完整在线服务的全部基础设施。",
       "reason": "Codex 来源核对 · 国内一手工程发布；按代码范围介绍，不把第三方利润估算当成官方经营数据。",
-      "category": "ai-models",
+      "category": "ai-products",
       "tags": [
         "开源/仓库",
         "国内AI",
         "部署/工程",
         "DeepSeek",
-        "编码",
-        "模型发布"
+        "编码"
       ],
       "quote": "This open-source release provides offline inference",
       "region": "国内",
@@ -105,7 +104,7 @@
       "title": "OpenAI 收购 Orchestra Bio，将药物研发协作接入 Rosalind",
       "summary": "OpenAI 宣布已收购 Orchestra Bio，计划将其团队与技术并入生命科学研究平台 Rosalind，帮助生物医药团队协调研究、试验和后续决策。公告描述的是产品整合方向，不能据此声称已缩短临床周期或获得疗效验证。",
       "reason": "Codex 来源核对 · 官方收购消息，区分已完成收购与未来应用目标。",
-      "category": "ai-models",
+      "category": "industry",
       "tags": [
         "行业动态",
         "海外AI",
@@ -129,9 +128,9 @@
       "title": "餐饮经营者用 ChatGPT Work 做对账，官方案例称耗时减少 94%",
       "summary": "OpenAI 的客户案例介绍了三家餐厅的菜单定价、排班和现金对账工作流。案例称月度对账从三小时缩至五至十分钟；每年释放五万至十万美元现金流仍是优化排班后的估算，并非已实现利润。",
       "reason": "Codex 来源核对 · 保留效率与现金流估算的边界，适合作为小企业 AI 应用复盘。",
-      "category": "industry",
+      "category": "tip",
       "tags": [
-        "行业动态",
+        "教程/实践",
         "AI商业化",
         "海外AI",
         "OpenAI",
@@ -227,7 +226,7 @@
       "title": "德国与 NVIDIA 讨论工业 AI 路线，聚焦产业应用",
       "summary": "NVIDIA 官方活动报道记录德国工业 AI 路线讨论，强调制造业与本地产业基础结合。该内容属于合作方向与战略交流，不能据此推断具体项目已交付或产生收益。",
       "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
-      "category": "ai-models",
+      "category": "industry",
       "tags": [
         "行业动态",
         "海外AI",
@@ -249,9 +248,9 @@
       "title": "Eon 用统一 MCP 网关整合多云生产排障",
       "summary": "AWS 客户案例介绍把 AWS、GCP、Azure 的排障工具接入统一认证网关，减少每个工具单独配置凭据的负担。案例中的入职提速是企业披露结果，实际收益取决于原有流程。",
       "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
-      "category": "industry",
+      "category": "tip",
       "tags": [
-        "行业动态",
+        "教程/实践",
         "海外AI",
         "AI商业化",
         "Agent",
@@ -273,9 +272,9 @@
       "title": "Bedrock 为 Claude 模型提供结构化输出与严格工具调用",
       "summary": "AWS 公告介绍通过 JSON Schema 和 strict tool use 约束输出结构，减少自行解析和修补格式的工作。结构符合约定并不保证业务内容正确，仍应保留数据与权限检查。",
       "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
-      "category": "tip",
+      "category": "ai-products",
       "tags": [
-        "教程/实践",
+        "产品更新",
         "海外AI",
         "安全/对齐",
         "MCP/工具调用"
@@ -319,9 +318,9 @@
       "title": "Deepgram 分享把语音转写模型迁移到 Trainium2 的工程实践",
       "summary": "AWS 客户文章介绍 Nova-3 离线批量转写的移植、内核优化和 Rust 数据并行运行时。适合参考迁移过程与成本评估方式，吞吐和成本表现具有硬件与工作负载前提。",
       "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
-      "category": "industry",
+      "category": "tip",
       "tags": [
-        "行业动态",
+        "教程/实践",
         "海外AI",
         "AI商业化",
         "语音",
@@ -362,9 +361,9 @@
       "title": "Hugging Face 介绍 TorchTPU，让 PyTorch 原生运行于 TPU",
       "summary": "官方开发文章介绍以原生 PyTorch 后端连接 TPU，并支持 Transformers、Diffusers 与 Kernels。适合计划使用 TPU 的团队了解生态集成和迁移路径。",
       "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
-      "category": "tip",
+      "category": "ai-products",
       "tags": [
-        "教程/实践",
+        "开源/仓库",
         "海外AI",
         "部署/工程"
       ],
@@ -384,9 +383,9 @@
       "title": "AnyLanguageModel 1.0 统一苹果平台本地与托管模型接口",
       "summary": "开发者可沿用 Foundation Models 风格的会话 API，在系统模型、llama.cpp、MLX、Core ML 和托管服务之间选择。文章同时介绍 Swift 配套库，适合苹果应用开发者参考。",
       "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
-      "category": "tip",
+      "category": "ai-products",
       "tags": [
-        "教程/实践",
+        "开源/仓库",
         "海外AI",
         "端侧"
       ],
@@ -404,9 +403,9 @@
       "title": "PyTorch 2.15 的 MPS 更新聚焦 Mac 本地模型性能",
       "summary": "Hugging Face 的 PyTorch 团队介绍 MPS 的 FP8、解码路径、Metal 内核与内存优化。不同模型收益不同，可按文中工作负载在自己的 Mac 上复测。",
       "reason": "Codex 来源核对 · 原始技术资料，附实现与评估入口。",
-      "category": "tip",
+      "category": "ai-products",
       "tags": [
-        "教程/实践",
+        "产品更新",
         "海外AI",
         "端侧",
         "部署/工程"
@@ -450,9 +449,9 @@
       "title": "宝玉拆解 NotebookLM 视频概览的创作编排流程",
       "summary": "文章介绍从理解意图、收集上下文到评审卡片和视频生成的多步骤流程。作者提示其中工具和结构依赖 NotebookLM 的专用组件，不能把整份内容当成通用提示词直接运行。",
       "reason": "Codex 来源核对 · 按原文范围整理，保留案例及数据的适用边界。",
-      "category": "opinion",
+      "category": "tip",
       "tags": [
-        "大佬观点",
+        "教程/实践",
         "国内AI",
         "AI创作者",
         "视频",
