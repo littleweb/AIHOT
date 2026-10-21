@@ -1,0 +1,50 @@
+name: Update RoboTaxi and publish static site
+on:
+  schedule:
+    - cron: '0 23 * * *' # 07:00 Asia/Shanghai; GitHub may queue scheduled jobs.
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - 'industry/**'
+      - 'modules/static/**'
+      - 'packages/backend/src/publication/briefing.ts'
+      - '.github/workflows/publish.yml'
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: robotaxi-pages
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci --no-audit --no-fund
+      - name: Collect public RSS titles and render static HTML
+        run: node modules/static/scripts/build.ts
+        env:
+          COLLECT_ENABLED: 'true'
+          MODEL_CALLS_ENABLED: 'false'
+      - uses: actions/configure-pages@v5
+      - name: Save downloadable HTML artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: robotaxi-static-html
+          path: dist
+          retention-days: 30
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - uses: actions/deploy-pages@v4
+        id: deploy

@@ -13,7 +13,7 @@
     {
       "key": "genre",
       "name": "内容类型",
-      "blurb": "按体裁浏览：论文、教程、观点、政策……"
+      "blurb": "热点、实践、产品、商业化、报告与创作者"
     }
   ],
   "topics": [
@@ -332,6 +332,60 @@
         "政策/监管"
       ],
       "definition": "AI 相关的政策法规与政府监管：立法进展、出口管制与全球治理。"
+    },
+    {
+      "slug": "domestic-ai",
+      "name": "国内AI",
+      "group": "genre",
+      "tags": [
+        "国内AI"
+      ],
+      "definition": "中国AI公司、产品与应用进展"
+    },
+    {
+      "slug": "global-ai",
+      "name": "海外AI",
+      "group": "genre",
+      "tags": [
+        "海外AI"
+      ],
+      "definition": "海外AI一手消息与产业变化"
+    },
+    {
+      "slug": "ai-business",
+      "name": "AI赚钱",
+      "group": "genre",
+      "tags": [
+        "AI商业化"
+      ],
+      "definition": "有证据的AI商业化复盘"
+    },
+    {
+      "slug": "successful-products",
+      "name": "AI成功产品",
+      "group": "genre",
+      "tags": [
+        "成功产品"
+      ],
+      "definition": "验证过需求和成效的AI产品"
+    },
+    {
+      "slug": "ai-reports",
+      "name": "AI报告",
+      "group": "genre",
+      "tags": [
+        "行业报告"
+      ],
+      "definition": "带方法和出处的行业报告"
+    },
+    {
+      "slug": "ai-creators",
+      "name": "AI博主",
+      "group": "genre",
+      "tags": [
+        "AI创作者"
+      ],
+      "definition": "原创分析与实践分享"
     }
   ]
 }
