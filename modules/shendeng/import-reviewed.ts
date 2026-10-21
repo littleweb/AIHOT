@@ -1,5 +1,6 @@
 // Import the source-verified stories reviewed during the initial setup, with no model score.
 // Source dates are preserved. --codex accepts local Codex research, explicitly labelled without human review.
+import { publishArticle } from "@aihot/backend/publication/publish";
 import { loadItemDetail } from "@aihot/backend/publication/detail";
 import type { EditionEntry } from "@aihot/backend/reports/edition";
 import { validateEdition, stableArticleId } from "./edition.ts";
@@ -30,7 +31,10 @@ for (const a of entries) {
   await detachFromFact(id,codex?"本地 Codex 核对公开来源，作为独立报道导入":"迁移时逐条人工核实为独立报道，后续自动采集不得重写该决定",codex?"shendeng-codex":"shendeng-setup");
   await overrideFields(id,{fields:{title:a.title,summary:a.summary,reason:a.reason,category:a.category,tags:a.tags??["行业动态"],selected:true,score:null},version:Number((await sql`SELECT version FROM editorial_overrides WHERE article_id=${id}`)[0]?.version ?? 0),reason:codex?'本地 Codex 检索并核对公开来源，不代表原评分模型评分':'首次站点迁移：逐条核对原文的人工编辑导入，不代表模型评分'},codex?'shendeng-codex':'shendeng-setup');
   // This archive is indexed by verified source publication date, including historical backfill.
-  if(codex) await sql`UPDATE articles SET timeline_at=${new Date(a.date)} WHERE id=${id}`;
+  if(codex) {
+    await sql`UPDATE articles SET timeline_at=${new Date(a.date)} WHERE id=${id}`;
+    await publishArticle(id);
+  }
   imported.push({id,source:a});
   console.log('Imported source:',a.url);
 }
