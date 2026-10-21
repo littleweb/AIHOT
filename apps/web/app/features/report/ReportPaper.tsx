@@ -64,6 +64,8 @@ function Masthead({ report, index, quiet }: { report: ReportDetail; index: Repor
         </div>
       </div>
 
+      <IssueDots kind={report.kind} reportKey={report.key} issueNumber={report.issueNumber} index={index} className="mb-5 rounded-panel well p-4 @[760px]:hidden" />
+
       {/* A quiet day has no figures to set and nothing to read through: the masthead just closes. */}
       {quiet ? (
         <div aria-hidden="true" className="border-t border-line-strong" />

@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['site/**', 'industry/**', 'scripts/export-static.ts', 'modules/shendeng/**', '.github/workflows/publish.yml']
+    paths: ['site/**', 'industry/**', 'scripts/export-static.ts', 'apps/web/app/features/report/**', 'modules/shendeng/**', '.github/workflows/publish.yml']
 permissions:
   contents: read
   pages: write

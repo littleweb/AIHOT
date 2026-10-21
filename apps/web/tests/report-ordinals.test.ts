@@ -2,6 +2,7 @@
 // Failure cases: the masthead numbering the newest of 405 issues 400 (the navigation index's length); an
 // issue older than the index losing its number; the calendar marking that issue as not published; the
 // daily archive counting 400 issues beside a masthead that numbers 405.
+import { load } from "cheerio";
 import assert from "node:assert/strict";
 import { after, before, test } from "node:test";
 import type { ReportDetail, ReportKind, ReportNavigationEntry } from "@aihot/contracts/site";
@@ -54,6 +55,23 @@ for (const kind of kinds) {
     const visible = masthead(await response.text());
     assert.match(visible, /第\s*405\s*期/);
     assert.doesNotMatch(visible, /第\s*400\s*期/);
+  });
+
+  test(`the ${kind} calendar exposes published periods as native links without client scripts`, async () => {
+    const current = keys[kind].at(-1)!;
+    const response = await fetch(`${web.origin}/${kind}`);
+    const $ = load(await response.text());
+    const calendars = $('nav[aria-label$="出刊日历"]');
+    assert.ok(calendars.length > 0);
+    const cells = periodGrid(kind, current, index(kind), 405).cells;
+    for (const calendar of calendars.toArray()) {
+      const links = $(calendar).find("a");
+      assert.equal(links.length, cells.filter(c => c.state === "issue" || c.state === "current").length);
+      assert.equal($(calendar).find('a[aria-current="date"]').attr("href"), `/${kind}/${current}`);
+      for (const cell of cells.filter(c => c.state === "none")) {
+        assert.equal(links.filter((_i, a) => $(a).attr("href") === `/${kind}/${cell.key}`).length, 0);
+      }
+    }
   });
 
   test(`the oldest ${kind} issue, outside the navigation, keeps its number`, async () => {
