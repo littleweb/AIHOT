@@ -1,8 +1,228 @@
 {
   "date": "2026-10-21",
-  "researchedAt": "2026-10-21T10:14:09.975843+00:00",
+  "researchedAt": "2026-10-21T12:07:34.953770+00:00",
   "backfill": true,
   "items": [
+    {
+      "sourceId": "rss-nvidia-blog",
+      "sourceName": "NVIDIA Blog",
+      "tier": "T1",
+      "entity": "nvidia",
+      "subjects": [
+        "nvidia"
+      ],
+      "date": "2026-10-21T10:50:37+00:00",
+      "url": "https://blogs.nvidia.com/blog/local-ai-gtc-rtx-dgx-spark-station-sync/",
+      "title": "NVIDIA 更新本地 AI 产品线：DGX Spark 64GB 将于10月23日推出",
+      "summary": "NVIDIA 在 GTC 柏林介绍本地 AI 设备与软件更新：DGX Spark 64GB 计划于10月23日起由合作伙伴推出，DGX Spark 支持手动配置最多八机集群，Windows 版 DGX Station 预计12月推出。RTX Spark 还加入 Underdog 本地助手；应区分已提供的功能与后续计划。",
+      "reason": "补充AI硬件与端侧产品的新进展，容量、集群方式与交付日期均以官方说明为准，未独立实测。",
+      "category": "ai-products",
+      "quote": "DGX Spark 64GB available on Friday, Oct. 23",
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "AI硬件",
+        "端侧",
+        "Agent",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "rss-nvidia-blog",
+      "sourceName": "NVIDIA Blog",
+      "tier": "T1",
+      "entity": "google",
+      "subjects": [
+        "google",
+        "nvidia"
+      ],
+      "date": "2026-10-21T10:45:17+00:00",
+      "url": "https://blogs.nvidia.com/blog/google-cloud-vera-rubin-infrastructure/",
+      "title": "Google Cloud 与 NVIDIA 披露 A5X 实例进展，计划11月全面可用",
+      "summary": "官方介绍采用 Vera Rubin NVL72 的 A5X 实例，Ineffable Intelligence 已作为首位客户使用。尽管标题提到全面可用，正文明确说全面可用计划在下个月，并拟扩展至欧洲；不能理解为所有客户现在都可直接购买。",
+      "reason": "为AI算力与强化学习赛道补充一手信息，保留首客使用与全面开放之间的区别。",
+      "category": "ai-models",
+      "quote": "General availability of the instances is coming next month",
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "AI硬件",
+        "AI产品",
+        "AI赛道",
+        "部署/工程",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "rss-nvidia-blog",
+      "sourceName": "NVIDIA Blog",
+      "tier": "T1",
+      "entity": "nvidia",
+      "subjects": [
+        "nvidia"
+      ],
+      "date": "2026-10-21T10:10:01+00:00",
+      "url": "https://blogs.nvidia.com/blog/enterprise-platforms-agent-toolkit/",
+      "title": "NVIDIA 扩展 Agent Toolkit，加入企业知识与安全运行组件",
+      "summary": "Agent Toolkit 新增 Agent Knowledge Foundation，结合 CUDA-X、检索与 Kumo 系列模型，把业务数据接入智能体，并通过 OpenShell 等组件约束执行范围。官方列举企业应用案例；具体提速与质量效果需按自己的数据和任务复测。",
+      "reason": "适合关注企业AI产品和智能体基础设施的团队，保留组件作用与验证边界。",
+      "category": "ai-products",
+      "quote": "NVIDIA Agent Toolkit comprises:",
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "AI赛道",
+        "Agent",
+        "RAG",
+        "安全/对齐",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "rss-nvidia-blog",
+      "sourceName": "NVIDIA Blog",
+      "tier": "T1",
+      "entity": "nvidia",
+      "subjects": [
+        "nvidia"
+      ],
+      "date": "2026-10-21T10:30:40+00:00",
+      "url": "https://blogs.nvidia.com/blog/europe-industrial-leaders-engineering-manufacturing/",
+      "title": "NVIDIA 开放 FOX 工厂智能体蓝图早期访问，展示工业 AI 应用",
+      "summary": "Factory Operations Blueprint（FOX）已在 GitHub 提供早期访问，用于工厂监控、视觉检查、根因分析和设备协同。官方同时介绍欧洲制造企业的仿真与智能体案例，其中部分收益为估计或单个工厂结果，不能推广成普遍降本承诺。",
+      "reason": "补充工业AI赛道的具体应用和可查阅的开发蓝图，明确早期访问状态。",
+      "category": "ai-products",
+      "quote": "early access on GitHub",
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "AI赛道",
+        "Agent",
+        "具身智能",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "nvidia-newsroom",
+      "sourceName": "NVIDIA Newsroom",
+      "tier": "T1",
+      "entity": "nvidia",
+      "subjects": [
+        "nvidia"
+      ],
+      "date": "2026-10-21",
+      "url": "https://nvidianews.nvidia.com/news/nvidia-introduces-dsx-pod-ai-factories-to-accelerate-europes-infrastructure-deployment",
+      "title": "NVIDIA 发布 DSX POD 模块化 AI 工厂参考设计，计划2027年初交付",
+      "summary": "DSX POD 把计算、网络、电源和液冷等系统在模块化集装箱中预集成并验证。官方称，在场地电力、冷却和网络等条件已准备好的情况下，部署可缩短至最快14天；合作伙伴产品计划2027年初交付，尚非现货能力。",
+      "reason": "关注AI硬件与基础设施交付方式，不能省略场地已准备完成这一关键前提。",
+      "category": "ai-models",
+      "quote": "worldwide in early 2027.",
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "AI硬件",
+        "AI赛道",
+        "部署/工程",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "coreweave-news",
+      "sourceName": "CoreWeave 官方",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "date": "2026-10-21T11:30:07.989Z",
+      "url": "https://www.coreweave.com/news/coreweave-unveils-coreweave-physical-ai-launchables-taking-the-setup-work-out-of-robotics-and-av-development",
+      "title": "CoreWeave 发布 Physical AI Launchables，用模板启动仿真与训练任务",
+      "summary": "新产品将 Isaac Sim、CARLA、MuJoCo、AlpaSim 与 Cosmos 3 等工具打包为经过测试的模板，提供可机读结果和适配编码智能体的技能。团队仍需准备自己的数据、场景及计算资源；模板减少环境配置工作，不代表实验效果自动达标。",
+      "reason": "为物理AI团队提供具体产品和工作流线索，适合作为AI玩法与部署工程参考。",
+      "category": "ai-products",
+      "quote": "At launch, Templates span five tools:",
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "AI玩法",
+        "AI赛道",
+        "具身智能",
+        "部署/工程",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "rss-latent-space",
+      "sourceName": "Latent Space",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "date": "2026-10-21T05:01:26+00:00",
+      "url": "https://www.latent.space/p/tenex",
+      "title": "Tenex 复盘 AI 原生开发：把项目上下文、决策与验收一起写入仓库",
+      "summary": "Alex Lieberman 与 CJ Hess 在访谈中介绍按交付组织AI开发的方法，以及由技能、项目文档和 CLI 构成的 MetaHarness。讨论也涉及自建软件的维护成本和垂直AI的竞争壁垒；团队规模等经营信息来自受访者自述，不能当作独立审计结果。",
+      "reason": "同时补充AI创业、具体开发玩法与赛道判断，强调方法的适用条件而非只讲编码提速。",
+      "category": "opinion",
+      "quote": "Plans and decisions are checked into Git alongside the code.",
+      "region": "国外",
+      "tags": [
+        "大佬观点",
+        "AI创业",
+        "AI玩法",
+        "AI赛道",
+        "AI创作者",
+        "编码",
+        "Agent",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "rss-latent-space",
+      "sourceName": "Latent Space",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "date": "2026-10-20T19:31:57+00:00",
+      "url": "https://www.latent.space/p/sfcompute2",
+      "title": "SF Compute 创始人谈算力创业：交易之外还要完成真实集群交付",
+      "summary": "Evan Conrad 在访谈中解释 SF Compute 从转租集群走向运营算力基础设施的过程，讨论可中断任务、存储恢复、GPU代际和网络配置如何影响交付与定价。内容属于创始人的经营与技术复盘，不构成算力价格预测或投资建议。",
+      "reason": "为AI创业与算力赛道提供经营细节，关注履约和工程约束，不把交易概念当作盈利保证。",
+      "category": "industry",
+      "quote": "the buyer gets usable compute",
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "AI创业",
+        "AI赛道",
+        "AI商业化",
+        "部署/工程",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "rss-techcrunch-ai",
+      "sourceName": "TechCrunch",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "date": "2026-10-20T16:00:00+00:00",
+      "url": "https://techcrunch.com/2026/10/20/plants-can-speak-using-electricity-so-this-startup-built-an-ai-model-to-decipher-their-language/",
+      "title": "Electric Plant 用传感器和 AI 解读植物电信号，披露种子轮融资",
+      "summary": "TechCrunch 采访 Electric Plant 创始人，介绍贴近植物组织的传感器、无线基站和云端 Bombadil 模型，用于分析植物需求。报道披露1120万美元种子轮融资；覆盖物种、节水和增产效果主要来自公司自述，不能理解成已实现与植物自然语言对话。",
+      "reason": "补充AI硬件与农业创业赛道的具体案例，融资不等于收入，也不代表产品效果已被独立验证。",
+      "category": "industry",
+      "quote": "Electric Plant recently raised an $11.2 million seed round",
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "AI创业",
+        "AI硬件",
+        "AI赛道",
+        "海外AI"
+      ]
+    },
     {
       "sourceId": "rss-aws-ml",
       "sourceName": "AWS Machine Learning Blog",

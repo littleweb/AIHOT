@@ -1,8 +1,32 @@
 {
   "date": "2026-10-19",
-  "researchedAt": "2026-10-21T09:51:33.807758+00:00",
+  "researchedAt": "2026-10-21T12:07:34.953770+00:00",
   "backfill": true,
   "items": [
+    {
+      "sourceId": "minimax-official",
+      "sourceName": "MiniMax 官方",
+      "tier": "T1",
+      "entity": "minimax",
+      "subjects": [
+        "minimax"
+      ],
+      "date": "2026-10-19",
+      "url": "https://www.minimax.io/blog/minimax-m31f",
+      "title": "MiniMax 发布 M3.1 Flash，聚焦编码、工具调用与使用成本",
+      "summary": "MiniMax 确认匿名模型 Space Bunny 是 M3.1 Flash 的早期版本，并介绍新版本在编码、跨软件任务和电脑操作上的能力。官方称在线推理提速、使用成本较前代下降；具体基准和成本均为官方口径，选型仍需用实际任务验证。",
+      "reason": "补充国内AI产品与智能体模型进展，按官方10月19日发布日期归档，不用媒体跟进时间冒充新发布。",
+      "category": "ai-models",
+      "quote": "Today, we officially roll out",
+      "region": "国外",
+      "tags": [
+        "模型发布",
+        "AI产品",
+        "国内AI",
+        "Agent",
+        "编码"
+      ]
+    },
     {
       "sourceId": "rss-openai-news",
       "sourceName": "OpenAI News",

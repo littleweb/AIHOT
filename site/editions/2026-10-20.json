@@ -1,8 +1,75 @@
 {
   "date": "2026-10-20",
-  "researchedAt": "2026-10-21T09:51:33.807758+00:00",
+  "researchedAt": "2026-10-21T12:07:34.953770+00:00",
   "backfill": true,
   "items": [
+    {
+      "sourceId": "mistral-official",
+      "sourceName": "Mistral 官方",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "date": "2026-10-20",
+      "url": "https://mistral.ai/news/voxtral-3/",
+      "title": "Mistral 推出 Voxtral 3 与语音 Agent SDK，串联听、说与工具调用",
+      "summary": "Voxtral 3 将转写、语音生成与语音智能体 SDK 一起提供，基于 LiveKit 串联实时对话、推理和工具调用。官方介绍电话与网页接入方式，并提供 API 和自部署路径；不同组件的语言范围、价格及私有部署条件需分别核对。",
+      "reason": "补充语音AI产品与客服赛道的新选择，官方延迟和评测指标不等于所有部署下的表现。",
+      "category": "ai-models",
+      "quote": "Get started.",
+      "region": "国外",
+      "tags": [
+        "模型发布",
+        "AI产品",
+        "AI赛道",
+        "语音",
+        "Agent",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "elevenlabs-official",
+      "sourceName": "ElevenLabs 官方",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "date": "2026-10-20T12:00:00.000Z",
+      "url": "https://elevenlabs.io/blog/realtime",
+      "title": "ElevenLabs 推出 Eleven Realtime Mini 与 Max，提供实时语音智能体接入",
+      "summary": "Eleven Realtime 提供偏日常对话的 Mini 和偏复杂任务的 Max，可通过 ElevenAgents 平台或 Realtime API 接入。API 使用 WebSocket；现有 WebRTC 集成需要迁移，平台的知识库、渠道等功能也不能直接等同于独立 API。",
+      "reason": "兼顾AI产品与开发玩法，保留官方迁移示例中容易忽略的接入差异。",
+      "category": "ai-products",
+      "quote": "The Realtime API connects over WebSocket only",
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "AI玩法",
+        "语音",
+        "Agent",
+        "海外AI"
+      ]
+    },
+    {
+      "sourceId": "elevenlabs-official",
+      "sourceName": "ElevenLabs 官方",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "date": "2026-10-20T12:00:00.000Z",
+      "url": "https://elevenlabs.io/blog/how-to-transcribe-a-podcast",
+      "title": "ElevenLabs 分享播客转写流程：先审校，再导出字幕与复用内容",
+      "summary": "官方教程按准备音频、选择方法、上传配置、审校与导出五步组织播客转写，并介绍说话人区分和时间戳。原文提醒核对人名与关键引语；关键词提示等功能可能增加费用，字幕和社交内容复用也需要编辑判断。",
+      "reason": "补充有明确操作步骤的AI玩法，适合播客与视频创作者参考，未替用户上传音频或调用收费服务。",
+      "category": "tip",
+      "quote": "Step 4: Review and edit the output",
+      "region": "国外",
+      "tags": [
+        "教程/实践",
+        "AI玩法",
+        "语音",
+        "海外AI"
+      ]
+    },
     {
       "sourceId": "deepseek-official-repository",
       "sourceName": "DeepSeek 官方仓库",
