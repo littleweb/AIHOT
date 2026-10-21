@@ -61,3 +61,13 @@ site/research-keywords.json 保存 AI产品、AI硬件、AI玩法、AI创业、A
 用户要求非必要不改上游原始代码。优先使用原有 site/、industry/ 配置，特有能力集中在 modules/shendeng/ 和 scripts/export-static.ts。精选六类由 industry/taxonomy.ts 配置为模型、产品、行业、教程、论文、观点，分类 key 不变；汇总入口“头条”和隐藏精选一手入口由 site/featured-filters.json 配置，经 modules/shendeng/static-featured-filters.ts 在静态导出时适配。手机复用同一组原生分类链接。未修改 apps/ 或 packages/ 的分类组件。
 
 上游升级先在隔离分支核对配置结构和公开接口，运行类型、后端、网页与冒烟检查，再验证电脑与手机的分类、详情返回、主题、报告日历和导出结果。现有核心差异（静态返回标记、主题空项过滤、原生报告日历）应在升级时逐项复核；上游具备等价能力后优先删除本站对应适配，不复制旧版本核心文件覆盖新版本。
+
+## 模型榜与 SKILL榜
+
+AIHOT 的模型榜从开源界面 v4 起已移除（见 docs/deploy.md），不能靠现成开关开启。本站按上游 docs/architecture.md 的模块接口增加 modules/rankings/，由 site/modules/ 三份清单注册路由、接口、侧栏、手机入口和“我的”工具，不改 apps/、packages/ 核心代码。侧栏顺序为模型榜、SKILL榜；手机共用榜单入口，页内可切换。
+
+site/rankings.json 保存来源与条数，site/rankings/{models,skills}.json 保存公开快照。模型榜采用 Artificial Analysis Intelligence Index 前十项，保留原始分数和完整推理配置，不冒充 AIHOT 自营综合评分；SKILL榜采用 skills.sh 累计安装热度前二十项，保留来源顺序与缩写数值，同名技能以来源仓库区分。安装热度不代表质量评分。采集时间独立展示，不伪装来源发布日期。
+
+每日采编时执行 `node modules/rankings/refresh.ts`，成功的榜单快照与期刊一起提交；失败返回非零，只保留该榜上一份文件和采集时间，并报告具体失败原因。GitHub 发布只读已提交的快照，不在构建期间依赖榜单来源。模块的 publication.ts 是榜单唯一公开读取面，只返回已校验的公开快照；不读取新闻私有表或绕开新闻原有公开层，前端仍通过 HTTP 读取。所有来源链接指向原榜或具体模型/技能，访问页面不请求第三方采集或运行任何技能。
+
+上游升级时除原有检查外，验证两个模块路由、apiPaths、侧栏顺序、手机五项底栏、页内切换、“我的”和静态返回，并运行模块测试。来源 DOM 变化时让采集失败，不猜测列含义。恢复旧快照或撤下榜单数据后须重新导出发布。

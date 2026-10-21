@@ -1,0 +1,7 @@
+{
+  "name": "@shendeng/rankings",
+  "private": true,
+  "type": "module",
+  "exports": { "./module": "./module.ts", "./server": "./server.ts", "./web": "./web.tsx" },
+  "dependencies": { "@aihot/contracts": "*", "@aihot/backend": "*", "@aihot/site": "*", "@aihot/web": "*", "cheerio": "1.2.0", "react": "19.3.0", "react-router": "8.4.0" }
+}

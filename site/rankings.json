@@ -1,0 +1,4 @@
+{
+  "models": { "title": "模型榜", "sourceName": "Artificial Analysis", "url": "https://artificialanalysis.ai/leaderboards/models", "metric": "Intelligence Index", "limit": 10 },
+  "skills": { "title": "SKILL榜", "sourceName": "skills.sh", "url": "https://www.skills.sh/", "metric": "累计安装量", "limit": 20 }
+}

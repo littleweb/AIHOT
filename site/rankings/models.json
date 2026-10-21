@@ -1,0 +1,119 @@
+{
+  "kind": "models",
+  "capturedAt": "2026-10-21T13:22:37.982Z",
+  "sourceName": "Artificial Analysis",
+  "sourceUrl": "https://artificialanalysis.ai/leaderboards/models",
+  "metric": "Intelligence Index",
+  "rows": [
+    {
+      "rank": 1,
+      "name": "Claude Opus 5.5 (max with fallback)",
+      "owner": "Anthropic",
+      "value": 58,
+      "displayValue": "58",
+      "url": "https://artificialanalysis.ai/models/claude-opus-5-5",
+      "context": "1M",
+      "cost": "$5.98",
+      "speed": "95"
+    },
+    {
+      "rank": 2,
+      "name": "Claude Sonnet 5.5 (max with fallback)",
+      "owner": "Anthropic",
+      "value": 56,
+      "displayValue": "56",
+      "url": "https://artificialanalysis.ai/models/claude-sonnet-5-5",
+      "context": "1M",
+      "cost": "$5.46",
+      "speed": "135"
+    },
+    {
+      "rank": 3,
+      "name": "Claude Opus 5.5 (xhigh with fallback)",
+      "owner": "Anthropic",
+      "value": 56,
+      "displayValue": "56",
+      "url": "https://artificialanalysis.ai/models/claude-opus-5-5-xhigh",
+      "context": "1M",
+      "cost": "$3.46",
+      "speed": "84"
+    },
+    {
+      "rank": 4,
+      "name": "Muse Wonder Full (max)",
+      "owner": "Meta",
+      "value": 56,
+      "displayValue": "56",
+      "url": "https://artificialanalysis.ai/models/muse-wonder-full",
+      "context": "1M",
+      "cost": "--",
+      "speed": "--"
+    },
+    {
+      "rank": 5,
+      "name": "Claude Opus 5.5 (high with fallback)",
+      "owner": "Anthropic",
+      "value": 54,
+      "displayValue": "54",
+      "url": "https://artificialanalysis.ai/models/claude-opus-5-5-high",
+      "context": "1M",
+      "cost": "$1.82",
+      "speed": "78"
+    },
+    {
+      "rank": 6,
+      "name": "Claude Fable 5.1 (max with fallback)",
+      "owner": "Anthropic",
+      "value": 53,
+      "displayValue": "53",
+      "url": "https://artificialanalysis.ai/models/claude-fable-5-1",
+      "context": "1M",
+      "cost": "$7.63",
+      "speed": "69"
+    },
+    {
+      "rank": 7,
+      "name": "Claude Fable 5.1 (xhigh with fallback)",
+      "owner": "Anthropic",
+      "value": 53,
+      "displayValue": "53",
+      "url": "https://artificialanalysis.ai/models/claude-fable-5-1-xhigh",
+      "context": "1M",
+      "cost": "$5.98",
+      "speed": "64"
+    },
+    {
+      "rank": 8,
+      "name": "GPT-6 Astra (max)",
+      "owner": "OpenAI",
+      "value": 53,
+      "displayValue": "53",
+      "url": "https://artificialanalysis.ai/models/gpt-6-astra",
+      "context": "1M",
+      "cost": "$3.26",
+      "speed": "59"
+    },
+    {
+      "rank": 9,
+      "name": "Gemini 4 Argon (high)",
+      "owner": "Google",
+      "value": 53,
+      "displayValue": "53",
+      "url": "https://artificialanalysis.ai/models/gemini-4-argon",
+      "context": "1M",
+      "cost": "$1.99",
+      "speed": "83"
+    },
+    {
+      "rank": 10,
+      "name": "Muse Wonder (max)",
+      "owner": "Meta",
+      "value": 52,
+      "displayValue": "52",
+      "url": "https://artificialanalysis.ai/models/muse-wonder",
+      "context": "1.05M",
+      "cost": "$4.52",
+      "speed": "152"
+    }
+  ]
+}
