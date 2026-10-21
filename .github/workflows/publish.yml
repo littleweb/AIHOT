@@ -1,4 +1,4 @@
-name: Update RoboTaxi and publish static site
+name: Update 神灯AI研究院 and publish static site
 on:
   schedule:
     - cron: '0 23 * * *' # 07:00 Asia/Shanghai; GitHub may queue scheduled jobs.
@@ -16,7 +16,7 @@ permissions:
   pages: write
   id-token: write
 concurrency:
-  group: robotaxi-pages
+  group: shengdeng-pages
   cancel-in-progress: false
 jobs:
   publish:
@@ -40,7 +40,7 @@ jobs:
       - name: Save downloadable HTML artifact
         uses: actions/upload-artifact@v4
         with:
-          name: robotaxi-static-html
+          name: shengdeng-static-html
           path: dist
           retention-days: 30
       - uses: actions/upload-pages-artifact@v3
