@@ -19,12 +19,15 @@ const pageHref = (u: URL) => `${prefix}/${pageFile(u)}${u.hash}`;
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 await cp("apps/web/build/client", output, { recursive: true });
+const brandFiles = ["logo.svg", "favicon.ico", "icon.png", "icon-192.png", "apple-icon.png"];
+for (const file of brandFiles) await cp(path.join("site/brand", file), path.join(output, file));
 await mkdir(path.join(output, "assets"), { recursive: true });
 await cp(new URL("../site/static/theme.js", import.meta.url), path.join(output, "assets/static-theme.js"));
 const pending = ["/", "/all", "/hot", "/daily", "/daily/archive", "/weekly", "/monthly", "/topics", "/about", "/terms", "/privacy", "/changelog", "/more"].map((p) => new URL(p, origin));
 const seen = new Set<string>();
 const assets = new Map<string, string>();
 async function asset(u: URL) {
+  if (brandFiles.includes(u.pathname.slice(1))) return prefix + u.pathname;
   if (u.pathname.startsWith("/assets/") && !u.search) return prefix + u.pathname;
   const id = u.pathname + u.search;
   if (assets.has(id)) return assets.get(id)!;
