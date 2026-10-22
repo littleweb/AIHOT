@@ -366,28 +366,17 @@ function ItemView({ item }: { item: SiteItemDetail }) {
   ];
   // Desktop actions head the right rail, one row as tall as 返回 at the head of the left one.
   const actions = (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-1">
-      <button
-        type="button"
-        onClick={openPoster}
-        className="inline-flex h-8 shrink-0 items-center justify-center whitespace-nowrap rounded-full border border-line-strong bg-surface px-2 text-[12.5px] font-medium text-ink-2 transition-colors hover:border-ink-4 hover:text-ink"
-      >
-        分享卡片
-      </button>
+    <div className="flex items-center gap-1">
       <a
         href={item.links.original}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex h-8 flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-full border border-line-strong bg-surface px-3.5 text-[12.5px] font-medium text-ink-2 transition-colors hover:border-ink-4 hover:text-ink"
+        className="inline-flex h-8 flex-1 items-center justify-center gap-1.5 rounded-full border border-line-strong bg-surface px-3.5 text-[12.5px] font-medium text-ink-2 transition-colors hover:border-ink-4 hover:text-ink"
       >
         {originalLabel} <IconExternal size={13} />
       </a>
-      </div>
-      <div className="flex items-center justify-end gap-1">
       <StarButton item={item} size={32} />
       {moreMenu}
-      </div>
     </div>
   );
   const verdict = (item.selected || shownScore(item.score) !== null) && (
@@ -613,8 +602,7 @@ function ItemView({ item }: { item: SiteItemDetail }) {
         originalUrl={item.links.original}
         originalLabel={isX ? "原推" : "原文"}
         onOutline={showOutline ? () => setOutlineOpen(true) : undefined}
-        onShare={openPoster}
-        shareLabel="分享卡片"
+        onShare={() => void share()}
       />
       {showOutline && <OutlineSheet open={outlineOpen} onClose={() => setOutlineOpen(false)} outline={item.outline} />}
       <ActionsSheet open={actionsOpen} onClose={() => setActionsOpen(false)} rows={phoneActions} />
