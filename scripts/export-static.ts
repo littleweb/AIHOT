@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import { adaptFeaturedFilters } from "../modules/shendeng/static-featured-filters.ts";
 import { adaptShareCard } from "../modules/shendeng/static-share-card.ts";
 import { adaptReader } from "../modules/shendeng/static-reader.ts";
+import { StaticPages, staticPagePlugin } from "../modules/shendeng/static-pages.ts";
 import { build } from "vite";
 import { SITE } from "@aihot/site";
 import { createHash } from "node:crypto";
@@ -35,12 +36,30 @@ for (const file of brandFiles) {
 }
 await mkdir(path.join(output, "assets"), { recursive: true });
 await cp(new URL("../site/static/theme.js", import.meta.url), path.join(output, "assets/static-theme.js"));
-await cp(new URL("../site/static/share-card.js", import.meta.url), path.join(output, "assets/static-share-card.js"));
-await build({configFile:false,logLevel:"warn",define:{"process.env.NODE_ENV":'"production"'},oxc:{jsx:{runtime:"automatic"}},build:{outDir:path.join(output,"assets"),emptyOutDir:false,
-  lib:{entry:fileURLToPath(new URL("../modules/shendeng/web/static-reader.tsx",import.meta.url)),name:"StaticReader",formats:["iife"],fileName:()=>"static-reader.js"}}});
+await build({configFile:false,logLevel:"warn",plugins:[staticPagePlugin()],define:{"process.env.NODE_ENV":'"production"'},oxc:{jsx:{runtime:"automatic"}},build:{outDir:path.join(output,"assets"),emptyOutDir:false,
+  lib:{entry:fileURLToPath(new URL("../modules/shendeng/web/static-reader.tsx",import.meta.url)),name:"StaticReader",formats:["es"],fileName:()=>"static-reader.js"}}});
+const readerVersion=createHash("sha256").update(await readFile(path.join(output,"assets/static-reader.js"))).digest("hex").slice(0,12);
+const snapshotVersion=Date.now().toString(36);
+const snapshots=new StaticPages(origin,output,prefix,publishedUrl,route=>pending.push(new URL(route,origin)));
 const pending = ["/", "/all", "/hot", "/daily", "/daily/archive", "/weekly", "/monthly", "/topics", "/about", "/terms", "/privacy", "/changelog", "/more", "/starred"].map((p) => new URL(p, origin));
 const seen = new Set<string>();
 const assets = new Map<string, string>();
+const resources=new Map<string,string>();
+async function publicResource(u:URL):Promise<string|null> {
+  if(!/^\/(?:feed(?:\/[^?]+)?\.xml|llms\.txt|robots\.txt|sitemap\.xml|openapi-v1\.json|manifest\.webmanifest)$/.test(u.pathname))return null;
+  if(resources.has(u.pathname))return resources.get(u.pathname)!;
+  const response=await fetch(u,{signal:AbortSignal.timeout(30_000)});
+  if(!response.ok)throw new Error(`Public static resource ${u.pathname}: ${response.status}`);
+  let body=await response.text();
+  body=body.replaceAll(origin.origin,publishedUrl).replaceAll(`${origin.protocol}//localhost:${origin.port}`,publishedUrl);
+  if(u.pathname==="/manifest.webmanifest") {
+    const manifest=JSON.parse(body);manifest.start_url=prefix+"/";manifest.scope=prefix+"/";
+    for(const icon of manifest.icons??[])if(icon.src?.startsWith("/"))icon.src=prefix+icon.src;
+    body=JSON.stringify(manifest);
+  }
+  const target=path.join(output,u.pathname);await mkdir(path.dirname(target),{recursive:true});await writeFile(target,body);
+  const href=prefix+u.pathname;resources.set(u.pathname,href);snapshots.navigation[u.pathname]=href;return href;
+}
 async function asset(u: URL) {
   if (brandFiles.includes(u.pathname.slice(1))) return `${prefix}${u.pathname}?v=${brandVersions.get(u.pathname.slice(1))}`;
   if (u.pathname.startsWith("/assets/") && !u.search) return prefix + u.pathname;
@@ -56,6 +75,30 @@ async function asset(u: URL) {
   assets.set(id, `${prefix}/${file}`);
   return `${prefix}/${file}`;
 }
+async function snapshotValue(value:any):Promise<any> {
+  if(Array.isArray(value))return Promise.all(value.map(snapshotValue));
+  if(value&&typeof value==="object")return Object.fromEntries(await Promise.all(Object.entries(value).map(async([k,v])=>[k,await snapshotValue(v)])));
+  if(typeof value!=="string")return value;
+  if(value.includes("<img")) {
+    const fragment=load(value,null,false);
+    for(const img of fragment("img[src]").toArray()) {
+      const src=new URL(fragment(img).attr("src")!,origin);
+      if(src.origin===origin.origin||["localhost","127.0.0.1"].includes(src.hostname)) {
+        src.host=origin.host;fragment(img).attr("src",await asset(src)).removeAttr("srcset sizes");
+      }
+    }
+    return fragment.html();
+  }
+  if(/^(?:https?:\/\/|\/img\/|\/assets\/|\/logo\.svg)/.test(value)) {
+    let url:URL;try{url=new URL(value,origin);}catch{return value;}
+    if(url.origin===origin.origin||["localhost","127.0.0.1"].includes(url.hostname)) {
+      url.host=origin.host;
+      if(/^\/(img|assets)\//.test(url.pathname)||brandFiles.includes(url.pathname.slice(1)))return (await asset(url))+url.hash;
+      return url.pathname+url.search+url.hash;
+    }
+  }
+  return value;
+}
 while (pending.length) {
   const u = pending.shift()!;
   const id = key(new URL(u));
@@ -66,8 +109,11 @@ while (pending.length) {
   if (!res.ok) throw new Error(`public page ${id}: ${res.status}`);
   const $ = load(await res.text());
   // Static edition has no backend: keep report tabs, archive disclosures and original links as native HTML.
-  $("script").each((_i, el) => { if ($(el).text() !== APPEARANCE_BOOT_SCRIPT) $(el).remove(); });
-  $("link[rel=modulepreload], link[rel=preload][as=script], link[rel=manifest], link[rel=alternate][type=\"application/rss+xml\"]").remove();
+  $("script").each((_i, el) => { if ($(el).text() !== APPEARANCE_BOOT_SCRIPT && !["application/ld+json","application/json"].includes($(el).attr("type")??"")) $(el).remove(); });
+  $("link[rel=modulepreload], link[rel=preload][as=script]").remove();
+  for(const link of $('link[rel="manifest"],link[rel="alternate"][type="application/rss+xml"]').toArray()) {
+    const href=$(link).attr("href");if(href){const exported=await publicResource(new URL(href,u));if(exported)$(link).attr("href",exported);}
+  }
   $("link[rel=canonical]").attr("href", publishedUrl + u.pathname + u.search);
   $("meta[property='og:url']").attr("content", publishedUrl + u.pathname + u.search);
   $("meta[property='og:image'], meta[name='twitter:image']").remove();
@@ -79,7 +125,11 @@ while (pending.length) {
     if (next.origin !== origin.origin) continue;
     if (publicPage(next)) { pending.push(next); $(a).attr("href", pageHref(next)); }
     else if (next.pathname.startsWith("/assets/")) $(a).attr("href", prefix + next.pathname);
-    else $(a).replaceWith($('<span>').text($(a).text()).attr("title", "静态版不提供此在线服务"));
+    else {
+      const exported=await publicResource(next);
+      if(exported)$(a).attr("href",exported);
+      else $(a).attr("href","#online-service").attr("data-service-required",next.pathname).attr("title","需要公网在线服务，点击查看说明");
+    }
   }
   for (const el of $("img[src], use[href], link[rel=stylesheet], link[rel=icon], link[rel=apple-touch-icon]").toArray()) {
     const attribute = $(el).attr("src") ? "src" : "href";
@@ -92,9 +142,8 @@ while (pending.length) {
   $("form").each((_i, el) => {
     const form = $(el);
     if (form.attr("role") === "search") {
-      form.find("input").attr("disabled", "disabled").attr("placeholder", "请按分类或主题浏览").attr("title", "在线搜索需要动态服务");
-      form.replaceWith($("<div>").attr("class", form.attr("class") ?? "").append(form.contents()));
-    } else form.replaceWith('<p class="text-sm text-ink-4">静态版不提供在线提交，请通过仓库 Issues 联系站长。</p>');
+      form.attr("data-static-search","");form.find("input[name=q]").removeAttr("disabled").attr("placeholder","搜索当前快照的标题和摘要");
+    } else {form.attr("data-service-form","");form.find('button[type="submit"]').attr("data-service-required", "在线表单提交");}
   });
   const choices: Record<string,string> = { "深色": "dark", "跟随系统": "system", "浅色": "light" };
   for (const group of $('[role="radiogroup"][aria-label="外观"]').toArray()) {
@@ -110,17 +159,23 @@ while (pending.length) {
     pending.push(parent);
     button.replaceWith($("<a>").attr("href", pageHref(parent)).attr("data-static-back", "").attr("aria-label", "返回").attr("class", button.attr("class") ?? "").append(button.contents()));
   });
-  $("button").not("[data-theme-choice]").each((_i, el) => { const b = $(el); b.attr("disabled", "disabled").attr("title", "此操作需使用动态服务；静态版保留阅读和页面导航。"); });
   const shareItem = await adaptShareCard($, u, output, prefix, publishedUrl);
-  await adaptReader($, u, shareItem, output, prefix);
+  const enhanced=await snapshots.prepare($,u,shareItem,snapshotValue);
+  if(!enhanced)adaptReader($, u, prefix);
+  if(u.pathname==="/agent")$("span").filter((_i,el)=>["服务正常","服务异常"].includes($(el).text())).text("静态版 · API 未部署").removeClass("text-ok text-hot").addClass("text-ink-3");
+  $("body").attr("data-static-prefix",prefix).attr("data-static-snapshot",snapshotVersion);
+  $('script[src$="/assets/static-reader.js"]').remove();
+  $("body").append($("<script>").attr({type:"module",src:`${prefix}/assets/static-reader.js?v=${readerVersion}`}));
+  snapshots.navigation[id]=pageHref(u);
   $("head").append('<style>button:disabled{cursor:default}#static-edition{font:12px/1.7 system-ui;color:#89979d;padding:12px 16px;border-top:1px solid #ffffff14}</style>');
   $("body").append(`<script src="${prefix}/assets/static-theme.js" defer></script>`);
-  $("body").append(`<div id="static-edition">${SITE.name} 静态阅读版 · 导出于 ${new Date().toISOString()} · 页面日期以各期原始出刊时间为准。阅读、收藏、分享卡片、报告切换和往期导航可用；收藏仅保存在当前浏览器，实时搜索、后台与反馈表单需动态服务。<a href="https://github.com/littleweb/shengdeng.news/issues">联系站长 ↗</a></div>`);
+  $("body").append(`<div id="static-edition">${SITE.name} 静态阅读版 · 导出于 ${new Date().toISOString()} · 页面日期以各期原始出刊时间为准。浏览器交互、快照检索、收藏、分享卡片与 RSS 可用；收藏仅保存在当前浏览器。实时全文检索、在线反馈、后台与 API/MCP 需要公网服务端。<a href="https://github.com/littleweb/shengdeng.news/issues">联系站长 ↗</a></div>`);
   const file = path.join(output, pageFile(u));
   await mkdir(path.dirname(file), { recursive: true }); await writeFile(file, $.html());
   console.log(`export ${id}`);
 }
 await writeFile(path.join(output, ".nojekyll"), "");
 await writeFile(path.join(output, "export-manifest.json"), JSON.stringify({ generatedAt: new Date().toISOString(), pages: [...seen], staticReadingEdition: true }, null, 2));
+await snapshots.finish(snapshotValue);
 await cp("LICENSE", path.join(output, "LICENSE.txt"));
 console.log(`Exported ${seen.size} original public pages to ${output}`);
