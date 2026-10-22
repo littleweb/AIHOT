@@ -1,5 +1,5 @@
 """Synchronize checked public JSON with the local API and existing GitHub Pages pipeline."""
-import datetime, hashlib, html, json, pathlib, sys, time, urllib.request
+import datetime, hashlib, html, json, pathlib, sys, time, urllib.request, urllib.parse
 from common import ROOT, DATA, CONFIG, read_json, write_json, run, node, lock, status
 REPO = 'repos/' + CONFIG['repository']
 STATE = DATA / 'publication.json'
@@ -12,8 +12,9 @@ def public_files():
     return {str(p.relative_to(ROOT)): p.read_bytes() for p in paths}
 
 def api(method, path, body=None):
-    return json.loads(run(['gh', 'api', '-X', method, path] + (['--input', '-'] if body is not None else []),
-                          input=json.dumps(body) if body is not None else None, capture=True))
+    raw=run(['gh', 'api', '-X', method, path] + (['--input', '-'] if body is not None else []),
+            input=json.dumps(body) if body is not None else None, capture=True)
+    return json.loads(raw) if raw.strip() else None
 
 def head_tree():
     parent = api('GET', REPO + '/git/ref/heads/main')['object']['sha']
@@ -33,6 +34,22 @@ def get(url):
     request = urllib.request.Request(url, headers={'User-Agent': 'ShendengNews-Service/1.0', 'Cache-Control': 'no-cache'})
     with urllib.request.urlopen(request, timeout=45) as response:
         return response.read().decode()
+
+def hot_snapshot():
+    data=json.loads(get(CONFIG['localUrl']+'/api/v1/hot-topics'))
+    return [{'rank':i['rank'],'title':i['title'],'story':urllib.parse.urlsplit(i['links']['story']).path,
+             'participants':i['participantCount']} for i in data['items']]
+
+def sync_hot(state):
+    current=hot_snapshot()
+    if 'hot' not in state:
+        state['hot']=current;write_json(STATE,state);return
+    if state['hot']==current:return
+    parent,_,_=head_tree()
+    requested=time.time()
+    api('POST',REPO+'/actions/workflows/publish.yml/dispatches',{'ref':'main'})
+    state['pending']={'commit':parent,'parent':parent,'files':{},'hot':current,'dispatchAt':requested}
+    write_json(STATE,state);finish_pending(state)
 
 def verify_online(pending):
     base = CONFIG['siteUrl']
@@ -67,11 +84,18 @@ def verify_online(pending):
     # Technical-direction topic is part of the existing compatibility smoke check.
     get(base + '/topics/openai/index.html')
     get(base + '/topics/agent/index.html')
+    if 'hot' in pending:
+        hot_body=html.unescape(get(base+'/hot/index.html'))
+        for entry in pending['hot']:
+            if entry['title'] not in hot_body or entry['story'] not in manifest['pages']:
+                raise RuntimeError('Online hot event or its exported detail is missing')
+            event_body=get(base+entry['story']+'/index.html')
+            if '返回' not in event_body:raise RuntimeError('Online event return link missing')
 
 def finish_pending(state):
     pending = state['pending']
     head = api('GET', REPO + '/git/ref/heads/main')['object']['sha']
-    if head == pending['parent']:
+    if head == pending['parent'] and not pending.get('dispatchAt'):
         api('PATCH', REPO + '/git/refs/heads/main', {'sha': pending['commit'], 'force': False})
     elif head != pending['commit']:
         comparison = api('GET', REPO + '/compare/' + pending['commit'] + '...' + head)
@@ -82,7 +106,9 @@ def finish_pending(state):
     if not run_id:
         for _ in range(30):
             runs = api('GET', REPO + '/actions/workflows/publish.yml/runs?per_page=20')['workflow_runs']
-            found = next((r for r in runs if r['head_sha'] == pending['commit']), None)
+            found = next((r for r in runs if r['head_sha'] == pending['commit'] and
+                (not pending.get('dispatchAt') or r['event']=='workflow_dispatch' and
+                 datetime.datetime.fromisoformat(r['created_at'].replace('Z','+00:00')).timestamp()>=pending['dispatchAt']-5)), None)
             if found: run_id = found['id']; break
             time.sleep(10)
         if not run_id: raise RuntimeError('No Pages run for published commit')
@@ -90,6 +116,7 @@ def finish_pending(state):
     run(['gh', 'run', 'watch', str(run_id), '--repo', CONFIG['repository'], '--exit-status', '--interval', '20'], timeout=3000)
     verify_online(pending)
     state['remote'].update({p: blob(data.encode()) for p, data in pending['files'].items()})
+    if 'hot' in pending:state['hot']=pending['hot']
     state['lastPublishedAt'] = time.time(); state['lastCommit'] = pending['commit']; state['pending'] = None
     write_json(STATE, state)
     status('publish', phase='published', commit=state['lastCommit'], verified=True)
@@ -100,7 +127,7 @@ def sync():
     files = public_files()
     # Query the remote only when local public data differs from the last successful baseline.
     local = {p: blob(data) for p, data in files.items()}
-    if state.get('remote') and all(state['remote'].get(p) == sha for p, sha in local.items()): return
+    if state.get('remote') and all(state['remote'].get(p) == sha for p, sha in local.items()): sync_hot(state);return
     parent, tree, remote = head_tree()
     changed = changed_files(files, remote, state.get('remote', {}))
     if not changed:
@@ -121,7 +148,7 @@ def sync():
     commit = api('POST', REPO + '/git/commits', {'message': 'Sync source-checked AI updates ' + time.strftime('%Y-%m-%d %H:%M'), 'tree': new_tree, 'parents': [parent]})['sha']
     # Persist before ref mutation: a restart can resume the same run, never silently lose it.
     state['remote'] = {p: remote.get(p) for p in files}
-    state['pending'] = {'commit': commit, 'parent': parent, 'files': {p: d.decode() for p, d in changed.items()}}
+    state['pending'] = {'commit': commit, 'parent': parent, 'files': {p: d.decode() for p, d in changed.items()},'hot':hot_snapshot()}
     write_json(STATE, state)
     api('PATCH', REPO + '/git/refs/heads/main', {'sha': commit, 'force': False})
     finish_pending(state)

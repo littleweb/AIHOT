@@ -1,0 +1,11 @@
+{
+  "indexes": [
+    {
+      "id": "aihot-public-selected-index",
+      "name": "AIHOT 公开精选原文链接索引（仅发现线索）",
+      "kind": "public-index",
+      "url": "https://aihot.news/api/v1/items?mode=selected&limit=30"
+    }
+  ],
+  "policy": "只保留原文链接与来源日期作为候选；重新打开原文核验，不复用聚合站的标题、摘要、评分或收录时间。"
+}

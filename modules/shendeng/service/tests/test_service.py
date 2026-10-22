@@ -22,4 +22,28 @@ class ContinuousServiceTests(unittest.TestCase):
         self.assertFalse(due({'lastFinishedAt': now-60, 'morningDate': '2026-10-23'}, now))
         self.assertTrue(due({'lastFinishedAt': now-3700, 'morningDate': '2026-10-23'}, now))
 
+
+class HotPublicationTests(unittest.TestCase):
+    def test_initial_and_unchanged_hot_lists_do_not_trigger_republication(self):
+        from unittest.mock import patch
+        import publish
+        hot=[{'rank':1,'title':'Event','story':'/story/checked','participants':2}]
+        with patch.object(publish,'hot_snapshot',return_value=hot), patch.object(publish,'write_json'), patch.object(publish,'api') as api:
+            state={'remote':{},'pending':None}
+            publish.sync_hot(state)
+            self.assertEqual(state['hot'],hot)
+            publish.sync_hot(state)
+            api.assert_not_called()
+
+    def test_expired_event_republishes_the_same_public_source_without_fake_content_commit(self):
+        from unittest.mock import patch
+        import publish
+        state={'remote':{},'pending':None,'hot':[{'rank':1,'title':'Expired','story':'/story/expired','participants':2}]}
+        with patch.object(publish,'hot_snapshot',return_value=[]), patch.object(publish,'head_tree',return_value=('head','tree',{})), patch.object(publish,'write_json'), patch.object(publish,'finish_pending') as finish, patch.object(publish,'api') as api:
+            publish.sync_hot(state)
+            api.assert_called_once_with('POST',publish.REPO+'/actions/workflows/publish.yml/dispatches',{'ref':'main'})
+            self.assertEqual(state['pending']['files'],{})
+            self.assertEqual(state['pending']['hot'],[])
+            finish.assert_called_once_with(state)
+
 if __name__ == '__main__': unittest.main()

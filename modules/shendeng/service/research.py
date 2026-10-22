@@ -12,7 +12,9 @@ def schema():
     properties = {key: text for key in ['sourceId', 'sourceName', 'date', 'url', 'title', 'summary', 'reason', 'category', 'quote']}
     properties.update(tier={'type': 'string', 'enum': ['T1', 'T2']}, entity=nullable,
                       subjects={'type': 'array', 'items': text}, region={'type': 'string', 'enum': ['国内', '国外']},
-                      tags={'type': 'array', 'items': text})
+                      tags={'type': 'array', 'items': text}, selected={'type': 'boolean'},
+                      event={'anyOf': [{'type': 'null'}, {'type': 'object', 'additionalProperties': False,
+                             'required': ['key', 'title', 'factKey', 'factTitle'], 'properties': {'key': text, 'title': text, 'factKey': text, 'factTitle': text}}]})
     return {'type': 'object', 'additionalProperties': False, 'required': ['date', 'researchedAt', 'items', 'skipped'],
             'properties': {'date': text, 'researchedAt': text, 'skipped': {'type': 'array', 'items': text},
                            'items': {'type': 'array', 'items': {'type': 'object', 'additionalProperties': False,
@@ -30,6 +32,9 @@ def research():
     status('research', phase='researching', startedAt=started.isoformat())
     write_json(SCHEMA, schema())
     RESULT.unlink(missing_ok=True)
+    from discover import discover
+    candidates, failures = discover()
+    print(f'Discovery: {candidates} original links; {failures} sources unavailable', flush=True)
     prompt = (ROOT / 'modules/shendeng/continuous-prompt.md').read_text()
     prompt += '\n本轮开始时间（北京时间）: ' + started.isoformat()
     args = [runtime()['codex'], 'exec', '--sandbox', 'read-only', '-c', 'approval_policy="never"',

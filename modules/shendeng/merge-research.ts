@@ -16,8 +16,9 @@ export function mergeResearch(proposal: CodexEdition, archives: CodexEdition[], 
   for (const item of proposal.items) {
     const url = new URL(item.url);
     if ([...url.searchParams.keys()].some(k => /token|cookie|session|signature|xsec/i.test(k))) throw new Error("Never publish session-bearing source URLs");
-    if (Date.parse(item.date) < +now - 86400000) throw new Error("Continuous research requires a source from the past 24 hours");
-    if (!seen.has(item.url)) { fresh.push(item); seen.add(item.url); }
+    const window = item.selected === false && item.event ? 48 : 24;
+    if (Date.parse(item.date) < +now - window * 3600000) throw new Error("Research source is outside its news/evidence window");
+    if (!seen.has(item.url)) { fresh.push({...item, addedAt:proposal.researchedAt}); seen.add(item.url); }
   }
   if (!fresh.length) return null;
   const prior = archives.find(d => d.date === proposal.date);

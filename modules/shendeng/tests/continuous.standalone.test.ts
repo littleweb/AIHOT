@@ -10,7 +10,7 @@ const edition = (items: CodexItem[]): CodexEdition => ({ date, researchedAt: now
 test("incremental research preserves existing entries and skips URLs already archived", () => {
   const prior = { ...item, url: "https://example.com/old", title: "旧标题" };
   const result = mergeResearch(edition([item, { ...prior, title: "不应覆盖" }]), [edition([prior])], now)!;
-  assert.deepEqual(result.items, [prior, item]);
+  assert.deepEqual(result.items, [prior, {...item,addedAt:now.toISOString()}]);
   assert.equal(mergeResearch(edition([prior]), [edition([prior])], now), null);
   assert.equal(mergeResearch(edition([]), [edition([prior])], now), null);
 });

@@ -1,11 +1,11 @@
 {
   "date": "2026-10-22",
-  "researchedAt": "2026-10-22T10:08:14+08:00",
+  "researchedAt": "2026-10-22T02:35:38.527369+00:00",
   "items": [
     {
       "sourceId": "rss-the-verge-ai",
       "sourceName": "The Verge",
-      "tier": "T1",
+      "tier": "T2",
       "entity": "anthropic",
       "subjects": [
         "anthropic"
@@ -24,7 +24,14 @@
         "Agent",
         "AI商业化",
         "海外AI"
-      ]
+      ],
+      "addedAt": "2026-10-21T21:39:59.788353+00:00",
+      "event": {
+        "key": "claude-duet-preview-2026-10-21",
+        "title": "Claude Duet 研究预览与候补开放",
+        "factKey": "claude-duet-preview",
+        "factTitle": "Claude Duet 向美国 Pro 和 Max 用户开放研究预览候补"
+      }
     },
     {
       "sourceId": "rss-openai-news",
@@ -50,7 +57,8 @@
         "编码",
         "Agent",
         "海外AI"
-      ]
+      ],
+      "addedAt": "2026-10-21T21:39:59.788353+00:00"
     },
     {
       "sourceId": "rss-openai-news",
@@ -75,7 +83,8 @@
         "AI商业化",
         "Agent",
         "海外AI"
-      ]
+      ],
+      "addedAt": "2026-10-21T21:39:59.788353+00:00"
     },
     {
       "sourceId": "rss-openai-news",
@@ -99,7 +108,8 @@
         "AI商业化",
         "AI赛道",
         "海外AI"
-      ]
+      ],
+      "addedAt": "2026-10-21T21:39:59.788353+00:00"
     },
     {
       "sourceId": "rss-openai-news",
@@ -123,7 +133,8 @@
         "数据/训练",
         "AI赛道",
         "海外AI"
-      ]
+      ],
+      "addedAt": "2026-10-21T21:39:59.788353+00:00"
     },
     {
       "sourceId": "rss-openai-news",
@@ -147,7 +158,14 @@
         "Agent",
         "编码",
         "海外AI"
-      ]
+      ],
+      "addedAt": "2026-10-21T21:39:59.788353+00:00",
+      "event": {
+        "key": "php2shell-disclosure-2026-10-21",
+        "title": "AI 辅助发现 PHP 漏洞后的披露、修复与应急响应",
+        "factKey": "php2shell-disclosure",
+        "factTitle": "PHP 披露 AI 辅助发现的核心漏洞并发布修复"
+      }
     },
     {
       "sourceId": "rss-aws-ml",
@@ -171,7 +189,8 @@
         "Agent",
         "部署/工程",
         "海外AI"
-      ]
+      ],
+      "addedAt": "2026-10-21T21:39:59.788353+00:00"
     },
     {
       "sourceId": "rss-aws-ml",
@@ -196,7 +215,8 @@
         "数据/训练",
         "部署/工程",
         "国内AI"
-      ]
+      ],
+      "addedAt": "2026-10-21T21:39:59.788353+00:00"
     },
     {
       "sourceId": "rss-nvidia-blog",
@@ -221,7 +241,8 @@
         "AI产品",
         "AI赛道",
         "海外AI"
-      ]
+      ],
+      "addedAt": "2026-10-21T21:39:59.788353+00:00"
     },
     {
       "sourceId": "rss-nvidia-blog",
@@ -246,7 +267,8 @@
         "安全/对齐",
         "部署/工程",
         "海外AI"
-      ]
+      ],
+      "addedAt": "2026-10-21T21:39:59.788353+00:00"
     },
     {
       "sourceId": "external-google-blog",
@@ -270,7 +292,8 @@
         "AI赛道",
         "AI商业化",
         "海外AI"
-      ]
+      ],
+      "addedAt": "2026-10-21T21:39:59.788353+00:00"
     },
     {
       "sourceId": "external-google-blog",
@@ -295,7 +318,8 @@
         "图像生成",
         "视频",
         "海外AI"
-      ]
+      ],
+      "addedAt": "2026-10-21T21:39:59.788353+00:00"
     },
     {
       "sourceId": "rss-simon-willison",
@@ -318,7 +342,8 @@
         "编码",
         "开源生态",
         "海外AI"
-      ]
+      ],
+      "addedAt": "2026-10-21T21:39:59.788353+00:00"
     },
     {
       "sourceId": "rss-latent-space",
@@ -343,7 +368,8 @@
         "Agent",
         "编码",
         "海外AI"
-      ]
+      ],
+      "addedAt": "2026-10-21T21:39:59.788353+00:00"
     },
     {
       "sourceId": "external-36kr-finance",
@@ -366,7 +392,8 @@
         "AI产品",
         "AI硬件",
         "国内AI"
-      ]
+      ],
+      "addedAt": "2026-10-21T21:39:59.788353+00:00"
     },
     {
       "sourceId": "rss-qbitai",
@@ -388,7 +415,8 @@
         "国内AI",
         "具身智能",
         "数据/训练"
-      ]
+      ],
+      "addedAt": "2026-10-22T10:08:14+08:00"
     },
     {
       "sourceId": "external-21jingji",
@@ -411,7 +439,101 @@
         "行业报告",
         "AI商业化",
         "国内AI"
-      ]
+      ],
+      "addedAt": "2026-10-22T10:08:14+08:00"
+    },
+    {
+      "sourceId": "external-wiz-research",
+      "sourceName": "Wiz Research",
+      "tier": "T1",
+      "entity": "google",
+      "subjects": [
+        "google",
+        "openai"
+      ],
+      "date": "2026-10-21T09:59:59-04:00",
+      "url": "https://www.wiz.io/blog/php2shell-php-rce",
+      "title": "Wiz 披露 PHP2Shell 研究：AI 缩短了复杂漏洞发现与验证流程",
+      "summary": "Wiz 研究团队说明如何借助 Wiz Atlas、Gemini 4 Argon 和 GPT-5.6 Sol 分析 PHP 核心内存安全问题，并与 PHP、Calif、OpenAI 等协同验证修复。原文将问题归入两个 CVE，严重性最高达 CVSS 9.2；影响与缓解条件应以具体版本及厂商公告为准，不能将演示结果等同于已发生的大规模入侵。",
+      "reason": "Codex 原文核对：已查阅研究正文与原站精确发布时间；补充独立研究方的方法及验证条件，不复制聚合站文案。",
+      "category": "industry",
+      "quote": "severity reaching CVSS 9.2",
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "Agent",
+        "安全/对齐",
+        "AI玩法"
+      ],
+      "selected": true,
+      "event": {
+        "key": "php2shell-disclosure-2026-10-21",
+        "title": "AI 辅助发现 PHP 漏洞后的披露、修复与应急响应",
+        "factKey": "php2shell-disclosure",
+        "factTitle": "PHP 披露 AI 辅助发现的核心漏洞并发布修复"
+      },
+      "addedAt": "2026-10-22T02:35:38.527369+00:00"
+    },
+    {
+      "sourceId": "external-afp-ftv",
+      "sourceName": "法新社（民视新闻转载）",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [
+        "openai",
+        "google"
+      ],
+      "date": "2026-10-22T06:27:00+08:00",
+      "url": "https://www.ftvnews.com.tw/news/detail/2026A22W0072",
+      "title": "法新社跟进 PHP 漏洞应急响应，多地网站预防性下线修补",
+      "summary": "民视转载的法新社报道于今天06:27发布，记录多个政府机构、维基媒体部分支持服务和游戏服务因 PHP 安全问题采取预防性暂停与修补措施。报道将漏洞发现与 AI 辅助研究联系起来；服务下线属于应急处置，不能据此断言这些机构已遭入侵。",
+      "reason": "Codex 原文核对：确认转载来源、正文及今天06:27的发布时间。这是已报道漏洞事件的后续影响，单列进展而非重复发布原始公告。",
+      "category": "industry",
+      "quote": "緊急將網站或服務關閉下線修補",
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "安全/对齐",
+        "AI赛道"
+      ],
+      "selected": true,
+      "event": {
+        "key": "php2shell-disclosure-2026-10-21",
+        "title": "AI 辅助发现 PHP 漏洞后的披露、修复与应急响应",
+        "factKey": "php2shell-service-response",
+        "factTitle": "多个机构和服务就 PHP 漏洞采取预防性暂停与修补"
+      },
+      "addedAt": "2026-10-22T02:35:38.527369+00:00"
+    },
+    {
+      "sourceId": "external-anthropic-claude-blog",
+      "sourceName": "Anthropic · Claude 官方博客",
+      "tier": "T1",
+      "entity": "anthropic",
+      "subjects": [
+        "anthropic"
+      ],
+      "date": "2026-10-21",
+      "url": "https://claude.com/resources/articles/claude-duet",
+      "title": "Claude 官方说明 Duet 的候补范围、授权边界与用量条件",
+      "summary": "Anthropic 官方说明 Duet 研究预览从美国 Pro、Max 用户候补开始，与套餐共享使用额度，后台检查也计入用量，重要代理操作需要用户确认。这条官方原文用于与已收录的媒体报道交叉核对，保留原文仅精确到日期的时间，不重复占用精选条目。",
+      "reason": "Codex 原文核对：核对官方说明的开放范围、日期精度与限制；作为同事件原文证据，不包装成今天的新发布。",
+      "category": "ai-products",
+      "quote": "uses the same usage limits",
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "Agent",
+        "AI产品"
+      ],
+      "selected": false,
+      "event": {
+        "key": "claude-duet-preview-2026-10-21",
+        "title": "Claude Duet 研究预览与候补开放",
+        "factKey": "claude-duet-preview",
+        "factTitle": "Claude Duet 向美国 Pro 和 Max 用户开放研究预览候补"
+      },
+      "addedAt": "2026-10-22T02:35:38.527369+00:00"
     }
   ]
 }
