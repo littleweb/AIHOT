@@ -2,7 +2,11 @@
 // Serve the result with any static host. Links are rewritten for GitHub project Pages.
 import { mkdir, readFile, writeFile, cp, rm } from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { adaptFeaturedFilters } from "../modules/shendeng/static-featured-filters.ts";
+import { adaptShareCard } from "../modules/shendeng/static-share-card.ts";
+import { adaptReader } from "../modules/shendeng/static-reader.ts";
+import { build } from "vite";
 import { SITE } from "@aihot/site";
 import { createHash } from "node:crypto";
 import { load } from "cheerio";
@@ -12,8 +16,10 @@ const origin = new URL(arg("--base", "http://localhost:3100"));
 const output = path.resolve(arg("--out", "dist/static"));
 const prefix = `/${arg("--prefix", "").split("/").filter(Boolean).join("/")}`.replace(/\/$/, "");
 const publishedUrl = arg("--site-url", "https://shendeng.news").replace(/\/$/, "");
+// Poster QR codes and the printed host must use the final public deployment URL.
+process.env.SITE_URL = publishedUrl;
 const maxPages = Number(arg("--max-pages", "2000"));
-const publicPage = (u: URL) => u.origin === origin.origin && !/^\/(admin|api|img|og|assets)(\/|$)/.test(u.pathname) && !/\.(xml|txt|json|png|ico|svg|webmanifest)$/.test(u.pathname) && !/^\/(feedback|starred|all\/search-busy|search-busy)(\/|$)/.test(u.pathname);
+const publicPage = (u: URL) => u.origin === origin.origin && !/^\/(admin|api|img|og|assets)(\/|$)/.test(u.pathname) && !/\.(xml|txt|json|png|ico|svg|webmanifest)$/.test(u.pathname) && !/^\/(feedback|all\/search-busy|search-busy)(\/|$)/.test(u.pathname);
 const key = (u: URL) => { u.hash = ""; u.searchParams.sort(); return u.pathname + u.search; };
 const pageFile = (u: URL) => `${u.pathname.replace(/\/$/, "")}${u.search ? `/query-${createHash("sha256").update(u.search).digest("hex").slice(0, 12)}` : ""}/index.html`.replace(/^\//, "");
 const pageHref = (u: URL) => `${prefix}/${pageFile(u)}${u.hash}`;
@@ -29,7 +35,10 @@ for (const file of brandFiles) {
 }
 await mkdir(path.join(output, "assets"), { recursive: true });
 await cp(new URL("../site/static/theme.js", import.meta.url), path.join(output, "assets/static-theme.js"));
-const pending = ["/", "/all", "/hot", "/daily", "/daily/archive", "/weekly", "/monthly", "/topics", "/about", "/terms", "/privacy", "/changelog", "/more"].map((p) => new URL(p, origin));
+await cp(new URL("../site/static/share-card.js", import.meta.url), path.join(output, "assets/static-share-card.js"));
+await build({configFile:false,logLevel:"warn",define:{"process.env.NODE_ENV":'"production"'},oxc:{jsx:{runtime:"automatic"}},build:{outDir:path.join(output,"assets"),emptyOutDir:false,
+  lib:{entry:fileURLToPath(new URL("../modules/shendeng/web/static-reader.tsx",import.meta.url)),name:"StaticReader",formats:["iife"],fileName:()=>"static-reader.js"}}});
+const pending = ["/", "/all", "/hot", "/daily", "/daily/archive", "/weekly", "/monthly", "/topics", "/about", "/terms", "/privacy", "/changelog", "/more", "/starred"].map((p) => new URL(p, origin));
 const seen = new Set<string>();
 const assets = new Map<string, string>();
 async function asset(u: URL) {
@@ -102,9 +111,11 @@ while (pending.length) {
     button.replaceWith($("<a>").attr("href", pageHref(parent)).attr("data-static-back", "").attr("aria-label", "返回").attr("class", button.attr("class") ?? "").append(button.contents()));
   });
   $("button").not("[data-theme-choice]").each((_i, el) => { const b = $(el); b.attr("disabled", "disabled").attr("title", "此操作需使用动态服务；静态版保留阅读和页面导航。"); });
+  const shareItem = await adaptShareCard($, u, output, prefix, publishedUrl);
+  await adaptReader($, u, shareItem, output, prefix);
   $("head").append('<style>button:disabled{cursor:default}#static-edition{font:12px/1.7 system-ui;color:#89979d;padding:12px 16px;border-top:1px solid #ffffff14}</style>');
   $("body").append(`<script src="${prefix}/assets/static-theme.js" defer></script>`);
-  $("body").append(`<div id="static-edition">${SITE.name} 静态阅读版 · 导出于 ${new Date().toISOString()} · 页面日期以各期原始出刊时间为准。阅读、报告切换和往期导航可用；实时搜索、后台、收藏与反馈表单需动态服务。<a href="https://github.com/littleweb/shengdeng.news/issues">联系站长 ↗</a></div>`);
+  $("body").append(`<div id="static-edition">${SITE.name} 静态阅读版 · 导出于 ${new Date().toISOString()} · 页面日期以各期原始出刊时间为准。阅读、收藏、分享卡片、报告切换和往期导航可用；收藏仅保存在当前浏览器，实时搜索、后台与反馈表单需动态服务。<a href="https://github.com/littleweb/shengdeng.news/issues">联系站长 ↗</a></div>`);
   const file = path.join(output, pageFile(u));
   await mkdir(path.dirname(file), { recursive: true }); await writeFile(file, $.html());
   console.log(`export ${id}`);
