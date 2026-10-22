@@ -16,6 +16,8 @@
 
 精选入口为“头条、模型、产品、行业、教程、论文、观点”。头条是精选汇总，六类读 `industry/taxonomy.ts`；AI产品、AI硬件、AI玩法、AI创业、AI赛道仍是主题与选题关键词，不能用它们替换基础分类。
 
+用户已于 2026-10-22 授权后续代码改动执行完整贡献流程：先验证并提交到站点仓库 `littleweb/shengdeng.news`，再同步到 Fork `littleweb/AIHOT` 的对应工作分支，并向原项目 `KKKKhazix/AIHOT` 提交适合上游的 PR，无需每次重复询问。这里“shendeng.news”指正式域名，站点仓库实际拼写为 `shengdeng.news`。执行前读 [代码同步与上游贡献](docs/upstream-contributions.md) 和 `CONTRIBUTING.md`；不要将站点品牌、新闻数据、私密配置或本站专属规则混入上游 PR。仅适用于本站的代码同步到 Fork 的独立分支并记录未提上游的原因；通用变更从上游最新默认分支提取最小补丁，不能把整站分支合回上游。新功能按上游要求先开 Issue。提交 PR 后报告链接和 CI 状态，不把提交等同于已合并。
+
 ## 运行与检查
 
 - Node.js 24 直接运行 TypeScript，后端没有构建步骤。npm workspaces：`apps/*`、`packages/*`、`industry`、`site`、`modules/*`。
