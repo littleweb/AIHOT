@@ -1,0 +1,8 @@
+{
+  "researchIntervalMinutes": 60,
+  "syncIntervalSeconds": 60,
+  "morningTime": "05:30",
+  "repository": "littleweb/shengdeng.news",
+  "siteUrl": "https://shendeng.news",
+  "localUrl": "http://127.0.0.1:3090"
+}
