@@ -56,11 +56,13 @@ test("static snapshot rewrites original report/archive links and excludes privat
 
 test("static details save local bookmarks, open menus and download share cards without a live API", async () => {
  const temp=await mkdtemp(path.join(os.tmpdir(),"shendeng-reader-"));const root=path.resolve(import.meta.dirname,"..");
- const item=itemDetail({id:"static-card",title:"静态分享检查",summary:'描述含 </script><script>window.cardInjected=true</script>',source:{name:"公开来源"},publishedAt:"2026-10-21T10:00:00Z",timelineAt:"2026-10-21T10:00:00Z",category:"industry",selected:true,score:null,markdownAvailable:true,body:{zh:"<p>固定正文</p><pre><code>const example = 1;</code></pre>",original:null,zhKind:"translation",complete:true}});
+ const item=itemDetail({id:"static-card",title:"静态分享检查",summary:'描述含 </script><script>window.cardInjected=true</script>',source:{name:"公开来源"},publishedAt:"2026-10-21T10:00:00Z",timelineAt:"2026-10-21T10:00:00Z",category:"industry",selected:true,score:null,markdownAvailable:true,hasTranslation:true,body:{zh:`<p>固定正文</p><img src="/api/img-proxy?u=https%3A%2F%2Fcdn.example.org%2Fpublic.png&amp;exp=123&amp;sig=public" alt="来源配图"><pre><code>const example = 1;</code></pre>`,original:null,zhKind:"translation",complete:true}});
  const html=`<html><head><meta charset="utf-8"><link rel="stylesheet" href="/assets/site.css"></head><body><nav data-pill-track aria-label="筛选"><a href="/"><span>全部</span></a></nav><h1>${item.title}</h1><button aria-label="收藏">收藏</button><button aria-label="更多操作">更多</button><nav aria-label="阅读工具"><button>收藏</button></nav><button aria-label="更多操作">更多</button><a href="/items/static-card">详情</a><a href="/starred">收藏列表</a></body></html>`;
  const api=createServer((req,res)=>{
   if(req.url?.startsWith("/api/site/timeline")){res.setHeader("content-type","application/json");res.end(JSON.stringify({filters:{channel:"all",category:null,tag:null},cards:[{key:item.id,anchorAt:item.timelineAt,item:feedItem({id:item.id,title:item.title,category:item.category}),group:null}],nextCursor:null,hot:null,dayCounts:{"2026-10-21":1}}));return;}
+  if(req.url==="/api/site/items/static-card/original"){res.setHeader("content-type","application/json");res.end(JSON.stringify({...item,bodyLanguage:"original",body:{...item.body,zh:null,original:"<p>Verified original body in English.</p>"}}));return;}
   if(req.url==="/api/site/items/static-card"){res.setHeader("content-type","application/json");res.end(JSON.stringify(item));return;}
+  if(req.url?.startsWith("/api/img-proxy")){res.statusCode=502;res.end("image unavailable");return;}
   if(req.url==="/items/static-card/markdown"){res.end("# 静态分享检查\n\n描述");return;}
   res.setHeader("content-type","text/html");res.end(req.url==="/starred"?'<html><head><meta charset="utf-8"></head><body><main><header><h1 data-page-title>收藏</h1></header></main></body></html>':(req.url?.startsWith("/items/static-card")||req.url==="/more"||req.url==="/"||req.url?.startsWith("/?"))?html.replace("<body>",'<body><main id="main"><div>').replace("</body>","</div></main></body>"):html);
  });
@@ -82,6 +84,11 @@ test("static details save local bookmarks, open menus and download share cards w
   await expect(page.getByRole("button",{name:"取消收藏",exact:true}).first()).toHaveAttribute("aria-pressed","true");
   await page.reload();await expect(page.getByRole("button",{name:"取消收藏",exact:true}).first()).toHaveAttribute("aria-pressed","true");
   assert.equal(await page.evaluate(()=>Object.hasOwn(window,"cardInjected")),false);
+  await page.getByRole("navigation",{name:"正文语言"}).getByRole("link",{name:"原文",exact:true}).click();await page.waitForURL(origin+"/news/items/static-card/original/index.html");await expect(page.locator("[data-static-ready=true]")).toBeVisible();
+  await expect(page.getByText("正文 · 原文",{exact:true})).toBeVisible();await expect(page.getByText("Verified original body in English.",{exact:true})).toBeVisible();
+  await page.getByRole("navigation",{name:"正文语言"}).getByRole("link",{name:"中文",exact:true}).click();await page.waitForURL(origin+"/news/items/static-card/index.html");await expect(page.locator("[data-static-ready=true]")).toBeVisible();await expect(page.getByText("正文 · AI 翻译",{exact:true})).toBeVisible();
+
+  await expect(page.getByRole("button",{name:"查看大图：来源配图"})).toHaveAttribute("src","https://cdn.example.org/public.png");
   await page.getByRole("button",{name:"复制代码",exact:true}).click();await expect(page.getByRole("button",{name:"复制代码",exact:true})).toHaveText("已复制");
   await page.getByRole("button",{name:"更多操作"}).filter({visible:true}).first().click();await expect(page.getByRole("menuitem",{name:"复制链接"})).toBeVisible();
   await page.keyboard.press("Escape");await expect(page.getByRole("menu")).not.toBeVisible();

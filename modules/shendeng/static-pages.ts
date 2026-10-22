@@ -82,8 +82,8 @@ export class StaticPages {
     } else if(u.pathname==="/all") {
       kind="all";data={data:await this.json("/api/site/pool"+query)};
       for(const card of data.data.items??[])await this.group(card.group,data.data.filters);
-    } else if(/^\/items\/[^/]+$/.test(u.pathname)&&item) {
-      kind="item";data={item};await this.group(item.group,undefined);
+    } else if(/^\/items\/[^/]+(?:\/original)?$/.test(u.pathname)&&item) {
+      kind="item";data={item};if(item.hasTranslation)this.addPage(`/items/${item.id}/original`);await this.group(item.group,undefined);
       if(item.story)await this.json(`/api/site/stories/${encodeURIComponent(item.story.publicId)}/followups`);
     }
     else if(/^\/story\/[^/]+$/.test(u.pathname)) {kind="story";data={story:await this.json("/api/site/stories/"+u.pathname.split("/").at(-1))};}

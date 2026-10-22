@@ -6,8 +6,11 @@ import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {beijingDate} from '@aihot/contracts/time';
 import {loadTopicPage} from '@aihot/backend/publication/topics';
-import {closeDb} from '@aihot/backend/db';
+import {closeDb,sql} from '@aihot/backend/db';
 import {stopBoss} from '@aihot/backend/jobs/queue';
+import {restoreBody,assembleTranslation,translationSegments,validateSnapshot} from '../fulltext.ts';
+import {sha256} from '@aihot/backend/lib/ids';
+import {loadItemDetail} from '@aihot/backend/publication/detail';
 import {stableArticleId} from '../edition.ts';
 after(async()=>{await stopBoss();await closeDb();});
 test('Codex import appears in company and field topics after editorial overrides',async()=>{
@@ -24,6 +27,30 @@ test('Codex import appears in company and field topics after editorial overrides
    const page=await loadTopicPage(slug,1,new Date());
    assert.ok(page?.items.some(i=>i.id===id),`${slug} contains the imported article`);
   }
+  const sourceHtml='<p>Verified <a href="https://example.com/docs">documentation</a> and <code>API</code>.</p>';
+  assert.deepEqual(translationSegments(sourceHtml),['Verified <a id="L0">documentation</a> and ⟦0⟧.']);
+  assert.throws(()=>assembleTranslation(sourceHtml,['丢失链接与代码']),/protected content/);
+  const translated=assembleTranslation(sourceHtml,['已核验的<a id="L0">文档</a>和 ⟦0⟧。']);
+  const snapshot=validateSnapshot({version:1,articleId:id,url,fetchedAt:now.toISOString(),sourceHtml,sourceHash:sha256(sourceHtml),language:'en',
+    translation:{method:'local-codex',translatedAt:now.toISOString(),html:translated,complete:true}});
+  assert.throws(()=>validateSnapshot({...snapshot,sourceHash:'wrong'}),/hash/);
+  await restoreBody(snapshot);
+  const enriched=await loadItemDetail(id);
+  if(enriched.kind==='found')assert.equal(enriched.item.selected,true,'body enrichment preserves the existing selected decision');
+  const [before]=await sql`SELECT revision,timeline_at FROM articles WHERE id=${id}`;
+  // Hourly editorial imports must not replace a verified full body with the evidence excerpt.
+  const repeated=spawnSync(process.execPath,['modules/shendeng/import-reviewed.ts',file,'--codex'],{encoding:'utf8',timeout:30000});
+  assert.equal(repeated.status,0,repeated.stderr);
+  await restoreBody(snapshot);
+  const [after]=await sql`SELECT revision,timeline_at,body_html FROM articles WHERE id=${id}`;
+  assert.equal(after.revision,before.revision);
+  assert.equal(after.timeline_at.getTime(),before.timeline_at.getTime());
+  assert.equal(after.body_html,sourceHtml);
+  const detail=await loadItemDetail(id);
+  assert.equal(detail.kind,'found');
+  if(detail.kind==='found'){assert.equal(detail.item.selected,true);assert.equal(detail.item.hasTranslation,true);assert.match(detail.item.body?.zh??'',/已核验/);}
+  const original=await loadItemDetail(id,'original');
+  if(original.kind==='found')assert.match(original.item.body?.original??'',/Verified/);
   const publisher=await loadTopicPage('hugging-face',1,new Date());
   assert.ok(!publisher?.items.some(i=>i.id===id),'publisher ownership is not article subject');
  }finally{await rm(dir,{recursive:true,force:true});}

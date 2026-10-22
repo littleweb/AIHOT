@@ -8,7 +8,7 @@ def blob(data):
     return hashlib.sha1(b'blob ' + str(len(data)).encode() + b'\0' + data).hexdigest()
 
 def public_files():
-    paths = sorted((ROOT / 'site/editions').glob('*.json')) + sorted((ROOT / 'site/rankings').glob('*.json'))
+    paths = sorted((ROOT / 'site/editions').glob('*.json')) + sorted((ROOT / 'site/rankings').glob('*.json')) + sorted((ROOT / 'site/fulltext').glob('*.json'))
     return {str(p.relative_to(ROOT)): p.read_bytes() for p in paths}
 
 def api(method, path, body=None):
@@ -76,6 +76,16 @@ def verify_online(pending):
                     raise RuntimeError('Online ranking row missing: ' + row['name'])
             if '/leaderboard/index.html' not in body or '/skills/index.html' not in body or '返回' not in body:
                 raise RuntimeError('Online ranking switch or return link missing')
+        if path.startswith('site/fulltext/'):
+            snapshot = json.loads(pending['files'][path])
+            route = '/items/' + snapshot['articleId']
+            detail = get(base + route + '/index.html')
+            if '正文' not in detail: raise RuntimeError('Online full text missing')
+            if snapshot['translation']:
+                if route + '/original' not in manifest['pages']: raise RuntimeError('Online original language page missing')
+                original = get(base + route + '/original/index.html')
+                if '正文 · AI 翻译' not in detail or '正文 · 原文' not in original:
+                    raise RuntimeError('Online language switch missing')
         if path.startswith('site/editions/'):
             edition = json.loads(pending['files'][path])
             if not edition['items']: continue
@@ -146,6 +156,7 @@ def sync():
         if path.startswith('site/editions/'):
             snapshot = snapshot_dir / pathlib.Path(path).name; snapshot.write_bytes(data)
             node('modules/shendeng/import-reviewed.ts', str(snapshot), '--codex', timeout=300)
+    node('modules/shendeng/fulltext.ts', 'import', timeout=300)
     node('scripts/smoke.ts', '--base', CONFIG['localUrl'], timeout=300)
     # Non-forced ref update rejects concurrent remote commits; no unrelated file is uploaded.
     entries = [{'path': p, 'mode': '100644', 'type': 'blob', 'content': data.decode()} for p, data in changed.items()]

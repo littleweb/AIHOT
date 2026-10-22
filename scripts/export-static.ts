@@ -65,7 +65,19 @@ async function asset(u: URL) {
   const id = u.pathname + u.search;
   if (assets.has(id)) return assets.get(id)!;
   const res = await fetch(u, { signal: AbortSignal.timeout(30_000) });
-  if (!res.ok) throw new Error(`public asset ${u.pathname}: ${res.status}`);
+  if (!res.ok) {
+    // An unavailable upstream image must not block the article's static body and translation.
+    // Keep its public HTTPS source instead of shipping an expiring local proxy address.
+    const source=u.pathname==="/api/img-proxy"?u.searchParams.get("u"):null;
+    if(source) {
+      const original=new URL(source);
+      if(original.protocol==="https:"&&!original.username&&!original.password&&original.origin!==origin.origin) {
+        console.warn(`Image proxy returned ${res.status}; retaining the public source image`);
+        assets.set(id,original.href);return original.href;
+      }
+    }
+    throw new Error(`public asset ${u.pathname}: ${res.status}`);
+  }
   const type = res.headers.get("content-type") ?? "";
   const ext = type.includes("svg") ? "svg" : type.includes("png") ? "png" : type.includes("webp") ? "webp" : type.includes("jpeg") ? "jpg" : "bin";
   const file = `assets/snapshot/${createHash("sha256").update(id).digest("hex").slice(0, 20)}.${ext}`;

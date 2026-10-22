@@ -73,4 +73,16 @@ class HotPublicationTests(unittest.TestCase):
             self.assertEqual(state['pending']['hot'],[])
             finish.assert_called_once_with(state)
 
+class FulltextPublicationTests(unittest.TestCase):
+    def test_publication_includes_body_snapshots_but_excludes_runtime_and_model_outputs(self):
+        import tempfile
+        from unittest.mock import patch
+        import publish
+        with tempfile.TemporaryDirectory() as temp:
+            root=pathlib.Path(temp)
+            for name in ['site/editions/day.json','site/rankings/models.json','site/fulltext/article.json','.data/service/fulltext-answer.json']:
+                file=root/name;file.parent.mkdir(parents=True,exist_ok=True);file.write_text('{}')
+            with patch.object(publish,'ROOT',root):
+                self.assertEqual(set(publish.public_files()),{'site/editions/day.json','site/rankings/models.json','site/fulltext/article.json'})
+
 if __name__ == '__main__': unittest.main()

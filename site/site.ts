@@ -230,7 +230,7 @@ export const ALERTS = {
 /** 后台新建信源时的默认设置。 */
 export const SOURCE_DEFAULTS = {
   /** 站内展示全文；false 时只显示摘要和原文链接。 */
-  siteFulltext: false,
+  siteFulltext: true,
 };
 
 /**

@@ -1,0 +1,7 @@
+{
+  "enabled": true,
+  "translationProvider": "local-codex",
+  "intervalSeconds": 300,
+  "batchSize": 3,
+  "failedRetryHours": 6
+}

@@ -1,5 +1,5 @@
 // Reuse the original public metadata and poster renderer; static readers need no API.
-import { mkdir, writeFile } from "node:fs/promises";
+import { access, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { SiteItemDetail } from "@aihot/contracts/site";
 import { CATEGORY_LABELS } from "@aihot/contracts/taxonomy";
@@ -7,14 +7,16 @@ import { beijingDate } from "@aihot/contracts/time";
 import { ITEM_COPY, withSubject } from "@aihot/site";
 
 export async function adaptShareCard(page: URL, output: string, publishedUrl: string) {
-  const match = /^\/items\/([a-zA-Z0-9_-]+)\/?$/.exec(page.pathname);
+  const match = /^\/items\/([a-zA-Z0-9_-]+)(\/original)?\/?$/.exec(page.pathname);
   if (!match) return;
   const id = match[1]!;
-  const response = await fetch(new URL(`/api/site/items/${encodeURIComponent(id)}`, page), { signal: AbortSignal.timeout(30_000) });
+  const response = await fetch(new URL(`/api/site/items/${encodeURIComponent(id)}${match[2]??""}`, page), { signal: AbortSignal.timeout(30_000) });
   if (!response.ok) throw new Error(`Public share metadata ${id}: ${response.status}`);
   const item = await response.json() as SiteItemDetail;
   if (item.id !== id || !item.title) throw new Error("Invalid public share metadata");
-  const url = `${publishedUrl}${page.pathname.replace(/\/$/, "")}/index.html`;
+  const posterFile=path.join(output,"og/posters",`${id}.png`);
+  if(match[2] && await access(posterFile).then(()=>true,()=>false))return item;
+  const url = `${publishedUrl}/items/${id}/index.html`;
   // Imported only after the export command selects SITE_URL, so the original
   // renderer prints the published host rather than the loopback SSR server.
   const { renderPoster } = await import("../../packages/backend/src/media/poster.ts");

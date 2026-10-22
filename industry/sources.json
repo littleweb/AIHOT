@@ -18,7 +18,7 @@
       "tags": [
         "官方"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -38,7 +38,7 @@
       "tags": [
         "官方"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -59,7 +59,7 @@
         "官方",
         "研究"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -80,7 +80,7 @@
         "官方",
         "开源"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -101,7 +101,7 @@
         "官方",
         "研究"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -121,7 +121,7 @@
       "tags": [
         "官方"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -142,7 +142,7 @@
         "官方",
         "教程"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -162,7 +162,7 @@
       "tags": [
         "官方"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -182,7 +182,7 @@
       "tags": [
         "官方"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -202,7 +202,7 @@
       "tags": [
         "研究"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -222,7 +222,7 @@
       "tags": [
         "媒体"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -242,7 +242,7 @@
       "tags": [
         "媒体"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -262,7 +262,7 @@
       "tags": [
         "媒体"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -282,7 +282,7 @@
       "tags": [
         "媒体"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -302,7 +302,7 @@
       "tags": [
         "媒体"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -322,7 +322,7 @@
       "tags": [
         "个人"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -343,7 +343,7 @@
         "个人",
         "周刊"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -363,7 +363,7 @@
       "tags": [
         "个人"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -384,7 +384,7 @@
         "国内",
         "实用"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -405,7 +405,7 @@
         "国内",
         "个人"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -426,7 +426,7 @@
         "国内",
         "媒体"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false
     },
     {
@@ -443,7 +443,7 @@
         "国内",
         "AI创作者"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false,
       "enabled": false
     },
@@ -461,7 +461,7 @@
         "国内",
         "AI创作者"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false,
       "enabled": false
     },
@@ -479,7 +479,7 @@
         "国内",
         "AI创作者"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false,
       "enabled": false
     },
@@ -497,7 +497,7 @@
         "国内",
         "AI创作者"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false,
       "enabled": false
     },
@@ -515,7 +515,7 @@
         "国内",
         "AI创作者"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false,
       "enabled": false
     },
@@ -533,7 +533,7 @@
         "国内",
         "AI创作者"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false,
       "enabled": false
     },
@@ -551,7 +551,7 @@
         "国内",
         "AI创作者"
       ],
-      "site_fulltext": false,
+      "site_fulltext": true,
       "syndicate_fulltext": false,
       "enabled": false
     }

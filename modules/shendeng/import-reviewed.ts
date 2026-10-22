@@ -25,9 +25,10 @@ if(codex) validateEdition(document);
 const entries = (codex ? document.items : document) as CodexItem[];
 const imported: Array<{id:string;source:typeof entries[number]}> = [];
 for (const a of entries) {
-  await sql`INSERT INTO sources(id,name,kind,tier,owner_entity_id,participation_mode,enabled,site_fulltext,syndicate_fulltext) VALUES(${a.sourceId},${a.sourceName},'external',${a.tier},${a.entity},'editorial',false,false,false) ON CONFLICT(id) DO NOTHING`;
+  await sql`INSERT INTO sources(id,name,kind,tier,owner_entity_id,participation_mode,enabled,site_fulltext,syndicate_fulltext) VALUES(${a.sourceId},${a.sourceName},'external',${a.tier},${a.entity},'editorial',false,true,false) ON CONFLICT(id) DO UPDATE SET site_fulltext=true`;
   const tags=publicationTags({tags:a.tags??["行业动态"],entity:a.entity,subjects:a.subjects});
-  const {articleId:id}=await upsertMaterial({id:a.id??stableArticleId(a.url),sourceId:a.sourceId,url:a.url,title:a.title,publishedAt:new Date(a.date),publicationTime:a.date,discoveredAt:a.addedAt?new Date(a.addedAt):undefined,bodyText:a.quote,bodyStatus:"ok",via:"import",backfill:document.backfill?"source-checked-historical-archive":null,raw:{editorialReview:!codex,codexResearch:codex,originalDate:a.date,video:a.video??null},media:a.image?[{kind:"image",url:a.image}]:[]});
+  const [body]=await sql`SELECT body_html,body_text,language FROM articles WHERE id=${a.id??stableArticleId(a.url)}`;
+  const {articleId:id}=await upsertMaterial({id:a.id??stableArticleId(a.url),sourceId:a.sourceId,url:a.url,title:a.title,publishedAt:new Date(a.date),publicationTime:a.date,discoveredAt:a.addedAt?new Date(a.addedAt):undefined,bodyHtml:body?.body_html??null,bodyText:body?.body_html?body.body_text:a.quote,language:body?.language??null,bodyStatus:"ok",via:"import",backfill:document.backfill?"source-checked-historical-archive":null,raw:{editorialReview:!codex,codexResearch:codex,originalDate:a.date,video:a.video??null},media:a.image?[{kind:"image",url:a.image}]:[]});
   const [{revision}]=await sql<{revision:number}[]>`SELECT revision FROM articles WHERE id=${id}`;
   const [prior]=await sql`SELECT 1 FROM analyses WHERE article_id=${id} AND input_revision=${revision}`;
   if(!prior)

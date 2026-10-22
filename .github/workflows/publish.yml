@@ -62,6 +62,8 @@ jobs:
             test -f "$edition" || { echo "No local Codex editions found"; exit 1; }
             node modules/shendeng/import-reviewed.ts "$edition" --codex
           done
+          node modules/shendeng/fulltext.ts enable
+          node modules/shendeng/fulltext.ts import
       - run: npm run typecheck && npm run build -w @aihot/web
       - name: Continuous publication checks
         run: python3 -m unittest discover -s modules/shendeng/service/tests -v
