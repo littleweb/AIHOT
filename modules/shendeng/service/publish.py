@@ -1,5 +1,5 @@
 """Synchronize checked public JSON with the local API and existing GitHub Pages pipeline."""
-import datetime, hashlib, html, json, pathlib, sys, time, urllib.request, urllib.parse
+import datetime, hashlib, html, json, pathlib, sys, time, urllib.request
 from common import ROOT, DATA, CONFIG, read_json, write_json, run, node, lock, status
 REPO = 'repos/' + CONFIG['repository']
 STATE = DATA / 'publication.json'
@@ -36,9 +36,14 @@ def get(url):
         return response.read().decode()
 
 def hot_snapshot():
-    data=json.loads(get(CONFIG['localUrl']+'/api/v1/hot-topics'))
-    return [{'rank':i['rank'],'title':i['title'],'story':urllib.parse.urlsplit(i['links']['story']).path,
-             'participants':i['participantCount']} for i in data['items']]
+    data=json.loads(get(CONFIG['localUrl']+'/api/site/hot'))
+    # Compare published ranking values, not only membership. The worker recalculates heat
+    # every five minutes; a new computedAt alone is not evidence of changed content.
+    return [{'rank':i['rank'],'title':i['story']['title'],'story':'/story/'+i['story']['publicId'],
+             'participants':i['participantCount'],
+             'heat':i['heat'],'trend':i['trend'],'trendPct':i['trendPct'],
+             'badges':i['badges'],'spark':i['spark'],'latest':i['latest']}
+            for i in data['entries']]
 
 def sync_hot(state):
     current=hot_snapshot()

@@ -1,4 +1,4 @@
-import datetime, hashlib, pathlib, sys, unittest
+import datetime, hashlib, json, pathlib, sys, unittest
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 from publish import blob, changed_files
 from research import due, TZ
@@ -24,6 +24,33 @@ class ContinuousServiceTests(unittest.TestCase):
 
 
 class HotPublicationTests(unittest.TestCase):
+    def test_snapshot_reads_visible_heat_without_treating_clock_changes_as_new_content(self):
+        from unittest.mock import patch
+        import publish
+        entry={'rank':1,'story':{'publicId':'checked','title':'Event'},'participantCount':2,
+               'heat':10.5,'trend':'down','trendPct':-0.1,'badges':[],'spark':[11,10.5],'latest':'Checked report'}
+        with patch.object(publish,'get',side_effect=[
+            json.dumps({'computedAt':'2026-10-22T09:00:00Z','entries':[entry]}),
+            json.dumps({'computedAt':'2026-10-22T09:05:00Z','entries':[entry]})]) as get:
+            first=publish.hot_snapshot()
+            self.assertEqual(first,publish.hot_snapshot())
+            self.assertEqual(first[0]['heat'],10.5)
+            self.assertEqual(first[0]['story'],'/story/checked')
+            get.assert_called_with(publish.CONFIG['localUrl']+'/api/site/hot')
+
+    def test_heat_change_republishes_when_rank_and_participant_count_are_unchanged(self):
+        from unittest.mock import patch
+        import publish
+        old={'rank':1,'title':'Event','story':'/story/checked','participants':2,'heat':10.5}
+        new={**old,'heat':10.1}
+        state={'remote':{},'pending':None,'hot':[old]}
+        with patch.object(publish,'hot_snapshot',return_value=[new]), patch.object(publish,'head_tree',return_value=('head','tree',{})), patch.object(publish,'write_json'), patch.object(publish,'finish_pending') as finish, patch.object(publish,'api') as api:
+            publish.sync_hot(state)
+            api.assert_called_once_with('POST',publish.REPO+'/actions/workflows/publish.yml/dispatches',{'ref':'main'})
+            self.assertEqual(state['pending']['files'],{})
+            self.assertEqual(state['pending']['hot'],[new])
+            finish.assert_called_once_with(state)
+
     def test_initial_and_unchanged_hot_lists_do_not_trigger_republication(self):
         from unittest.mock import patch
         import publish
