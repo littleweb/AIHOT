@@ -29,6 +29,7 @@ def serve():
         'web': ([node_path, 'server.ts'], ROOT / 'apps/web'),
         'worker': ([node_path, '--env-file-if-exists=.env', 'apps/worker/src/main.ts'], ROOT),
         'publish': ([sys.executable, '-u', str(SCRIPT.with_name('publish.py'))], ROOT),
+        'fulltext': ([sys.executable, '-u', str(SCRIPT.with_name('fulltext.py'))], ROOT),
         'research': ([sys.executable, '-u', str(SCRIPT.with_name('research.py'))], ROOT),
     }
     children = {}; logs = {}; stopping = False

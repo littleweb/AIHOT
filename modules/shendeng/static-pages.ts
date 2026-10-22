@@ -5,6 +5,7 @@ import { parse } from "@babel/parser";
 import type { Plugin } from "vite";
 import type { CheerioAPI } from "cheerio";
 import type { SiteItemDetail } from "@aihot/contracts/site";
+import featured from "../../site/featured-filters.json" with { type: "json" };
 
 const pages = new Set(["home", "all", "item", "topic", "story", "hot", "changelog", "more", "agent"]);
 const filterParams=(f:any)=>({channel:f.channel==="all"?null:f.channel,category:f.category,tag:f.tag});
@@ -12,6 +13,13 @@ const listPath=(route:string,values:Record<string,unknown>)=>{const p=new URLSea
 /** Remove server-only route exports in this dedicated browser build, never edit upstream source. */
 export function staticPagePlugin(): Plugin {
   return { name:"static-public-pages", enforce:"pre", transform(code,id) {
+    if(id.endsWith("/apps/web/app/features/feed/Filters.tsx")) {
+      const option='{ key: "all", label: noneLabel, to: hrefWith(base, params, { category: null, channel: null }) },';
+      if(!code.includes(option))throw new Error("Upstream feed filters changed; review the static adapter");
+      return code.replace(option,
+        `{ key: "all", label: base === "/" ? ${JSON.stringify(featured.headlineLabel)} : noneLabel, to: hrefWith(base, params, { category: null, channel: null }) },\n`+
+        `    ...(base === "/" && ${featured.showAllFeed} ? [{ key: "allFeed", label: "全部", to: "/all" }] : []),`);
+    }
     if(id.endsWith("/apps/web/app/components/ui/IntentLink.tsx")) {
       // Framework prefetch needs HydratedRouter's manifest; static islands only have a data router.
       const condition="const shouldPrefetch = ready && differentPage";
@@ -74,8 +82,8 @@ export class StaticPages {
     } else if(u.pathname==="/all") {
       kind="all";data={data:await this.json("/api/site/pool"+query)};
       for(const card of data.data.items??[])await this.group(card.group,data.data.filters);
-    } else if(/^\/items\/[^/]+$/.test(u.pathname)&&item) {
-      kind="item";data={item};await this.group(item.group,undefined);
+    } else if(/^\/items\/[^/]+(?:\/original)?$/.test(u.pathname)&&item) {
+      kind="item";data={item};if(item.hasTranslation)this.addPage(`/items/${item.id}/original`);await this.group(item.group,undefined);
       if(item.story)await this.json(`/api/site/stories/${encodeURIComponent(item.story.publicId)}/followups`);
     }
     else if(/^\/story\/[^/]+$/.test(u.pathname)) {kind="story";data={story:await this.json("/api/site/stories/"+u.pathname.split("/").at(-1))};}
