@@ -12,6 +12,12 @@ const listPath=(route:string,values:Record<string,unknown>)=>{const p=new URLSea
 /** Remove server-only route exports in this dedicated browser build, never edit upstream source. */
 export function staticPagePlugin(): Plugin {
   return { name:"static-public-pages", enforce:"pre", transform(code,id) {
+    if(id.endsWith("/apps/web/app/components/ui/IntentLink.tsx")) {
+      // Framework prefetch needs HydratedRouter's manifest; static islands only have a data router.
+      const condition="const shouldPrefetch = ready && differentPage";
+      if(!code.includes(condition))throw new Error("Upstream link prefetch changed; review the static adapter");
+      return code.replace(condition,"const shouldPrefetch = !!framework && ready && differentPage");
+    }
     const name=/\/apps\/web\/app\/routes\/([^/]+)\.tsx$/.exec(id)?.[1];
     if(!name||!pages.has(name))return;
     const file=parse(code,{sourceType:"module",plugins:["typescript","jsx"]});
