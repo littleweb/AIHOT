@@ -1,0 +1,607 @@
+{
+  "date": "2026-10-23",
+  "researchedAt": "2026-10-23T06:40:59+08:00",
+  "items": [
+    {
+      "sourceId": "rss-microsoft-research",
+      "sourceName": "Microsoft Research",
+      "date": "2026-10-22T16:00:00.000Z",
+      "url": "https://www.microsoft.com/en-us/research/blog/flint-interactive-a-language-for-creating-interactive-data-visualizations/",
+      "title": "微软详解Flint交互图表：用语义事件连接图表、表格与对话",
+      "summary": "Chenglong Wang等作者介绍Flint-interactive的三条使用路径：通过MCP在对话中生成交互图表、将图表嵌入应用，以及自定义交互。用户描述选中了什么、希望怎样更新，由编译器处理渲染依赖；图表选择也能传给后续对话。本文是使用与机制讲解，不将既有版本写成今天首次发布，可靠性与成本改善未独立复测。",
+      "reason": "已通读署名原文并核对精确发布时间；提供可复用的交互图表方法，适合AI数据分析与应用开发。",
+      "category": "tip",
+      "quote": "It also enables the user to select and pass context to the follow-up turns.",
+      "tier": "T1",
+      "entity": "microsoft",
+      "subjects": [
+        "microsoft"
+      ],
+      "region": "国外",
+      "tags": [
+        "教程/实践",
+        "AI玩法",
+        "AI产品",
+        "MCP/工具调用",
+        "部署/工程",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-23T00:11:23+08:00"
+    },
+    {
+      "sourceId": "rss-nvidia-blog",
+      "sourceName": "NVIDIA Blog",
+      "date": "2026-10-22T15:00:02.000Z",
+      "url": "https://blogs.nvidia.com/blog/minerva-platform-infrastructure/",
+      "title": "NVIDIA发布Minerva，关联GPU集群遥测与任务故障",
+      "summary": "Minerva将GPU、网络、存储、调度器与工作负载信号关联成动态知识图谱，用于发现异常、归并告警并辅助定位根因。运维人员可通过内置助手查询实时状态，再人工处置或连接自动化系统。官方称IREN已在使用，其他列名伙伴多处于计划部署阶段；文章未提供可独立复核的停机减少或成本节约结果。",
+      "reason": "已通读Brian Sparks官方原文并核对精确发布时间；关注AI集群运维的新工具，伙伴采用与成效保留厂商自述属性。",
+      "category": "ai-products",
+      "quote": "Launched today, NVIDIA Minerva is an AIOps platform",
+      "tier": "T1",
+      "entity": "nvidia",
+      "subjects": [
+        "nvidia"
+      ],
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "AI赛道",
+        "Agent",
+        "部署/工程",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-23T00:11:23+08:00"
+    },
+    {
+      "sourceId": "rss-the-verge-ai",
+      "sourceName": "The Verge · AI",
+      "date": "2026-10-22T15:50:30.000Z",
+      "url": "https://www.theverge.com/policy/1016585/openai-anthropic-nvidia-lobbying-records",
+      "title": "The Verge梳理第三季度披露：三家AI公司游说支出创新高",
+      "summary": "Lauren Feiner援引联邦披露报道，NVIDIA、Anthropic和OpenAI在2026年第三季度的游说支出分别约为220万、210万和150万美元，均创各自季度纪录。列明议题涉及出口管制、AI安全、版权及数据中心能源负担。支出和议题披露不能证明公司支持或反对某项法案，也不代表政策已经改变。",
+      "reason": "已通读署名报道并核对精确发布时间；提供AI企业政策投入的新记录，金额依据报道所引披露，未独立逐份复核申报。",
+      "category": "industry",
+      "quote": "Nvidia spent the most of the group at $2.2 million",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [
+        "nvidia",
+        "anthropic",
+        "openai"
+      ],
+      "region": "国外",
+      "tags": [
+        "政策/监管",
+        "海外AI",
+        "OpenAI",
+        "Anthropic"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-23T00:11:23+08:00"
+    },
+    {
+      "sourceId": "rss-techcrunch-ai",
+      "sourceName": "TechCrunch · AI",
+      "date": "2026-10-22T15:03:58.000Z",
+      "url": "https://techcrunch.com/2026/10/22/spotifys-current-ai-bet-is-about-being-the-music-service-that-agents-choose/",
+      "title": "Spotify谈智能体策略：让外部助手调用服务，推荐仍在内部完成",
+      "summary": "TechCrunch梳理Spotify财报电话会发言：联席CEO Gustav Söderström希望Spotify成为不同智能体调用的媒体服务，承接音乐发现与个性化播放请求。他称合作方提出请求后，由Spotify内部系统利用听歌历史完成推荐，而非向伙伴发送听众数据。所谓采用良好未附具体指标，不能据此认定智能体已带来可量化收入增长。",
+      "reason": "已通读报道并核对精确发布时间；为内容服务如何参与智能体生态提供具体经营思路，数据边界及采用情况仍属公司表述。",
+      "category": "opinion",
+      "quote": "Spotify isn’t sending its listener data to partners.",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "现象/趋势",
+        "AI赛道",
+        "AI商业化",
+        "Agent",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-23T00:11:23+08:00"
+    },
+    {
+      "sourceId": "rss-techcrunch-ai",
+      "sourceName": "TechCrunch · AI",
+      "date": "2026-10-22T16:47:17.000Z",
+      "url": "https://techcrunch.com/2026/10/22/chinese-hackers-spied-on-thousands-of-companies-after-breaching-it-giant-connectwise/",
+      "title": "ConnectWise入侵波及约2250家组织，微软研究称攻击者使用AI智能体",
+      "summary": "TechCrunch援引微软安全研究称，攻击者入侵ConnectWise云备份服务并窃取应用凭据，随后借助ARTEX智能体框架侵入约2250家组织，登录尝试速率接近每分钟3000次。该速率指尝试次数，不是成功登录次数。ConnectWise称已暂停相关服务访问并展开调查，正在恢复服务；攻击归因、规模及AI作用仍依据报道所引研究。",
+      "reason": "已通读报道并核对原站发布时间；提供AI参与真实攻击的新案例，尚未独立复核微软研究和厂商声明。",
+      "category": "industry",
+      "quote": "at a rate of almost 3,000 attempted sign-ins per minute.",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "Agent",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-23T01:21:16+08:00"
+    },
+    {
+      "sourceId": "rss-techcrunch-ai",
+      "sourceName": "TechCrunch · AI",
+      "date": "2026-10-22T16:00:00.000Z",
+      "url": "https://techcrunch.com/2026/10/22/uber-puts-all-30000-employees-on-chatgpt-work/",
+      "title": "Uber将ChatGPT Work从千人试点推广至约三万名员工",
+      "summary": "Uber向TechCrunch确认，将ChatGPT Work从此前1000人的试点扩大至全球约三万名员工。工程副总裁Sumanth Sukumar称，试点用户约八成为非工程人员，应用包括运营数据分析、培训材料本地化和交互看板。公司未披露采购费用，也未公布量化效率收益，将继续观察实际使用和工作流成效。",
+      "reason": "已通读采访报道并核对原站发布时间；推广规模值得关注，覆盖员工不等于持续使用，成本和成效仍待披露。",
+      "category": "industry",
+      "quote": "its entire global workforce — some 30,000 people — will now be using ChatGPT Work.",
+      "tier": "T2",
+      "entity": "openai",
+      "subjects": [
+        "openai"
+      ],
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "AI产品",
+        "AI赛道",
+        "Agent",
+        "OpenAI",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-23T01:21:16+08:00"
+    },
+    {
+      "sourceId": "rss-the-verge-ai",
+      "sourceName": "The Verge · AI",
+      "date": "2026-10-21T22:33:44.000Z",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1015958/data-center-pollution-rising-report",
+      "title": "HARC情景研究提示：得州数据中心供电选择将影响污染增幅",
+      "summary": "The Verge记者Justine Calma报道，HARC按三种数据中心用电需求情景模拟得州排放。若全部规划项目落地并采用预期电网能源组合，未来五年发电部门细颗粒物排放可能增至三倍以上，二氧化碳排放较2025年增加90%。这些是条件性预测；项目取消、现场风光发电或改用燃气供电，都会改变结果。",
+      "reason": "已通读署名报道并核对原站发布时间；补充AI基础设施的环境约束，尚未独立复核研究报告，预测不代表污染已发生。",
+      "category": "paper",
+      "quote": "HARC modeled different outcomes based on three different projections for data center energy demand.",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "论文/研究",
+        "AI赛道",
+        "行业报告",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-23T01:21:16+08:00"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "date": "2026-10-22T18:00:04.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/announcing-new-ways-to-customize-models-with-sagemaker-ai-without-managing-gpus/",
+      "title": "SageMaker训练会话正式开放，允许自写训练循环并按Token计费",
+      "summary": "AWS正式开放SageMaker AI训练会话，开发者可自行编写损失函数、奖励逻辑和多轮强化学习流程，由服务管理GPU、分布式执行和检查点。首批支持gpt-oss-20b、gemma-4-31B-it、Qwen3.6-27B及Qwen3.8-27B。费用按服务处理的Token计算，本地奖励函数评分期间不计GPU处理费用；仍需相应权限并核对模型、地区和配额。",
+      "reason": "已通读AWS公告并核对原站发布时间；训练控制和计费方式有明确变化，未实际运行或验证成本收益。",
+      "category": "ai-products",
+      "quote": "You pay for the tokens SageMaker AI processes.",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "数据/训练",
+        "Agent",
+        "部署/工程",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-23T02:27:48+08:00"
+    },
+    {
+      "sourceId": "rss-the-verge-ai",
+      "sourceName": "The Verge · AI",
+      "date": "2026-10-22T18:00:00.000Z",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1016690/suleyman-microsoft-diagnostic-orchestrator-science-medical-superintelligence",
+      "title": "微软诊断研究报告病例测试结果，仍需真实临床验证",
+      "summary": "据The Verge记者Robert Hart报道，微软Diagnostic Orchestrator研究发表于Science：在NEJM历史病例测试中，系统诊断准确率约83%，使用参考资料的全科医生约36%；另一组急诊历史病例测试为80%对47%。研究使用GPT-5，未纳入最新一代模型。系统尚未证明真实临床效果，拟开展医院测试，时间和商业化安排均未确定。",
+      "reason": "已通读采访报道并核对原站时间；医疗AI评估具有关注价值，但未独立复核论文，病例测试不能等同临床成效。",
+      "category": "paper",
+      "quote": "It needs clinical validation",
+      "tier": "T2",
+      "entity": "microsoft",
+      "subjects": [
+        "microsoft"
+      ],
+      "region": "国外",
+      "tags": [
+        "论文/研究",
+        "AI赛道",
+        "Agent",
+        "海外AI",
+        "Microsoft"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-23T02:27:48+08:00"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "date": "2026-10-22T18:06:35.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/amazon-polly-delivers-a-major-upgrade-to-its-generative-engine/",
+      "title": "Amazon Polly升级生成式语音引擎，现有接口与价格保持不变",
+      "summary": "AWS宣布Polly生成式引擎升级并正式可用，新增14个声音，首次提供印地语和芬兰语生成式声音，总计覆盖57个声音、11种语言和25个地区变体。现有生成式声音原位升级，无需修改接口或声音名称，价格不变；标准及神经声音不受影响，生成式声音仍不支持Speech Marks。自然度和准确度改善属于厂商主张。",
+      "reason": "已通读AWS原文并核对发布时间；现有语音应用可直接评估升级效果，尚无本轮独立音质或延迟实测。",
+      "category": "ai-products",
+      "quote": "The upgrade is now generally available in production.",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "语音",
+        "Agent",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-23T02:27:48+08:00"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "date": "2026-10-22T16:25:57.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/how-rescale-built-an-ai-triage-agent-with-strands-agents-and-ai-dlc/",
+      "title": "Rescale复盘测试分诊智能体：分类一致率升至68%，工程师继续复核",
+      "summary": "AWS与Rescale介绍夜间端到端测试分诊流程：智能体结合历史失败记录、日志和代码生成分类及修复建议，工程师确认后再行动。团队称五天完成预发布部署，随后数周进入生产；与人工分诊的一致率从44%升至68%，测试失败分析阻塞生产发布的时间减少20%。可复用做法包括先固定范围、接口及验收标准，并持续维护评测样本。",
+      "reason": "已通读参与方案例并核对原站时间；提供具体流程和评测变化，成效为团队自报，未独立复测。",
+      "category": "tip",
+      "quote": "from 44% at initial deployment to 68% today.",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "教程/实践",
+        "AI玩法",
+        "Agent",
+        "编码",
+        "部署/工程",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-23T02:27:48+08:00"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "date": "2026-10-22T17:45:58.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/stream-low-latency-speech-from-ai-agents-using-kokoro-tts-on-amazon-sagemaker-ai/",
+      "title": "AWS演示逐句合成语音，减少等待智能体完整回答的延迟",
+      "summary": "教程用Kokoro-82M演示文本生成与逐句语音合成重叠执行，并处理二进制WebSocket帧、会话复用及SSE分片。作者在固定输入、各五次测试中，测得首音频字节平均等待从329.3毫秒降至156.7毫秒；该结果仅隔离TTS传输环节，不能直接代表所有语音应用。示例容器依赖存在已知安全公告，正式使用前需审查升级。",
+      "reason": "已通读教程并核对原站时间；逐句发送和分片处理可迁移复用，保留测试口径及依赖限制，本轮未部署复测。",
+      "category": "tip",
+      "quote": "cut mean time to first audio byte from 329.3 ms to 156.7 ms",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "教程/实践",
+        "AI玩法",
+        "语音",
+        "Agent",
+        "部署/工程",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-23T02:27:48+08:00"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "date": "2026-10-22T18:01:53.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/how-iskaypet-unified-corporate-knowledge-with-amazon-bedrock-managed-knowledge-bases/",
+      "title": "IskayPet复盘企业知识助手：按权限检索，并控制注入上下文数量",
+      "summary": "IskayPet分享覆盖三国、四种语言的企业知识助手实践：按助手隔离知识库，在检索时复用SharePoint文档权限，结合混合搜索、重排和引用回答。系统检索25段材料，去重后最多注入15段，以控制输入Token成本。团队称前两个月查找答案由3—5分钟缩短至约7秒；每月十万次查询仍是预期规模。",
+      "reason": "已通读参与方案例并核对原站时间；权限与检索成本设计有复用价值，耗时改善为团队自报，查询规模属于预测。",
+      "category": "tip",
+      "quote": "Time to find an operational answer dropped from 3–5 minutes to about 7 seconds.",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "教程/实践",
+        "AI玩法",
+        "AI商业化",
+        "RAG",
+        "部署/工程",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-23T02:27:48+08:00"
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "date": "2026-10-22T00:00:00.000Z",
+      "url": "https://openai.com/index/uber-chatgpt-work-rollout",
+      "title": "OpenAI原文交叉确认Uber向三万余员工推广ChatGPT Work",
+      "summary": "OpenAI公告确认，Uber从千人试点扩大至面向全球三万余名员工推广ChatGPT Work，配套内部技能库、获批集成和员工培训。公告称双方将随推广进展继续分享采用情况和可衡量结果，当前未给出全员推广后的提效数据。本条仅为已归档Uber事件补充官方原文证据。",
+      "reason": "原文正文＋原站RSS时间核验；交叉确认已收录的推广事实，不重复作为精选，也不将开放访问写成已实现提效。",
+      "category": "industry",
+      "quote": "Expanding from an initial pilot of 1,000 employees",
+      "tier": "T1",
+      "entity": "openai",
+      "subjects": [
+        "openai"
+      ],
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "AI产品",
+        "AI商业化",
+        "Agent",
+        "海外AI",
+        "OpenAI"
+      ],
+      "selected": false,
+      "event": {
+        "key": "uber-chatgpt-work-rollout-2026-10-22",
+        "title": "Uber将ChatGPT Work从试点推广至全公司",
+        "factKey": "uber-chatgpt-work-30000-rollout",
+        "factTitle": "Uber宣布将ChatGPT Work从千人试点推广至三万余员工"
+      },
+      "addedAt": "2026-10-23T02:27:48+08:00"
+    },
+    {
+      "sourceId": "rss-techcrunch-ai",
+      "sourceName": "TechCrunch · AI",
+      "date": "2026-10-22T19:00:00.000Z",
+      "url": "https://techcrunch.com/2026/10/22/canva-releases-its-first-image-generation-model/",
+      "title": "Canva发布首个图像生成模型Craft，接入Dream Lab",
+      "summary": "据TechCrunch报道，Canva Craft先规划布局与文字，再生成最高2K、支持30种宽高比的图像，并可配合Canva Magic转为分层设计。报道明确用户现可从Dream Lab使用；API、第三方聊天应用接入及两个更快版本仍属后续安排，不能据此认定免费额度或实际画质。",
+      "reason": "已通读记者原文并核对原站精确发布时间；设计生成与分层编辑的衔接值得关注，效果尚未独立复测。",
+      "category": "ai-models",
+      "quote": "Canva Craft is available on the company’s platform to all users",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "模型发布",
+        "AI产品",
+        "图像生成",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-23T03:33:40+08:00"
+    },
+    {
+      "sourceId": "rss-techcrunch-ai",
+      "sourceName": "TechCrunch · AI",
+      "date": "2026-10-22T19:00:00.000Z",
+      "url": "https://techcrunch.com/2026/10/22/openai-makes-its-jev-competitor-widely-available-as-decision-model-competition-heats-up/",
+      "title": "OpenAI Decisions API向所有客户开放，新增语音与视觉模态",
+      "summary": "TechCrunch采访称，OpenAI将此前开发者日公布的Decisions API向所有客户开放，并加入语音与视觉模态。产品负责人表示其基于现有Luna调整推理配置，面向快速分类和选项决策。客户Speak称动作间隔从1.4秒降至0.13秒；这一结果属于客户自述，适用任务与成本仍需自行验证。",
+      "reason": "已通读采访原文并核对原站精确发布时间；开放范围和输入能力有明确变化，延迟收益保留受访者自述性质。",
+      "category": "ai-products",
+      "quote": "the Decisions API became available to all customers on Thursday.",
+      "tier": "T2",
+      "entity": "openai",
+      "subjects": [
+        "openai"
+      ],
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "多模态",
+        "语音",
+        "海外AI",
+        "OpenAI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-23T03:33:40+08:00"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "date": "2026-10-22T16:30:06.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/stop-guessing-auto-scaling-targets-for-tts-on-amazon-sagemaker-ai/",
+      "title": "AWS分享语音服务伸缩方法：先测并发上限与扩容耗时",
+      "summary": "AWS以Kokoro-82M在ml.g5.xlarge上的实测说明如何推导伸缩策略：先测满足首音频延迟目标的并发上限，再测扩容到恢复流量的耗时。示例中50并发满足3秒目标、60并发超标；扩容实测260.2秒，规划另加60秒检测延迟。数值须按自身模型与硬件重测，样例还注明依赖安全公告及突发、缩容风险。",
+      "reason": "已通读AWS原文并核对原站精确发布时间；提供可迁移的测量方法，示例性能和部署效果未独立复测。",
+      "category": "tip",
+      "quote": "Q_max = 50",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "教程/实践",
+        "AI玩法",
+        "语音",
+        "部署/工程",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-23T03:33:40+08:00"
+    },
+    {
+      "sourceId": "rss-the-verge-ai",
+      "sourceName": "The Verge · AI",
+      "date": "2026-10-22T20:24:04.000Z",
+      "url": "https://www.theverge.com/tech/1017066/meta-muse-sharing-back-on-artifiacts",
+      "title": "Meta称已修复Muse共享作品链接问题，旧链接须重新获取",
+      "summary": "Jay Peters报道，Meta恢复Muse分享功能，并为此前共享的作品更换网址，旧链接会提示访问者向分享者索取新链接。David Singleton称问题涉及文档、图片等共享作品的链接，而非聊天分享本身。此前研究者发现部分共享页面可被查找；此次修复效果尚未独立复测。",
+      "reason": "Codex核对记者原文与发布时间；旧链接需重新分发，具有直接使用价值。修复范围依据Meta说法，尚未独立复测。",
+      "category": "industry",
+      "quote": "it now has a new URL",
+      "tier": "T2",
+      "entity": "meta",
+      "subjects": [
+        "meta"
+      ],
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "AI产品",
+        "海外AI",
+        "Agent",
+        "Meta"
+      ],
+      "selected": true,
+      "event": {
+        "key": "meta-muse-sharing-security-2026-10",
+        "title": "Muse共享作品链接安全问题与处置",
+        "factKey": "muse-artifact-links-replaced-2026-10-22",
+        "factTitle": "Meta恢复Muse分享并替换此前共享作品的网址"
+      },
+      "addedAt": "2026-10-23T04:39:06+08:00"
+    },
+    {
+      "sourceId": "rss-techcrunch-ai",
+      "sourceName": "TechCrunch · AI",
+      "date": "2026-10-22T18:43:53.000Z",
+      "url": "https://techcrunch.com/2026/10/22/microsofts-mustafa-suleyman-says-its-ai-outperforms-doctors-on-hard-cases-as-he-chases-medical-superintelligence/",
+      "title": "TechCrunch拆解微软诊断研究：编排增益随模型与病例变化",
+      "summary": "TechCrunch补充微软MAI-DxO研究的单模型对照：复杂病例中，GPT-5单独准确率为78.9%，加入编排后约83%；GPT-5.5从72%升至近87%。急诊病例中的编排增益则不明显。测试使用历史病例，医生比较组未包括专家或医生团队，不能据此证明真实临床效果。",
+      "reason": "Codex核对记者原文与发布时间；相较已归档总准确率，新增单模型对照，有助理解编排收益的适用边界，尚无真实临床结论。",
+      "category": "paper",
+      "quote": "DxO helps most on complex cases",
+      "tier": "T2",
+      "entity": "microsoft",
+      "subjects": [
+        "microsoft",
+        "openai"
+      ],
+      "region": "国外",
+      "tags": [
+        "论文/研究",
+        "海外AI",
+        "Agent",
+        "AI赛道",
+        "Microsoft",
+        "OpenAI"
+      ],
+      "selected": true,
+      "event": {
+        "key": "microsoft-mai-dxo-science-2026-10-22",
+        "title": "微软MAI-DxO诊断研究及结果解读",
+        "factKey": "mai-dxo-baseline-model-comparison",
+        "factTitle": "报道补充诊断编排与单模型基线的分任务对照"
+      },
+      "addedAt": "2026-10-23T04:39:06+08:00"
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "date": "2026-10-22T19:00:00.000Z",
+      "url": "https://openai.com/index/decisions-api",
+      "title": "OpenAI官方补充Decisions API定价与请求限制",
+      "summary": "OpenAI公告确认Decisions API正式全面开放，基于GPT-6 Luna，提供概率、选项和评分三种输出。输入每百万Token收费0.10美元，缓存输入0.01美元，不收输出Token费，缓存写入另有计费规则。每次请求最多400个问题，支持文本、图像和JSON，并原生集成GPT-Live；零数据保留仅面向合资格客户。",
+      "reason": "Codex完成原文正文＋原站 RSS 时间核验；为已归档开放事件补充官方定价与限制，作为交叉证据保留，性能主张未复测。",
+      "category": "ai-products",
+      "quote": "You only pay for input tokens",
+      "tier": "T1",
+      "entity": "openai",
+      "subjects": [
+        "openai"
+      ],
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "海外AI",
+        "Agent",
+        "OpenAI"
+      ],
+      "selected": false,
+      "event": {
+        "key": "openai-decisions-api-ga-2026-10-22",
+        "title": "OpenAI Decisions API正式全面开放",
+        "factKey": "decisions-api-general-availability",
+        "factTitle": "Decisions API全面开放并增加原生语音集成等能力"
+      },
+      "addedAt": "2026-10-23T04:39:06+08:00"
+    },
+    {
+      "sourceId": "rss-the-verge-ai",
+      "sourceName": "The Verge · AI",
+      "date": "2026-10-22T19:45:00.000Z",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1016879/spacex-tesla-cursed-katamari",
+      "title": "The Verge分析SpaceX与Tesla合并讨论中的AI收入与控制权",
+      "summary": "Elizabeth Lopatto分析两家公司合并讨论的财务动因。文章提醒，SpaceX披露的AI相关收入未将Grok与算力出租单独列出，不能直接等同于模型收入；并采访法律学者，解释假设由SpaceX换股收购Tesla时，控制权和股东稀释可能如何变化。合并仍处讨论阶段，不能视为已达成交易。",
+      "reason": "Codex核对记者全文与原站发布时间；新增采访帮助理解AI收入口径及潜在利益冲突，交易影响属于有条件的分析。",
+      "category": "opinion",
+      "quote": "that number wasn’t broken out from bare-metal revenue.",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "现象/趋势",
+        "AI商业化",
+        "AI赛道",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-23T05:35:28+08:00"
+    },
+    {
+      "sourceId": "rss-the-verge-ai",
+      "sourceName": "The Verge · AI",
+      "date": "2026-10-22T21:51:25.000Z",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1017151/canva-craft-in-house-ai-model",
+      "title": "The Verge交叉报道Canva Craft发布及Dream Lab开放范围",
+      "summary": "Emma Roth报道，Canva Craft采用先规划设计再生成图像的两阶段架构，支持最高2K输出，全球用户现可从Dream Lab使用。MCP接入与更快版本仍属后续计划；画质、文字准确性及榜单表现主要依据厂商说明，未经本轮复测。",
+      "reason": "Codex通读记者原文并核对网页及原站RSS时间，补充已归档发布的同事实交叉证据；不重复精选，效果未复测。",
+      "category": "ai-models",
+      "quote": "Canva Craft is available now to all users globally.",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "模型发布",
+        "AI产品",
+        "图像生成",
+        "海外AI"
+      ],
+      "selected": false,
+      "event": {
+        "key": "canva-craft-release-2026-10-22",
+        "title": "Canva发布图像生成模型Craft",
+        "factKey": "canva-craft-dream-lab-launch",
+        "factTitle": "Canva发布Craft并向全球用户开放Dream Lab使用"
+      },
+      "addedAt": "2026-10-23T06:40:59+08:00"
+    }
+  ]
+}

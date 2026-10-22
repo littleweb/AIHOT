@@ -1,6 +1,6 @@
 {
   "date": "2026-10-22",
-  "researchedAt": "2026-10-22T05:25:04.529078+00:00",
+  "researchedAt": "2026-10-22T23:05:12+08:00",
   "items": [
     {
       "sourceId": "rss-the-verge-ai",
@@ -402,7 +402,7 @@
       "url": "https://www.qbitai.com/2026/10/504730.html",
       "title": "生数科技披露 Motubrain 2.0 训练直播安排，模型仍待开源",
       "summary": "生数科技供稿称，团队于10月21日启动 Motubrain 2.0 训练流程公开直播，计划持续半个月，覆盖预训练、后训练、任务执行与递归自我改进探索。文章明确模型即将开源；直播安排和研究方向属于团队披露，本轮未观看直播，也未验证泛化或自我改进效果。",
-      "reason": "Codex 来源核对：已阅读全文，核对发布时间及文末生数科技供稿、授权转载声明；媒体来源按T2记录。仅收录团队披露的直播安排，未观看直播、未验证训练结果，不代表人工审核或原模型评分。",
+      "reason": "已阅读全文，核对发布时间及文末生数科技供稿、授权转载声明；媒体来源按T2记录。仅收录团队披露的直播安排，未观看直播、未验证训练结果，不代表人工审核或原模型评分。",
       "category": "industry",
       "quote": "Motubrain 2.0即将开源",
       "tier": "T2",
@@ -425,7 +425,7 @@
       "url": "https://finance.sina.com.cn/roll/2026-10-21/doc-inivyhku4863441.shtml",
       "title": "21世纪经济报道梳理中国 AI 投资报告与企业落地难题",
       "summary": "记者陈归辞援引靖亚资本《2026中国AI行业趋势报告》，称上半年境内AI领域股权投资总额为3077亿元，并整理持续学习、世界模型及企业业务流程重构的讨论。投资金额属于该报告口径，本轮未独立复核底层统计；受访者对技术突破和商业机会的判断也不代表已实现的经营成果。",
-      "reason": "Codex 来源核对：已打开转载全文，核对记者署名、来源、发布日期及3077亿元的归属口径，明确区分报告数据与受访者观点。与全部历史归档核对后未见相同报告条目；未经人工逐条审核，未采用原模型评分。",
+      "reason": "已打开转载全文，核对记者署名、来源、发布日期及3077亿元的归属口径，明确区分报告数据与受访者观点。与全部历史归档核对后未见相同报告条目；未经人工逐条审核，未采用原模型评分。",
       "category": "industry",
       "quote": "股权投资总额达到3077亿元",
       "tier": "T2",
@@ -592,6 +592,796 @@
         "factTitle": "LiteLLM确认1.107.0及关联镜像含恶意组件并撤下"
       },
       "addedAt": "2026-10-22T05:25:04.529078+00:00"
+    },
+    {
+      "sourceId": "rss-techcrunch-ai",
+      "sourceName": "TechCrunch",
+      "date": "2026-10-21T21:14:19+00:00",
+      "url": "https://techcrunch.com/2026/10/21/meta-says-muse-has-over-10m-users-with-shopping-a-top-activity/",
+      "title": "Meta称Muse用户超千万",
+      "summary": "公司自报，盈利仍属预期。",
+      "reason": "Codex 来源核对 · 已读Sarah Perez原文并核对article:published_time；用户数据保留公司自述性质，未经独立验证。",
+      "category": "industry",
+      "quote": "10 million",
+      "tier": "T2",
+      "entity": "meta",
+      "subjects": [
+        "meta"
+      ],
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "AI产品",
+        "AI商业化",
+        "海外AI",
+        "Meta"
+      ],
+      "selected": true,
+      "event": {
+        "key": "meta-muse-user-disclosure-2026-10-21",
+        "title": "Muse用户披露",
+        "factKey": "muse-10m-users-disclosure",
+        "factTitle": "Muse注册用户超千万"
+      },
+      "addedAt": "2026-10-22T05:37:06Z"
+    },
+    {
+      "sourceId": "rss-techcrunch-ai",
+      "sourceName": "TechCrunch",
+      "date": "2026-10-21T20:27:41+00:00",
+      "url": "https://techcrunch.com/2026/10/21/recursive-launches-flint-a-laptop-coding-model-it-says-was-largely-built-by-ai/",
+      "title": "Recursive发布Flint，开放可在笔记本运行的编码模型",
+      "summary": "Flint采用40B总参数、每token激活2.5B的MoE架构，权重按Apache 2.0开放。官方建议把复杂任务拆小，并优先在256K以内上下文使用；性能成绩属于厂商测试，尚未独立复测。",
+      "reason": "Codex 来源核对 · 已读Aditya Mehta报道并核对秒级发布时间；参数、许可和限制另对照[Recursive公告](https://recursive.com/updates/introducing-recursive-flint)及[vLLM参与方说明](https://vllm.ai/blog/2026-10-21-flint)。官方公告未核实发布时间，不另造T1记录。",
+      "category": "ai-models",
+      "quote": "Flint is a free coding model",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "模型发布",
+        "编码",
+        "端侧",
+        "开源生态",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": {
+        "key": "recursive-flint-release-2026-10-21",
+        "title": "Recursive发布Flint本地编码模型",
+        "factKey": "flint-open-weights-release",
+        "factTitle": "Flint开放权重并提供本地运行支持"
+      },
+      "addedAt": "2026-10-22T05:37:06Z"
+    },
+    {
+      "sourceId": "rss-techcrunch-ai",
+      "sourceName": "TechCrunch",
+      "date": "2026-10-21T19:30:00+00:00",
+      "url": "https://techcrunch.com/2026/10/21/while-amazon-blocks-ai-agents-walmart-rolls-out-the-welcome-mat/",
+      "title": "Walmart公布购物智能体网关与授权方案",
+      "summary": "Walmart公布Agent Gateway、Agent Profiles及智能体交易规则。对照官方原文，网关仍在建设，将先面向企业和开发者开展beta；Profiles计划下月推出，允许消费者设置审批和消费限额，不能写成已全面上线。",
+      "reason": "Codex 来源核对 · 已读Sarah Perez报道并核对秒级发布时间；开放阶段和授权条件以[Walmart原文](https://corporate.walmart.com/news/2026/10/Making-It-Possible-for-Agents-to-Shop-on-Behalf-of-Customers)交叉校正。",
+      "category": "ai-products",
+      "quote": "With Agent Profiles, rolling out next month",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "AI赛道",
+        "Agent",
+        "MCP/工具调用",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": {
+        "key": "walmart-agent-shopping-controls-2026-10-21",
+        "title": "Walmart公布购物智能体接入与授权方案",
+        "factKey": "walmart-agent-gateway-profiles-announcement",
+        "factTitle": "Walmart宣布Agent Gateway、Profiles及交易规则"
+      },
+      "addedAt": "2026-10-22T05:37:06Z"
+    },
+    {
+      "sourceId": "walmart-newsroom",
+      "sourceName": "Walmart Newsroom",
+      "date": "2026-10-21",
+      "url": "https://corporate.walmart.com/news/2026/10/Making-It-Possible-for-Agents-to-Shop-on-Behalf-of-Customers",
+      "title": "Walmart原文明确网关beta和消费者授权边界",
+      "summary": "官方说明将先开展企业与开发者beta，Profiles计划下月推出。默认要求消费者批准购买，智能体不能取得支付卡信息或更改付款方式，违规智能体可被阻止访问。",
+      "reason": "Codex 来源核对 · 已阅读全文并核对发布主体和页示日期。仅作同事件48小时内交叉证据；未核实具体发布时间，不作为24小时精选新消息。",
+      "category": "ai-products",
+      "quote": "We'll begin with a beta for companies and developers.",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "Agent",
+        "MCP/工具调用",
+        "海外AI"
+      ],
+      "selected": false,
+      "event": {
+        "key": "walmart-agent-shopping-controls-2026-10-21",
+        "title": "Walmart公布购物智能体接入与授权方案",
+        "factKey": "walmart-agent-gateway-profiles-announcement",
+        "factTitle": "Walmart宣布Agent Gateway、Profiles及交易规则"
+      },
+      "addedAt": "2026-10-22T05:37:06Z"
+    },
+    {
+      "sourceId": "rss-microsoft-research",
+      "sourceName": "Microsoft Research",
+      "date": "2026-10-21T16:00:00Z",
+      "url": "https://www.microsoft.com/en-us/research/blog/solving-a-31-year-old-grand-challenge-in-mathematics-the-kls-conjecture/",
+      "title": "微软复盘KLS证明：研究者筛选AI路线，无引导尝试未达目标",
+      "summary": "Xinzhi Zhang介绍团队如何探索约百条研究路线，由研究者淘汰无效方向、选择中间结果并完成数学论证。团队称，在约相同token预算下，无引导模型尝试未能达到目标。文章回顾的是10月4日版本已完成的证明，本轮新增内容是人机协作过程说明。",
+      "reason": "Codex 来源核对 · 已读署名全文，并以微软原站公开内容接口的date_gmt核实发布时间；对照文中论文版本日期，未把旧证明写成当天突破。过程对照结果仍属团队自述，未独立复现。",
+      "category": "paper",
+      "quote": "That effort fell short of the goal.",
+      "tier": "T1",
+      "entity": "microsoft",
+      "subjects": [
+        "microsoft"
+      ],
+      "region": "国外",
+      "tags": [
+        "论文/研究",
+        "Agent",
+        "AI玩法",
+        "海外AI",
+        "Microsoft"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-22T05:37:06Z"
+    },
+    {
+      "sourceId": "external-prnewswire",
+      "sourceName": "PR Newswire（Blacksmith供稿）",
+      "date": "2026-10-21T09:15-04:00",
+      "url": "https://www.prnewswire.com/news-releases/blacksmith-raises-sequoia-led-series-c-at-1-billion-valuation-to-scale-code-validation-302915140.html",
+      "title": "Blacksmith获6600万美元C轮融资，披露AI编码带来的测试需求",
+      "summary": "Blacksmith宣布完成红杉领投的6600万美元C轮融资，估值10亿美元。公司称，自1月以来ARR增长17倍，每周CI任务从500万增至逾9000万，服务超过1万家公司。这些经营指标属于企业自述，未独立审计；融资和ARR增长不能证明盈利，2027年算力扩张仍是计划。",
+      "reason": "已读供稿全文，核对09:15 ET发布时间及供稿主体，并对照[公司公告](https://www.blacksmith.sh/blog/series-c)和TechCrunch报道；任务量采用原始公告的每周口径。媒体刊登企业供稿按T2记录，未采用原模型评分。",
+      "category": "industry",
+      "quote": "Company's ARR grew 17x since January",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "AI创业",
+        "AI商业化",
+        "编码",
+        "部署/工程",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": {
+        "key": "blacksmith-series-c-2026-10-21",
+        "title": "Blacksmith完成C轮融资并披露CI业务增长",
+        "factKey": "blacksmith-series-c-operating-disclosure",
+        "factTitle": "Blacksmith宣布6600万美元C轮融资及经营指标"
+      },
+      "addedAt": "2026-10-22T06:43:33Z"
+    },
+    {
+      "sourceId": "rss-techcrunch-ai",
+      "sourceName": "TechCrunch",
+      "date": "2026-10-21T10:18-07:00",
+      "url": "https://techcrunch.com/2026/10/21/blacksmith-hits-unicorn-valuation-after-sequoia-leads-series-c/",
+      "title": "TechCrunch交叉报道Blacksmith融资",
+      "summary": "报道支持同一轮融资事实，经营指标仍来自公司披露。",
+      "reason": "已读Dominic-Madori Davis全文并核对10:18 AM PDT发布时间；作为同事件媒体交叉证据，不重复精选，不视为对经营指标的独立审计。",
+      "category": "industry",
+      "quote": "$66 million Series C",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "AI创业",
+        "编码",
+        "海外AI"
+      ],
+      "selected": false,
+      "event": {
+        "key": "blacksmith-series-c-2026-10-21",
+        "title": "Blacksmith完成C轮融资并披露CI业务增长",
+        "factKey": "blacksmith-series-c-operating-disclosure",
+        "factTitle": "Blacksmith宣布6600万美元C轮融资及经营指标"
+      },
+      "addedAt": "2026-10-22T06:43:33Z"
+    },
+    {
+      "sourceId": "rss-techcrunch-ai",
+      "sourceName": "TechCrunch",
+      "date": "2026-10-21T07:00-07:00",
+      "url": "https://techcrunch.com/2026/10/21/ai-promises-productivity-but-for-managers-its-mostly-a-headache-for-now-says-new-survey/",
+      "title": "调查关注AI采用后的管理负担",
+      "summary": "据[monday.com公开结果页](https://monday.com/gp/ai-report-2026)，调查覆盖7国1701名董事及高级经理：72%称公司要求或积极鼓励使用AI，仅29%称组织已具备充分优化、集中的AI基础设施，另有29%称AI增加了工作时长。这些是受访者自报，不能据此断言AI普遍降低生产率。",
+      "reason": "已读Ram Iyer报道，核对07:00 AM PDT发布时间，并逐项对照报告公开结果页；未取得完整问卷和底层数据，未声称阅读全文报告PDF。全部历史归档未发现相同调查，未采用原模型评分。",
+      "category": "paper",
+      "quote": "invisible labor",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "论文/研究",
+        "行业报告",
+        "AI赛道",
+        "AI商业化",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-22T06:43:33Z"
+    },
+    {
+      "sourceId": "minimax-official",
+      "sourceName": "MiniMax 官方",
+      "date": "2026-10-22",
+      "url": "https://www.minimax.io/blog/minimax-code-mini-app-1792650729",
+      "title": "MiniMax Code推出Mini App，让智能体工作留在持续运行的应用中",
+      "summary": "Mini App已在macOS和Windows桌面端的本地会话开放，将前端页面、Node后端、持久数据和MCP工具连接起来。用户可用/miniapp-creator创建应用，也可安装官方插件。代码以本机用户身份运行，连接器和智能体权限须声明；本轮未实测。",
+      "reason": "从官方目录进入并通读原文，核对当日日期、开放范围及权限条件；与全部113条归档按网址和事实去重，未采用原引擎评分。",
+      "category": "ai-products",
+      "quote": "Mini Apps are available now in local sessions",
+      "tier": "T1",
+      "entity": "minimax",
+      "subjects": [
+        "minimax"
+      ],
+      "region": "国内",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "AI玩法",
+        "Agent",
+        "MCP/工具调用",
+        "国内AI"
+      ],
+      "selected": true,
+      "event": {
+        "key": "minimax-code-mini-app-2026-10-22",
+        "title": "MiniMax Code发布Mini App",
+        "factKey": "minimax-code-mini-app-runtime-release",
+        "factTitle": "Mini App运行环境及创建工具在桌面端本地会话开放"
+      },
+      "addedAt": "2026-10-22T15:52:31+08:00"
+    },
+    {
+      "sourceId": "php-foundation",
+      "sourceName": "The PHP Foundation",
+      "date": "2026-10-21",
+      "url": "https://thephp.foundation/blog/2026/10/21/todays-php-security-release-and-how-were-strengthening-php-security/",
+      "title": "PHP基金会原文交叉确认漏洞修复与AI辅助研究协作",
+      "summary": "维护方确认PHP 8.5.12、8.4.27、8.3.36和8.2.35修复两项严重漏洞，并说明Calif、OpenAI和Wiz的报告如何帮助确认影响。此条补充维护方原始出处，与已有PHP2Shell发布事实交叉核对，不重复精选。",
+      "reason": "已阅读全文，核对发布主体、页示日期、修复版本及研究参与方；全部历史归档无相同网址。原文仅精确到日期，仅作48小时内同事实交叉证据，不作为24小时精选或原模型评分。",
+      "category": "industry",
+      "quote": "These releases fix two critical vulnerabilities",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "安全/对齐",
+        "开源生态",
+        "海外AI"
+      ],
+      "selected": false,
+      "event": {
+        "key": "php2shell-disclosure-2026-10-21",
+        "title": "AI 辅助发现 PHP 漏洞后的披露、修复与应急响应",
+        "factKey": "php2shell-disclosure",
+        "factTitle": "PHP 披露 AI 辅助发现的核心漏洞并发布修复"
+      },
+      "addedAt": "2026-10-22T16:59:36+08:00"
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "date": "2026-10-21T21:00:00.000Z",
+      "url": "https://openai.com/index/broad-access-through-consistent-standards",
+      "title": "OpenAI宣布模型接入中介须事先获批，新政策11月20日生效",
+      "summary": "OpenAI宣布更新使用政策，要求直接向第三方提供模型访问的中介平台事先接受审核并获批，同时要求合作服务维持一致的安全措施。政策页明确，仅在应用功能中集成模型并不会单独触发这项中介审批要求。新规将于11月20日生效。",
+      "reason": "已通读官方公告，并对照使用政策原文核对生效日期与普通应用例外；原文正文＋原站RSS时间核验。历史归档无相同事实，未生成原引擎评分。",
+      "category": "industry",
+      "quote": "get our review and approval",
+      "tier": "T1",
+      "entity": "openai",
+      "subjects": [
+        "openai"
+      ],
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "AI商业化",
+        "AI产品",
+        "安全/对齐",
+        "海外AI",
+        "OpenAI"
+      ],
+      "selected": true,
+      "event": {
+        "key": "openai-intermediary-usage-policy-2026-10-21",
+        "title": "OpenAI更新模型接入中介的审批与安全要求",
+        "factKey": "model-access-intermediary-prior-approval",
+        "factTitle": "OpenAI宣布中介接入审批要求将于11月20日生效"
+      },
+      "addedAt": "2026-10-22T20:44:54+08:00"
+    },
+    {
+      "sourceId": "rss-hugging-face",
+      "sourceName": "Hugging Face Blog",
+      "date": "2026-10-21T14:58:18.000Z",
+      "url": "https://huggingface.co/blog/ibm-granite/granite-speech-5",
+      "title": "IBM发布Granite Speech 5.0，扩展多语言转写、翻译与关键词控制",
+      "summary": "IBM Granite团队发布新的2B语音模型，并更新470M Turbo CTC及4.1 2B Plus，分别面向转写翻译、端侧高速转写和多说话人录音。模型按Apache 2.0开放。2B新模型支持六种语言转写，中文列在英语到中文的翻译范围内，不能据此宣称支持中文语音转写；性能数字为团队披露。",
+      "reason": "已通读George Saon等IBM团队作者原文，核对语言范围、三个模型的区别、许可及使用入口；原文正文＋原站RSS时间核验。实际主体IBM不在现有公司词表中，未把托管平台填为主体。",
+      "category": "ai-models",
+      "quote": "These models are all released under an Apache 2.0 license",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "模型发布",
+        "语音",
+        "端侧",
+        "开源生态",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": {
+        "key": "ibm-granite-speech-5-2026-10-21",
+        "title": "IBM发布Granite Speech 5.0及配套语音模型更新",
+        "factKey": "granite-speech-5-model-release",
+        "factTitle": "Granite语音模型新增5.0 2B并更新Turbo CTC与2B Plus"
+      },
+      "addedAt": "2026-10-22T20:44:54+08:00"
+    },
+    {
+      "sourceId": "rss-aws-ml",
+      "sourceName": "AWS Machine Learning Blog",
+      "date": "2026-10-21T23:36:47.000Z",
+      "url": "https://aws.amazon.com/blogs/machine-learning/5-production-challenges-in-multi-agent-systems-and-how-deep-insight-solved-them/",
+      "title": "AWS复盘Deep Insight：把计划审核、数值复算和代码隔离纳入多智能体流程",
+      "summary": "AWS团队介绍开源数据分析系统Deep Insight，将规划、编码、数值验证、报告生成及进度追踪分工，并提供本地、网页和AgentCore部署路径。可迁移的方法包括从源数据重新计算指标、传递压缩后的任务状态，以及按会话隔离代码执行。数值验证器不负责检测数据中的提示注入，生产环境仍需补充相应控制；本轮未部署复测。",
+      "reason": "已核对AWS原文，核对团队归属、执行流程及安全限制；核对原站发布时间，未把既有系统的工程介绍写成首次发布或独立验证的提效结果。",
+      "category": "tip",
+      "quote": "The Validator agent re-verifies calculations.",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "教程/实践",
+        "AI玩法",
+        "Agent",
+        "部署/工程",
+        "编码",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-22T20:44:54+08:00"
+    },
+    {
+      "sourceId": "rss-the-verge-ai",
+      "sourceName": "The Verge · AI",
+      "date": "2026-10-22T12:30:00.000Z",
+      "url": "https://www.theverge.com/report/1015811/ai-shopping-agents-blocked-amazon-the-realreal-target-meta-muse",
+      "title": "记者实测Muse购物：平台封锁、配送范围和授权规则影响任务结果",
+      "summary": "Mia Sato通过商品比价、配送筛选和二手商品购物车任务，记录Muse在不同零售网站上的访问差异与执行问题，并采访Amazon、Target、The RealReal和Meta。测试显示，智能体能否完成购物取决于商家开放范围及具体任务条件，无法访问的平台也会使最低价判断不完整。这是有限场景的记者体验，不能推广为所有购物智能体的表现。",
+      "reason": "已核对署名报道原文，核对原站精确发布时间及各受访方回应。新增价值为独立实测与商家解释，未重复已有Walmart开放方案或Muse用户规模事实。",
+      "category": "opinion",
+      "quote": "Amazon might have had the lowest-priced option",
+      "tier": "T2",
+      "entity": "meta",
+      "subjects": [
+        "meta"
+      ],
+      "region": "国外",
+      "tags": [
+        "现象/趋势",
+        "AI产品",
+        "AI赛道",
+        "Agent",
+        "海外AI",
+        "Meta"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-22T20:44:54+08:00"
+    },
+    {
+      "sourceId": "rss-the-verge-ai",
+      "sourceName": "The Verge · AI",
+      "date": "2026-10-22T11:00:00.000Z",
+      "url": "https://www.theverge.com/news/1015824/eiliko-energize-lab-statement-on-robot-hack-breach",
+      "title": "Eiliko厂商承认安全问题，记者复查仍发现未受保护的用户资料",
+      "summary": "Energize Lab向The Verge承认报道中的核心问题，称已关闭部分访问、停用长期记忆与自定义头像，并承诺删除相关记录、引入独立安全审查。但Sean Hollister与研究者复查时仍发现音频和照片可经未受保护的地址访问，研究者也称仍保有设备访问能力。厂商处置声明不能等同于漏洞已全部修复。",
+      "reason": "已核对报道原文及其中厂商声明，核对原站发布时间；区分厂商自述与记者复查结果，并以厂商自有商店核对深圳主体，未访问泄露资料或公开其地址。",
+      "category": "industry",
+      "quote": "We have confirmed the core issues identified in your reporting",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "region": "国内",
+      "tags": [
+        "行业动态",
+        "AI硬件",
+        "AI产品",
+        "安全/对齐",
+        "国内AI"
+      ],
+      "selected": true,
+      "event": {
+        "key": "energize-lab-eiliko-security-2026-10",
+        "title": "Eiliko机器人安全问题与厂商处置进展",
+        "factKey": "energize-lab-response-retest-2026-10-22",
+        "factTitle": "厂商承认问题并宣布处置，记者复查仍发现风险"
+      },
+      "addedAt": "2026-10-22T20:44:54+08:00"
+    },
+    {
+      "sourceId": "rss-the-verge-ai",
+      "sourceName": "The Verge · AI",
+      "date": "2026-10-21T21:30:02.000Z",
+      "url": "https://www.theverge.com/tech/1015799/meta-shares-class-ai-q3-2026-earnings",
+      "title": "Meta批准设立无投票权C类股，为AI投入扩充融资工具",
+      "summary": "Meta宣布董事会批准设立无投票权C类普通股，用于融资、员工报酬、潜在收购等用途，并将其与AI转型所需投入联系起来。官方计划相关章程于2027年1月19日生效，股票发行及上市仍有后续安排；这项批准不等于公司已经通过新股完成融资。",
+      "reason": "已核对Emma Roth报道原文及原站发布时间，另对照Meta财报原文核对批准阶段及实施条件；与已有Muse用户披露属于不同事实。",
+      "category": "industry",
+      "quote": "a new class of shares to fund its AI initiatives",
+      "tier": "T2",
+      "entity": "meta",
+      "subjects": [
+        "meta"
+      ],
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "AI商业化",
+        "海外AI",
+        "Meta"
+      ],
+      "selected": true,
+      "event": {
+        "key": "meta-class-c-ai-funding-2026-10-21",
+        "title": "Meta批准设立C类股以扩充AI投入的融资工具",
+        "factKey": "meta-class-c-board-approval",
+        "factTitle": "Meta董事会批准无投票权C类普通股安排"
+      },
+      "addedAt": "2026-10-22T20:44:54+08:00"
+    },
+    {
+      "sourceId": "meta-investor-relations",
+      "sourceName": "Meta Investor Relations",
+      "date": "2026-10-21",
+      "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+      "title": "Meta财报原文交叉确认C类股批准与后续实施条件",
+      "summary": "官方财报确认董事会批准设立无投票权C类股，拟于2027年1月19日使相关章程生效，随后按条件派发股票并申请上市；股息记录日及支付日尚待确定。此条仅交叉核对同一批准事实。",
+      "reason": "已读取官方财报及股权安排说明，核对发布主体、10月21日署期和实施条件。未核实精确发布时间，保留日期精度，仅作48小时内同事实交叉证据，不重复精选。",
+      "category": "industry",
+      "quote": "non-voting Class C common stock",
+      "tier": "T1",
+      "entity": "meta",
+      "subjects": [
+        "meta"
+      ],
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "AI商业化",
+        "海外AI",
+        "Meta"
+      ],
+      "selected": false,
+      "event": {
+        "key": "meta-class-c-ai-funding-2026-10-21",
+        "title": "Meta批准设立C类股以扩充AI投入的融资工具",
+        "factKey": "meta-class-c-board-approval",
+        "factTitle": "Meta董事会批准无投票权C类普通股安排"
+      },
+      "addedAt": "2026-10-22T20:44:54+08:00"
+    },
+    {
+      "sourceId": "rss-the-verge-ai",
+      "sourceName": "The Verge · AI",
+      "date": "2026-10-22T12:21:07.000Z",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1016443/anthropic-claude-citrini-vibecoding-scorpion-antivenom",
+      "title": "专家评议Claude蝎毒实验：蛋白结合尚不等于制成解毒药",
+      "summary": "Robert Hart采访多位研究者，评议Citrini与Anthropic的蛋白设计实验。报道所述211个受测设计中有17个达到结合标准，但尚未证明能够中和毒素，也未完成安全性、稳定性及体内效果验证。受访专家认为自主发现流程值得关注，同时强调从结合蛋白到可用药物仍有很长路径。",
+      "reason": "已核对署名报道原文，核对原站精确发布时间、实验数字及专家限制性判断。本轮新增价值为独立专家评议，未把既有实验写成今天新制成药物，未声称读完无法访问的官方技术报告。",
+      "category": "opinion",
+      "quote": "Binding to a toxin does not mean a protein can actually neutralize it",
+      "tier": "T2",
+      "entity": "anthropic",
+      "subjects": [
+        "anthropic"
+      ],
+      "region": "国外",
+      "tags": [
+        "大佬观点",
+        "AI赛道",
+        "安全/对齐",
+        "海外AI",
+        "Anthropic"
+      ],
+      "selected": true,
+      "event": {
+        "key": "claude-scorpion-binders-2026-10",
+        "title": "Claude蝎毒结合蛋白设计实验及外部评议",
+        "factKey": "external-expert-assessment-2026-10-22",
+        "factTitle": "外部专家评议实验结果与成药验证之间的距离"
+      },
+      "addedAt": "2026-10-22T20:44:54+08:00"
+    },
+    {
+      "sourceId": "rss-techcrunch-ai",
+      "sourceName": "TechCrunch · AI",
+      "date": "2026-10-22T13:26:52.000Z",
+      "url": "https://techcrunch.com/2026/10/22/nirva-raises-33m-for-a-pendant-that-only-listens-to-you/",
+      "title": "Nirva披露2500万美元新融资，AI吊坠计划11月接单",
+      "summary": "Nirva宣布获得2500万美元pre-A轮融资，累计融资3300万美元。公司向TechCrunch介绍售价249美元的AI吊坠，称其仅记录佩戴者语音，处理后默认不保留音频与转写；计划11月接单、年底前向早期用户发货。语音过滤和隐私效果尚未独立验证。",
+      "reason": "Codex 来源核对 · 已通读采访原文并核对发布时间；关注随身AI的产品与隐私设计，融资和发货计划不代表商业成功。",
+      "category": "industry",
+      "quote": "bringing its total raise to $33 million",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "AI硬件",
+        "AI创业",
+        "AI产品",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": {
+        "key": "nirva-preseries-a-2026-10-22",
+        "title": "Nirva披露pre-A轮融资",
+        "factKey": "nirva-25m-preseries-a",
+        "factTitle": "Nirva宣布2500万美元pre-A轮融资"
+      },
+      "addedAt": "2026-10-22T21:56:21+08:00"
+    },
+    {
+      "sourceId": "rss-techcrunch-ai",
+      "sourceName": "TechCrunch · AI",
+      "date": "2026-10-22T13:11:13.000Z",
+      "url": "https://techcrunch.com/2026/10/22/deepseek-reportedly-raises-15b-days-after-us-restrictions/",
+      "title": "TechCrunch援引彭博称DeepSeek新融资约150亿美元",
+      "summary": "TechCrunch援引彭博报道，DeepSeek新一轮融资规模约1000亿元人民币，折合约150亿美元，潜在投资者包括腾讯和宁德时代。报道指向数据中心与开放模型投入；DeepSeek未回应TechCrunch置评请求，金额及投资方尚缺公司确认。",
+      "reason": "Codex 来源核对 · 已通读报道并核对发布时间；可观察国内模型公司的资金投入，但融资细节仍属媒体消息。",
+      "category": "industry",
+      "quote": "DeepSeek did not immediately respond to a TechCrunch request for comment.",
+      "tier": "T2",
+      "entity": "deepseek",
+      "subjects": [
+        "deepseek"
+      ],
+      "region": "国内",
+      "tags": [
+        "行业动态",
+        "AI创业",
+        "AI赛道",
+        "国内AI"
+      ],
+      "selected": true,
+      "event": {
+        "key": "deepseek-funding-report-2026-10-22",
+        "title": "媒体报道DeepSeek新一轮融资规模",
+        "factKey": "deepseek-100b-yuan-reported-round",
+        "factTitle": "媒体称DeepSeek新融资约1000亿元人民币"
+      },
+      "addedAt": "2026-10-22T21:56:21+08:00"
+    },
+    {
+      "sourceId": "rss-the-verge-ai",
+      "sourceName": "The Verge · AI",
+      "date": "2026-10-22T13:00:00.000Z",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1016399/1password-ai-agent-password-sign-in",
+      "title": "1Password推出智能体授权登录，密码由应用代填",
+      "summary": "1Password for Agents让智能体请求使用指定账号，用户在自己的设备上批准后，由1Password代填登录凭据，模型无需取得密码。各家集成分批开放，合作名单不等于所有智能体均已可用。",
+      "reason": "Codex 来源核对 · 已通读报道并对照官方公告；关注智能体登录的授权边界，分批开放状态已保留。",
+      "category": "ai-products",
+      "quote": "grant approval for sign-in requests",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "Agent",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": {
+        "key": "1password-for-agents-2026-10-22",
+        "title": "1Password宣布个人智能体授权登录平台",
+        "factKey": "1password-agents-platform-announcement",
+        "factTitle": "用户批准后由1Password代填智能体登录凭据"
+      },
+      "addedAt": "2026-10-22T21:56:21+08:00"
+    },
+    {
+      "sourceId": "official-1password-blog",
+      "sourceName": "1Password 官方博客",
+      "date": "2026-10-22",
+      "url": "https://1password.com/blog/1password-for-ai-agents",
+      "title": "1Password官方明确套餐、地区与集成开放条件",
+      "summary": "John Torrey署名公告说明，平台对1Password.com的Individual和Family账号不额外收费，暂不支持.eu和.ca账号。Muse与Grok Bot集成将在未来几天分批推出；Claude Duet、ChatGPT Work和dots等集成仍待开放，能力及控制措施因集成而异。",
+      "reason": "Codex 来源核对 · 已通读官方当日公告，作为同事件交叉证据，补充套餐、地区及尚未开放的限制。",
+      "category": "ai-products",
+      "quote": "Availability, platforms, and capabilities vary by partner integration.",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "Agent",
+        "海外AI"
+      ],
+      "selected": false,
+      "event": {
+        "key": "1password-for-agents-2026-10-22",
+        "title": "1Password宣布个人智能体授权登录平台",
+        "factKey": "1password-agents-platform-announcement",
+        "factTitle": "用户批准后由1Password代填智能体登录凭据"
+      },
+      "addedAt": "2026-10-22T21:56:21+08:00"
+    },
+    {
+      "sourceId": "rss-openai-news",
+      "sourceName": "OpenAI News",
+      "date": "2026-10-22T06:00:00.000Z",
+      "url": "https://openai.com/index/forward-deployed-engineering-means",
+      "title": "OpenAI复盘FDE：验证业务结果，再复用共享运行框架",
+      "summary": "Colin Jarvis介绍半导体客户项目：先与工程师建立评测，再将独立应用迁到以Codex为核心的共享运行框架。团队称各项目约90%的定制代码被移除；一个案例初次部署耗时两个月，第二个团队复用耗时一天。这些是OpenAI披露的案例，未获独立审计。",
+      "reason": "Codex 来源核对 · 原文正文＋原站 RSS 时间核验；提供从定制交付转向复用的具体做法，成效数字保留厂商自述属性。",
+      "category": "tip",
+      "quote": "We were able to remove roughly 90% of the custom code from each project",
+      "tier": "T1",
+      "entity": "openai",
+      "subjects": [
+        "openai"
+      ],
+      "region": "国外",
+      "tags": [
+        "教程/实践",
+        "AI玩法",
+        "部署/工程",
+        "Agent",
+        "AI商业化",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-22T21:56:21+08:00"
+    },
+    {
+      "sourceId": "rss-hugging-face",
+      "sourceName": "Hugging Face Blog · Dharma AI",
+      "date": "2026-10-21T17:35:36.000Z",
+      "url": "https://huggingface.co/blog/Dharma-AI/vocabx-vocabulary-specialization",
+      "title": "Dharma AI复盘分词器优化，单任务推理成本实测下降77%",
+      "summary": "Dharma AI介绍VocabX，按输入与输出的不同成本调整领域词表，并压缩重复JSON结构。在葡萄牙语作文评分任务中，团队以RTX 5090、vLLM和相同500次请求测试，称按运行时间折算的成本下降77%。评分值必须保留独立token，过度合并曾损害质量；完整论文尚待发表。",
+      "reason": "Codex 来源核对 · 原文正文＋原站 RSS 时间核验；提供可迁移的优化方法，77%仅为作者在指定任务与环境中的实测。",
+      "category": "tip",
+      "quote": "Cost dropped 77.0%.",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "教程/实践",
+        "AI玩法",
+        "部署/工程",
+        "数据/训练",
+        "AI商业化",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-22T21:56:21+08:00"
+    },
+    {
+      "sourceId": "rss-ars-technica-ai",
+      "sourceName": "Ars Technica · Financial Times供稿",
+      "date": "2026-10-21T15:14:07.000Z",
+      "url": "https://arstechnica.com/ai/2026/10/the-15-billion-ad-powered-ai-startup-your-doctor-may-already-be-using/",
+      "title": "FT采访梳理OpenEvidence广告模式与医疗应用争议",
+      "summary": "报道采访医生并梳理OpenEvidence的医院整合与准确性争议。文中1亿美元广告采购包含当前及未来承诺，4亿至5亿美元为全年广告预期，均不能等同已实现收入或利润。",
+      "reason": "Codex 来源核对 · 原文正文＋原站 RSS 时间核验；署名为FT记者，商业数字含匿名信源与预测，未视为审计结果。",
+      "category": "industry",
+      "quote": "current and future advertising commitments",
+      "tier": "T2",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "AI商业化",
+        "AI赛道",
+        "AI创业",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-22T21:56:21+08:00"
+    },
+    {
+      "sourceId": "rss-google-deepmind",
+      "sourceName": "Google DeepMind",
+      "date": "2026-10-22T14:30:00.000Z",
+      "url": "https://deepmind.google/blog/beyond-tree-cover-mapping-the-worlds-forest-types/",
+      "title": "Google开放ForTy森林地图及2017—2025年度变化序列",
+      "summary": "Google与WRI、IIASA发布10米分辨率的ForTy 2020森林类型地图，并分享2017—2025年逐年变化的早期序列，可识别天然林被人工林或农场替代等变化。模型结合AlphaEarth嵌入区分六类土地，数据已按开放许可提供于Earth Engine；年度序列仍将继续完善。",
+      "reason": "Codex 来源核对 · 已通读官方正文并核对发布时间；新增年度序列有助于追踪森林用途变化，分类效果仍以团队验证为依据。",
+      "category": "paper",
+      "quote": "2017 to 2025",
+      "tier": "T1",
+      "entity": "google",
+      "subjects": [
+        "google"
+      ],
+      "region": "国外",
+      "tags": [
+        "论文/研究",
+        "AI赛道",
+        "数据/训练",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-22T23:05:12+08:00"
+    },
+    {
+      "sourceId": "rss-nvidia-blog",
+      "sourceName": "NVIDIA Blog",
+      "date": "2026-10-22T05:00:27.000Z",
+      "url": "https://blogs.nvidia.com/blog/cosmos-open-train-evaluate-deploy-world-models/",
+      "title": "NVIDIA扩展Cosmos工具，贯通合成数据、模型训练与仿真评估",
+      "summary": "Cosmos Data Factory现提供自动驾驶数据、图像属性、事件视频、缺陷图像和视频增强五类蓝图。Cosmos Framework将训练与优化流程扩展为Agent技能，支持更多开放模型；新增Nano仿真变体用于自动驾驶和双臂机器人策略测试。官方性能提升限指定验证配置，合作方预期成效不等于已兑现结果。",
+      "reason": "Codex 来源核对 · 已通读官方正文并核对精确发布时间；具体开发工具较此前模型总览有新增价值，性能及案例效果未独立复测。",
+      "category": "ai-products",
+      "quote": "five cloud-native blueprints",
+      "tier": "T1",
+      "entity": "nvidia",
+      "subjects": [
+        "nvidia"
+      ],
+      "region": "国外",
+      "tags": [
+        "产品更新",
+        "AI产品",
+        "具身智能",
+        "数据/训练",
+        "部署/工程",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": null,
+      "addedAt": "2026-10-22T23:05:12+08:00"
     }
   ]
 }
