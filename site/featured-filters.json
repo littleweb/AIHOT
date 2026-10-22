@@ -1,4 +1,5 @@
 {
   "headlineLabel": "头条",
-  "showFirstParty": false
+  "showFirstParty": false,
+  "showAllFeed": true
 }
