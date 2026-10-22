@@ -58,6 +58,22 @@ async function existing(id: string) {
   try { return validateSnapshot(JSON.parse(await readFile(path.join(directory, Id.parse(id) + ".json"), "utf8"))); }
   catch (error) { if ((error as NodeJS.ErrnoException).code === "ENOENT") return null; throw error; }
 }
+// Rebuild the upstream cover index from the same preserved original body, without fetching again.
+function bodyImages(body: string, base: string) {
+  const $ = cheerio.load(body, null, false);
+  const images: Array<{kind:"image";url:string;width:number|null;height:number|null}> = [];
+  const seen = new Set<string>();
+  for (const el of $("img[src]").toArray()) {
+    let url: URL;
+    try { url = new URL($(el).attr("src")!, base); } catch { continue; }
+    if (!["https:", "http:"].includes(url.protocol) || url.username || url.password || seen.has(url.href)) continue;
+    seen.add(url.href);
+    const size = (name: string) => { const value = $(el).attr(name) ?? ""; return /^\d+$/.test(value) && Number(value) > 0 ? Number(value) : null; };
+    images.push({kind:"image",url:url.href,width:size("width"),height:size("height")});
+    if (images.length >= 12) break;
+  }
+  return images;
+}
 export async function restoreBody(snapshot: Snapshot) {
   const s = validateSnapshot(snapshot);
   const [a] = await sql`SELECT * FROM articles WHERE id=${s.articleId}`;
@@ -68,7 +84,7 @@ export async function restoreBody(snapshot: Snapshot) {
   const body = sanitizeBody(s.sourceHtml);
   await upsertMaterial({id:a.id,sourceId:a.source_id,url:a.url,title:a.title,author:a.author,
     publishedAt:a.published_at,publicationTime:a.publication_time,discoveredAt:a.discovered_at,
-    language:s.language,bodyHtml:body,bodyText:cheerio.load(body,null,false).root().text().trim(),bodyStatus:"ok",media:a.media??[],
+    language:s.language,bodyHtml:body,bodyText:cheerio.load(body,null,false).root().text().trim(),bodyStatus:"ok",media:a.media?.length?a.media:bodyImages(body,s.url),
     raw:a.raw,via:"shendeng-fulltext"});
   // These snapshots enrich an already admitted article. Material revision resets grouping;
   // restore the existing import decision through the original historical-publication entrance.
