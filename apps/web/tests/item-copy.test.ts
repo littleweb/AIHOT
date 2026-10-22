@@ -44,7 +44,7 @@ test("in WeChat, 复制 Markdown copies the article without the async clipboard"
   }
 });
 
-test("desktop and phone share-card controls open the existing poster and preserve saving", async () => {
+test("desktop and phone menus preserve poster saving without a duplicate card button", async () => {
   const api = fakeApi((url,res) => {
     if(url.pathname==="/api/site/items/share-card")return itemDetail({id:"share-card",title:"卡片入口检查",summary:"需要分享的描述"});
     if(url.pathname==="/og/posters/share-card.png") {
@@ -59,13 +59,9 @@ test("desktop and phone share-card controls open the existing poster and preserv
     for(const viewport of [{width:1366,height:900},{width:390,height:844}]) {
       const context=await browser.newContext({viewport});const page=await context.newPage();
       await visit(page,web.origin+"/items/share-card");
-      if(viewport.width<1024) {
-        await page.getByRole("button",{name:"更多操作"}).filter({visible:true}).click();
-        await expect(page.getByRole("button",{name:"分享链接",exact:true})).toBeVisible();
-        await page.keyboard.press("Escape");
-      }
-      const button=page.getByRole("button",{name:"分享卡片",exact:true}).filter({visible:true});
-      await button.click();
+      await expect(page.getByRole("button",{name:"分享卡片",exact:true})).toHaveCount(0);
+      await page.getByRole("button",{name:"更多操作"}).filter({visible:true}).click();
+      await page.getByRole(viewport.width<1024?"button":"menuitem",{name:"生成分享海报",exact:true}).click();
       const dialog=page.getByRole("dialog",{name:"分享海报"});
       await expect(dialog).toBeVisible();
       await expect(dialog.getByRole("img")).toBeVisible();

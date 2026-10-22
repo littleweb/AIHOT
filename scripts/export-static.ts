@@ -8,7 +8,6 @@ import { adaptShareCard } from "../modules/shendeng/static-share-card.ts";
 import { adaptReader } from "../modules/shendeng/static-reader.ts";
 import { StaticPages, staticPagePlugin } from "../modules/shendeng/static-pages.ts";
 import { build } from "vite";
-import { SITE } from "@aihot/site";
 import { createHash } from "node:crypto";
 import { load } from "cheerio";
 import { APPEARANCE_BOOT_SCRIPT } from "../apps/web/app/lib/local-state.ts";
@@ -159,7 +158,7 @@ while (pending.length) {
     pending.push(parent);
     button.replaceWith($("<a>").attr("href", pageHref(parent)).attr("data-static-back", "").attr("aria-label", "返回").attr("class", button.attr("class") ?? "").append(button.contents()));
   });
-  const shareItem = await adaptShareCard($, u, output, prefix, publishedUrl);
+  const shareItem = await adaptShareCard(u, output, publishedUrl);
   const enhanced=await snapshots.prepare($,u,shareItem,snapshotValue);
   if(!enhanced)adaptReader($, u, prefix);
   if(u.pathname==="/agent")$("span").filter((_i,el)=>["服务正常","服务异常"].includes($(el).text())).text("静态版 · API 未部署").removeClass("text-ok text-hot").addClass("text-ink-3");
@@ -167,9 +166,7 @@ while (pending.length) {
   $('script[src$="/assets/static-reader.js"]').remove();
   $("body").append($("<script>").attr({type:"module",src:`${prefix}/assets/static-reader.js?v=${readerVersion}`}));
   snapshots.navigation[id]=pageHref(u);
-  $("head").append('<style>button:disabled{cursor:default}#static-edition{font:12px/1.7 system-ui;color:#89979d;padding:12px 16px;border-top:1px solid #ffffff14}</style>');
   $("body").append(`<script src="${prefix}/assets/static-theme.js" defer></script>`);
-  $("body").append(`<div id="static-edition">${SITE.name} 静态阅读版 · 导出于 ${new Date().toISOString()} · 页面日期以各期原始出刊时间为准。浏览器交互、快照检索、收藏、分享卡片与 RSS 可用；收藏仅保存在当前浏览器。实时全文检索、在线反馈、后台与 API/MCP 需要公网服务端。<a href="https://github.com/littleweb/shengdeng.news/issues">联系站长 ↗</a></div>`);
   const file = path.join(output, pageFile(u));
   await mkdir(path.dirname(file), { recursive: true }); await writeFile(file, $.html());
   console.log(`export ${id}`);
