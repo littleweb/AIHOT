@@ -16,7 +16,7 @@
 
 当前与 robot-taxi.news 一样使用本地 Codex 搜索、打开原文、核对日期与出处、写中文标题摘要；不是依赖未配置的 LLM API。公开文件保存在 site/editions/YYYY-MM-DD.json，必须通过 modules/shendeng/validate-editions.ts 校验。导入走原材料入口、编辑覆盖与公开读取层。条目明确标为 Codex 来源核对，未经人工逐条审核，score 为 null，不冒充原模型五维评分。
 
-每日本地 Codex 任务计划北京时间 05:30 启动，目标在 08:00 前完成采编与发布。任务提交新的公开内容后，触发 .github/workflows/publish.yml；GitHub 从全部期刊重建临时数据库、检查、导出并部署，失败保留上一版。需电脑开机联网、Codex 登录和额度有效，以及 GitHub 登录有效。调度和外部网络可能延迟，不提供严格准点保证。流程见 local-codex-update.md。
+本机常驻服务每小时检索一次新信息，每天北京时间 05:30 额外启动晨间采编，目标 08:00 前完成。桌面自动任务改为晨间巡检与故障恢复，避免重复采编；详见 continuous-service.md。任务提交新的公开内容后，触发 .github/workflows/publish.yml；GitHub 从全部期刊重建临时数据库、检查、导出并部署，失败保留上一版。需电脑开机联网、Codex 登录和额度有效，以及 GitHub 登录有效。调度和外部网络可能延迟，不提供严格准点保证。流程见 local-codex-update.md。
 
 首期含 10 条核对资料，其中 10 月 12 日的研究是背景资料，保留原日期，不计作今天的新消息。没有足够新资料时宁可少收，不以旧闻凑数。尚未生成的周报、月报显示原项目空状态，不伪造期刊。
 
