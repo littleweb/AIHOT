@@ -10,7 +10,9 @@ import {closeDb,sql} from '@aihot/backend/db';
 import {stopBoss} from '@aihot/backend/jobs/queue';
 import {restoreBody,assembleTranslation,translationSegments,validateSnapshot} from '../fulltext.ts';
 import {sha256} from '@aihot/backend/lib/ids';
+import {sanitizeBody} from '@aihot/backend/content/sanitize';
 import {loadItemDetail} from '@aihot/backend/publication/detail';
+import {loadReport} from '@aihot/backend/publication/reports';
 import {stableArticleId} from '../edition.ts';
 after(async()=>{await stopBoss();await closeDb();});
 test('Codex import appears in company and field topics after editorial overrides',async()=>{
@@ -27,7 +29,7 @@ test('Codex import appears in company and field topics after editorial overrides
    const page=await loadTopicPage(slug,1,new Date());
    assert.ok(page?.items.some(i=>i.id===id),`${slug} contains the imported article`);
   }
-  const sourceHtml='<p>Verified <a href="https://example.com/docs">documentation</a> and <code>API</code>.</p>';
+  const sourceHtml=sanitizeBody('<p>Verified <a href="https://example.com/docs">documentation</a> and <code>API</code>.</p><img width="320" height="180" src="https://example.com/small.jpg"><figure><img width="1400" height="788" src="https://example.com/hero.jpg"></figure>');
   assert.deepEqual(translationSegments(sourceHtml),['Verified <a id="L0">documentation</a> and ⟦0⟧.']);
   assert.throws(()=>assembleTranslation(sourceHtml,['丢失链接与代码']),/protected content/);
   const translated=assembleTranslation(sourceHtml,['已核验的<a id="L0">文档</a>和 ⟦0⟧。']);
@@ -35,12 +37,17 @@ test('Codex import appears in company and field topics after editorial overrides
     translation:{method:'local-codex',translatedAt:now.toISOString(),html:translated,complete:true}});
   assert.throws(()=>validateSnapshot({...snapshot,sourceHash:'wrong'}),/hash/);
   await restoreBody(snapshot);
+  const report=await loadReport('daily',beijingDate(now));
+  assert.equal(report?.cover?.width,1400,'daily cover uses the sizeable body image, not the small illustration');
+  assert.equal(new URL(report!.cover!.url,'https://example.com').searchParams.get('u'),'https://example.com/hero.jpg');
   const enriched=await loadItemDetail(id);
   if(enriched.kind==='found')assert.equal(enriched.item.selected,true,'body enrichment preserves the existing selected decision');
-  const [before]=await sql`SELECT revision,timeline_at FROM articles WHERE id=${id}`;
+  const [before]=await sql`SELECT revision,timeline_at,media FROM articles WHERE id=${id}`;
   // Hourly editorial imports must not replace a verified full body with the evidence excerpt.
   const repeated=spawnSync(process.execPath,['modules/shendeng/import-reviewed.ts',file,'--codex'],{encoding:'utf8',timeout:30000});
   assert.equal(repeated.status,0,repeated.stderr);
+  const [reimported]=await sql`SELECT media FROM articles WHERE id=${id}`;
+  assert.deepEqual(reimported.media,before.media,'hourly imports preserve the cover index without waiting for fulltext repair');
   await restoreBody(snapshot);
   const [after]=await sql`SELECT revision,timeline_at,body_html FROM articles WHERE id=${id}`;
   assert.equal(after.revision,before.revision);
