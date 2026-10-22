@@ -40,6 +40,24 @@ test("static timeline includes later pages and uses real public group snapshots"
   assert.equal(JSON.parse(await readFile(path.join(folder,file.replace(/^\/news\//,"")),"utf8")).reports.length,2);
  }finally{await new Promise<void>(r=>server.close(()=>r()));await rm(folder,{recursive:true,force:true});}
 });
+test("static article keeps absent optional followups while required and failed APIs still stop export", async()=>{
+ const folder=await mkdtemp(path.join(os.tmpdir(),"static-followups-"));let status=404;
+ const server=createServer((_req,res)=>{res.statusCode=status;res.setHeader("content-type","application/json");res.end('{"detail":"story not found"}');});
+ await new Promise<void>(r=>server.listen(0,"127.0.0.1",r));
+ try{
+  const origin=new URL(`http://127.0.0.1:${(server.address() as {port:number}).port}`);const {load}=await import("cheerio");
+  const snapshots=new StaticPages(origin,folder,"","https://example.org");
+  const route="/api/site/stories/evidence-only/followups";
+  await mkdir(path.join(folder,"og/posters"),{recursive:true});await writeFile(path.join(folder,"og/posters/evidence.png"),"poster");
+  const item=itemDetail({id:"evidence",title:"Evidence report",selected:false,story:{publicId:"evidence-only",title:"Event"},hasTranslation:false,markdownAvailable:false});
+  assert.equal(await snapshots.prepare(load('<main id="main"><div></div></main>'),new URL("/items/evidence",origin),item,async v=>v),true);
+  await snapshots.finish(async v=>v);
+  const metadata=JSON.parse(await readFile(path.join(folder,"assets/static-public.json"),"utf8"));
+  assert.equal(JSON.parse(await readFile(path.join(folder,metadata.apiFiles[route]),"utf8")),null);
+  await assert.rejects(snapshots.json("/api/site/stories/required"),/404/);
+  status=503;await assert.rejects(snapshots.json("/api/site/stories/failed/followups",true),/503/);
+ }finally{await new Promise<void>(r=>server.close(()=>r()));await rm(folder,{recursive:true,force:true});}
+});
 test("static snapshot rewrites original report/archive links and excludes private dynamic operations", async () => {
  const temp=await mkdtemp(path.join(os.tmpdir(),'robotaxi-static-'));const root=path.resolve(import.meta.dirname,'..');
  const server=createServer((_req,res)=>{if(_req.url?.includes("manifest.webmanifest")){res.setHeader("content-type","application/json");res.end(JSON.stringify({icons:[]}));return;}if(_req.url?.startsWith("/feed")){res.setHeader("content-type","application/rss+xml");res.end("<rss><channel/></rss>");return;}if(_req.url?.startsWith('/starred')){res.setHeader('content-type','text/html');res.end('<html><head><meta charset="utf-8"></head><body><main><header><h1 data-page-title>收藏</h1></header></main></body></html>');return;}if(_req.url?.startsWith('/example.svg')){res.setHeader('content-type','image/svg+xml');res.end('<svg xmlns="http://www.w3.org/2000/svg"/>');return;}res.setHeader('content-type','text/html');res.end(`<html><head><title>神灯AI研究院</title><link rel="canonical" href="http://localhost/"><meta property="og:url" content="http://localhost/"><script>${APPEARANCE_BOOT_SCRIPT}</script><link rel="stylesheet" href="/assets/site.css"><link rel="icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-icon.png"><link rel="manifest" href="/manifest.webmanifest"><link rel="alternate" type="application/rss+xml" href="/feed.xml"><script>fetch("/admin/private")</script></head><body><div class="hidden lg:block"><h1>精选</h1><button aria-label="筛选（已选）">筛选</button><div><div><nav data-pill-track aria-label="筛选"><a href="/"><span>全部</span></a><a href="/?channel=firstParty"><span>一手</span></a>${CATEGORIES.map(c=>`<a href="/?category=${c.key}"><span>${c.label}</span></a>`).join("")}</nav></div><input placeholder="搜索" /></div></div><div role="radiogroup" aria-label="外观"><span aria-hidden="true"></span><button role="radio" title="深色">深色</button><button role="radio" title="跟随系统">跟随系统</button><button role="radio" title="浅色">浅色</button></div><button id="dynamic">动态操作</button><form role="search" action="/all"><input name="q"><button>搜索</button></form><nav aria-label="十月出刊日历"><a href="/daily/2026-10-15">15</a></nav><a href="/daily?kind=review#one">日报</a><a href="/admin">后台</a><img src="/example.svg"><button data-static-back="/topics">返回主题</button><form action="/api/feedback"><button>提交</button></form></body></html>`);});
