@@ -126,9 +126,10 @@ export async function initStaticPages() {
     createRoot(root).render(<RouterProvider router={router}/>);
   }
   const rewrite=()=>{
-    document.querySelectorAll<HTMLAnchorElement>("[data-static-page] a[href]").forEach(a=>{
+    document.querySelectorAll<HTMLAnchorElement>("[data-static-page] a[href], [role=dialog] a[href]").forEach(a=>{
+      if(a.getAttribute("href")!.startsWith("#"))return;
       if(!a.dataset.originalHref)a.dataset.originalHref=a.getAttribute("href")??"";
-      const u=new URL(a.getAttribute("href")!,location.origin);
+      const u=new URL(a.getAttribute("href")!,location.href);
       if(u.origin!==location.origin)return;
       const key=sorted(u.href),mapped=shared.navigation[key]??shared.apiFiles[key];
       if(mapped)a.href=mapped+u.hash;
@@ -139,7 +140,7 @@ export async function initStaticPages() {
       document.querySelectorAll<HTMLAnchorElement>('nav[aria-label="筛选"] a, [role="dialog"] a').forEach(a=>{
         if(!featured.showFirstParty&&(a.dataset.originalHref??a.getAttribute("href"))?.includes("channel=firstParty"))a.style.display="none";
         const text=a.querySelector("span.relative")??a.querySelector("span");
-        if(text?.textContent==="全部")text.textContent=featured.headlineLabel;
+        if(text?.textContent==="全部"&&new URL(a.dataset.originalHref??a.href,location.origin).pathname==="/")text.textContent=featured.headlineLabel;
       });
     }
     if(info?.kind==="agent")document.querySelectorAll("[data-static-page] span").forEach(span=>{
@@ -149,7 +150,7 @@ export async function initStaticPages() {
   // Capture native navigation before React Router's links; the site's directory/index URLs stay valid.
   document.addEventListener("click",event=>{
     if(event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
-    const a=(event.target as Element)?.closest<HTMLAnchorElement>("[data-static-page] a[href]");if(!a||a.hasAttribute("download")||a.target==="_blank")return;
+    const a=(event.target as Element)?.closest<HTMLAnchorElement>("[data-static-page] a[href], [role=dialog] a[href]");if(!a||a.hasAttribute("download")||a.target==="_blank"||a.getAttribute("href")?.startsWith("#"))return;
     const url=new URL(a.href);if(url.origin!==location.origin)return;
     if(a.dataset.serviceRequired)return;
     if(url.pathname.endsWith("/index.html")||shared.apiFiles[sorted(url.href)])event.stopPropagation();
