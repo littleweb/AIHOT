@@ -1,5 +1,5 @@
 """Synchronize checked public JSON with the local API and existing GitHub Pages pipeline."""
-import hashlib, html, json, pathlib, sys, time, urllib.request
+import datetime, hashlib, html, json, pathlib, sys, time, urllib.request
 from common import ROOT, DATA, CONFIG, read_json, write_json, run, node, lock, status
 REPO = 'repos/' + CONFIG['repository']
 STATE = DATA / 'publication.json'
@@ -42,6 +42,18 @@ def verify_online(pending):
     for path in ['/', '/daily/index.html', '/topics/index.html', '/leaderboard/index.html', '/skills/index.html']:
         if '神灯AI热点' not in get(base + path): raise RuntimeError('Online page missing site identity: ' + path)
     for path in pending['files']:
+        if path.startswith('site/rankings/'):
+            snapshot = json.loads(pending['files'][path])
+            route = '/leaderboard' if snapshot['kind'] == 'models' else '/skills'
+            body = html.unescape(get(base + route + '/index.html'))
+            captured = datetime.datetime.fromisoformat(snapshot['capturedAt'].replace('Z', '+00:00')).astimezone(datetime.timezone(datetime.timedelta(hours=8))).strftime('%Y-%m-%d %H:%M')
+            if snapshot['sourceUrl'] not in body or captured not in body:
+                raise RuntimeError('Online ranking source or actual capture time differs from snapshot')
+            for row in snapshot['rows']:
+                if row['name'] not in body or row['displayValue'] not in body:
+                    raise RuntimeError('Online ranking row missing: ' + row['name'])
+            if '/leaderboard/index.html' not in body or '/skills/index.html' not in body or '返回' not in body:
+                raise RuntimeError('Online ranking switch or return link missing')
         if path.startswith('site/editions/'):
             edition = json.loads(pending['files'][path])
             if not edition['items']: continue
@@ -53,6 +65,7 @@ def verify_online(pending):
             if '返回' not in detail: raise RuntimeError('Online detail return link missing')
             for subject in item.get('subjects', [])[:1]: get(base + '/topics/' + subject + '/index.html')
     # Technical-direction topic is part of the existing compatibility smoke check.
+    get(base + '/topics/openai/index.html')
     get(base + '/topics/agent/index.html')
 
 def finish_pending(state):

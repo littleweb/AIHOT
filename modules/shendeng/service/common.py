@@ -19,7 +19,7 @@ def runtime():
 
 def environment():
     env = dict(os.environ)
-    env['PATH'] = str(pathlib.Path(runtime()['node']).parent) + ':/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin'
+    env['PATH'] = str(pathlib.Path(runtime()['node']).parent) + ':/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
     if runtime().get('proxyUrl'):
         for key in ['HTTP_PROXY', 'HTTPS_PROXY', 'http_proxy', 'https_proxy']:
             env[key] = runtime()['proxyUrl']
