@@ -2,44 +2,18 @@
 // No router hydration, models, server writes or private API are needed on static hosting.
 import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { Menu, MenuItem } from "../../../apps/web/app/components/ui/Menu";
-import { IconBookmark, IconCopy, IconDownload, IconImage, IconMenu, IconShare } from "../../../apps/web/app/components/icons";
-import { getStarred, useStarred, toggleStar, removeStar, exportBundle, importBundle, type LocalStarredItem } from "../../../apps/web/app/lib/local-state";
-import { copyText } from "../../../apps/web/app/lib/clipboard";
+import { useStarred, removeStar, exportBundle, importBundle } from "../../../apps/web/app/lib/local-state";
+import { initStaticPages } from "./static-pages-client";
 
-type Saved = Omit<LocalStarredItem,"savedAt">;
-const raw = document.getElementById("static-reader-data")?.textContent;
-const data = raw ? JSON.parse(raw) as {item:Saved;prefix:string;markdown:boolean} : null;
 const status = document.createElement("p");
 status.setAttribute("role","status");
+status.dataset.staticNotice="";
 status.className="fixed bottom-24 left-1/2 z-[100] -translate-x-1/2 rounded-full border border-line bg-surface px-5 py-3 text-sm text-ink shadow-lg";
 status.hidden=true;
 document.body.append(status);
 let noticeTimer: ReturnType<typeof setTimeout>;
 function notice(message:string) { clearTimeout(noticeTimer);status.textContent=message;status.hidden=false;noticeTimer=setTimeout(()=>{status.hidden=true;},3500); }
 function saveFile(blob:Blob,name:string) { const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000); }
-
-function Star({item,phone}:{item:Saved;phone:boolean}) {
-  const on=useStarred().some(s=>s.id===item.id);
-  const toggle=()=>{toggleStar(item);const saved=getStarred().some(s=>s.id===item.id);notice(saved===on?"浏览器未能保存收藏，请检查存储权限":saved?"已收藏，仅保存在当前浏览器":"已取消收藏");};
-  return <button type="button" onClick={toggle} aria-pressed={on} aria-label={on?"取消收藏":"收藏"} title={on?"取消收藏":"收藏"}
-    className={phone?"flex flex-col items-center justify-center gap-[2px] text-[10.5px] text-ink-3":"inline-flex size-8 shrink-0 items-center justify-center rounded-control text-ink-3 hover:bg-bg-sunk"}>
-    <IconBookmark size={phone?22:19} filled={on} className={on?"text-accent":""}/>{phone&&<span>{on?"已收藏":"收藏"}</span>}
-  </button>;
-}
-
-function More({item,prefix,markdown}:{item:Saved;prefix:string;markdown:boolean}) {
-  const copy=async()=>{try{await copyText(location.href);notice("链接已复制");}catch{notice("复制失败，请从浏览器地址栏复制链接");}};
-  const share=async()=>{try{if(navigator.share)await navigator.share({title:item.title,url:location.href});else await copy();}catch(error){if(!(error instanceof DOMException&&error.name==="AbortError"))notice("分享未完成，可使用复制链接");}};
-  return <Menu label="更多操作" trigger={<IconMenu size={17}/>}>
-    {close=><>
-      <MenuItem icon={<IconShare size={15}/>} onSelect={()=>{close();void share();}}>分享链接</MenuItem>
-      <MenuItem icon={<IconImage size={15}/>} onSelect={()=>{close();document.querySelector<HTMLButtonElement>("[data-share-card]")?.click();}}>分享卡片</MenuItem>
-      <MenuItem icon={<IconCopy size={15}/>} onSelect={()=>{close();void copy();}}>复制链接</MenuItem>
-      {markdown&&<MenuItem icon={<IconDownload size={15}/>} href={`${prefix}/assets/markdown/${item.id}.md`} download onSelect={close}>导出 Markdown</MenuItem>}
-    </>}
-  </Menu>;
-}
 
 function Collection({prefix}:{prefix:string}) {
   const items=useStarred();
@@ -60,8 +34,5 @@ function Collection({prefix}:{prefix:string}) {
   </>;
 }
 
-if(data) {
-  document.querySelectorAll<HTMLElement>("[data-reader-star]").forEach(el=>createRoot(el).render(<Star item={data.item} phone={el.dataset.readerStar==="phone"}/>));
-  document.querySelectorAll<HTMLElement>("[data-reader-menu]").forEach(el=>createRoot(el).render(<More {...data}/>));
-}
 document.querySelectorAll<HTMLElement>("[data-static-starred]").forEach(el=>createRoot(el).render(<Collection prefix={el.dataset.staticStarred??""}/>));
+if(document.querySelector("[data-static-prefix]"))void initStaticPages().catch(()=>notice("本页交互加载失败，请刷新后重试；正文仍可阅读"));
