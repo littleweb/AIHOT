@@ -72,3 +72,9 @@ modules/shendeng/group-reviewed.ts 使用原事件模型及 moveToFact，原 com
 公开正文与已完成译文保存在 `site/fulltext/<articleId>.json`，含真实抓取/翻译时间和原文哈希，不含登录态、密钥或提示词。重复采编导入保留正文，发布器将正文快照与新闻一并同步。GitHub 先恢复期刊，再执行 `node modules/shendeng/fulltext.ts enable` 和 `node modules/shendeng/fulltext.ts import` 恢复正文与译文，不在 CI 发起模型请求。访问详情页不触发采集或模型调用。
 
 本次必要核心接口在 `packages/backend/src/editorial/translate.ts`：复用原分段器，并增加 `importBodyTranslation` 以恢复外部模型译文。接口清洗 HTML、在写入锁内核对正文和版本、保护发布方已有译文、复用通知与幂等写入。模块不直接写 translations 表。升级上游时运行 `tests/translate.test.ts` 与模块导入测试，验证旧来源拒绝恢复、重复导入不刷新译文时间，以及中英文页面切换。
+
+## 原站订阅时间核验（2026-10-22）
+
+精选曾因把原发布站自有 RSS/Atom 与第三方聚合索引一并视为不可用的时间证据，连续多轮返回零新增。采编提示现明确区分两者：读过原文正文、核对同一发布方及同一 URL 后，可采用自有订阅的 pubDate/published 作为精确时间；网页只有日期时按来源时区交叉核对，不能凭空补造时间。第三方聚合站时间仍仅作发现线索，原文与订阅真正冲突时记录冲突并优先原文。全文补齐与新新闻收录是两个独立任务，补正文不会把旧文章重新置顶或改写收录时间。
+
+采编前增加 `modules/shendeng/research-originals.ts`：从已配置发布方 RSS 的近24小时未归档候选中，最多读取24篇原文，复用安全提取器且关闭付费回退。完整正文与原网页发布时间元数据只写本机 `.data/service/research-originals.json`，供本地 Codex 核对，避免网页工具失败就误判所有来源都不可读。读取失败逐条记录，截断正文明确标记，不直接入选或公开；非原站索引时间不会被这个入口升级为原站发布时间。

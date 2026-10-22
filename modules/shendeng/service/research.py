@@ -35,10 +35,11 @@ def research():
     from discover import discover
     candidates, failures = discover()
     print(f'Discovery: {candidates} original links; {failures} sources unavailable', flush=True)
+    node('modules/shendeng/research-originals.ts', timeout=240)
     prompt = (ROOT / 'modules/shendeng/continuous-prompt.md').read_text()
     prompt += '\n本轮开始时间（北京时间）: ' + started.isoformat()
     args = [runtime()['codex'], 'exec', '--sandbox', 'read-only', '-c', 'approval_policy="never"',
-            '-c', 'web_search="live"', '-c', 'sandbox_read_only.network_access=true',
+            '-c', 'web_search="live"',
             '--ephemeral', '--output-schema', str(SCHEMA), '--output-last-message', str(RESULT), '-C', str(ROOT), '-']
     # Keep only a few private logs; credentials never leave the existing local CLI store.
     for old in sorted(DATA.glob('research-*.log'))[:-6]: old.unlink()

@@ -35,3 +35,15 @@ test("use the actual research window and allow 48h only for event corroboration"
   assert.equal(mergeResearch(edition([old]),[],now),null);
   assert.ok(mergeResearch(edition([{...old,event:{key:"verified-event",title:"交叉核对事件"}}]),[],now));
 });
+
+test("original research uses publisher feeds, skips archived and stale URLs, and never upgrades index timestamps",async()=>{
+ const {originalCandidates}=await import('../research-originals.ts');
+ const source={id:'publisher',name:'Publisher',kind:'rss',enabled:true,tier:'T1',config:{feedUrl:'https://example.org/feed'}};
+ const time=Date.now();const date=new Date(time-3600000).toISOString();
+ const original={id:'publisher',url:source.config.feedUrl,items:[{url:'https://example.org/new',publishedAt:date},{url:'https://example.org/old/',publishedAt:date},{url:'https://example.org/stale',publishedAt:new Date(time-25*3600000).toISOString()}]};
+ const index={id:'public-index',url:'https://index.example.org/api',items:[{url:'https://example.org/unverified',publishedAt:date}]};
+ const rows=originalCandidates({sources:[original,index]},[source],[{items:[{url:'https://example.org/old'}]}],time);
+ assert.deepEqual(rows.map(r=>r.url),['https://example.org/new']);
+ assert.equal(rows[0].feedPublishedAt,date);
+ assert.equal(originalCandidates({sources:[{...original,url:'https://index.example.org/feed'}]},[source],[],time).length,0);
+});
