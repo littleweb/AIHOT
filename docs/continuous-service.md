@@ -54,3 +54,5 @@ modules/shendeng/group-reviewed.ts 使用原事件模型及 moveToFact，原 com
 必要核心差异只有 packages/backend/src/events/corrections.ts 的 ensureImportedFact 导入接口。上游创建事件/事实的函数仅供自动归组内部使用，没有可调用的编辑导入接口；模块直接写核心表也被 architecture.test.ts 明确禁止。因此把幂等创建和审计放回 events 所属层，模块只调用接口，不更改原有归组、公开读取、阈值或热度计算。升级时核对该接口、moveToFact 与 source participant 规则，并运行 import-topics.test.ts 的双来源热点、重复导入和收录时间测试。上游若提供等价接口，删除此小差异。
 
 发布进程还检查原公开热点接口：排名成员或独立参与数变化（包括48小时证据到期）时，调用既有 workflow_dispatch 重新导出当前公开源，不制造新闻提交；未变化时不重复发布。发布后核对热点条目及事件页均在 export-manifest.json 中，抽查事件详情和返回。
+
+2026-10-22 午间修复：已发生两轮因单条日期窗口校验而整批失败。增量合并先跳过已归档网址，再按实际核对完成时间分别判断新消息24小时、事件交叉证据48小时；窗口外或仅有日期而无法证明在窗口内的记录跳过并写入本机 research-merge.json 和采编状态，其余合格条目照常追加。原文日期精度不得补造，安全链接、结构和未来日期校验仍保留。升级时运行 continuous.standalone.test.ts 的混合候选回归，核对旧档案及 addedAt 不变。

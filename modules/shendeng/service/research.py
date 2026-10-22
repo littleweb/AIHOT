@@ -47,7 +47,9 @@ def research():
         process = subprocess.run(args, input=prompt, text=True, cwd=ROOT, env=environment(), stdout=output, stderr=output, timeout=2700)
     if process.returncode or not RESULT.exists(): raise RuntimeError('Local Codex research failed; see private research log')
     proposal = read_json(RESULT)
-    node('modules/shendeng/merge-research.ts', str(RESULT), timeout=180)
+    merge_report = DATA / 'research-merge.json'
+    node('modules/shendeng/merge-research.ts', str(RESULT), str(merge_report), timeout=180)
+    merge_skipped = read_json(merge_report, {}).get('skipped', [])
     finished = time.time()
     state['lastFinishedAt'] = finished
     if started.strftime('%H:%M') >= CONFIG['morningTime']:
@@ -61,7 +63,7 @@ def research():
             write_json(STATE, state)
             raise RuntimeError('Ranking refresh failed; successful snapshots retained, failed snapshot unchanged')
     write_json(STATE, state)
-    status('research', phase='checked', proposedItems=len(proposal['items']), skipped=proposal['skipped'], finishedAt=finished)
+    status('research', phase='checked', proposedItems=len(proposal['items']), skipped=proposal['skipped'], mergeSkipped=merge_skipped, finishedAt=finished)
 
 if __name__ == '__main__':
     held = lock('research')

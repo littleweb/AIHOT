@@ -14,8 +14,24 @@ test("incremental research preserves existing entries and skips URLs already arc
   assert.equal(mergeResearch(edition([prior]), [edition([prior])], now), null);
   assert.equal(mergeResearch(edition([]), [edition([prior])], now), null);
 });
-test("reject stale articles, historic rewrites and credential-bearing original links", () => {
+test("reject historic rewrites and credential-bearing original links", () => {
   assert.throws(() => mergeResearch({ ...edition([item]), backfill: true }, [], now));
-  assert.throws(() => mergeResearch(edition([{ ...item, date: new Date(+now - 90000000).toISOString() }]), [], now));
   assert.throws(() => mergeResearch(edition([{ ...item, url: "https://example.com/note?xsec_token=private" }]), [], now));
+});
+test("stale or already archived candidates cannot block valid new sources", () => {
+  const stale = {...item, url:"https://example.com/stale", date:new Date(+now-49*3600000).toISOString()};
+  const archived = {...stale, url:"https://example.com/archived", title:"保留旧内容"};
+  const skipped: {url:string;reason:string}[] = [];
+  const result = mergeResearch(edition([stale, {...archived,title:"不得替换"}, item]), [edition([archived])], now, skipped)!;
+  assert.deepEqual(result.items, [archived,{...item,addedAt:now.toISOString()}]);
+  assert.deepEqual(skipped.map(s=>s.url),[stale.url,archived.url]);
+  assert.equal(mergeResearch(edition([stale]), [], now),null);
+});
+test("use the actual research window and allow 48h only for event corroboration", () => {
+  const checked = new Date(+now-30*60000);
+  const edge = {...item,date:new Date(+checked-24*3600000+1000).toISOString()};
+  assert.ok(mergeResearch({...edition([edge]),researchedAt:checked.toISOString()},[],now));
+  const old = {...item,date:new Date(+now-30*3600000).toISOString(),selected:false};
+  assert.equal(mergeResearch(edition([old]),[],now),null);
+  assert.ok(mergeResearch(edition([{...old,event:{key:"verified-event",title:"交叉核对事件"}}]),[],now));
 });

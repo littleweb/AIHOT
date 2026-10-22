@@ -1,6 +1,6 @@
 {
   "date": "2026-10-22",
-  "researchedAt": "2026-10-22T02:35:38.527369+00:00",
+  "researchedAt": "2026-10-22T05:25:04.529078+00:00",
   "items": [
     {
       "sourceId": "rss-the-verge-ai",
@@ -534,6 +534,64 @@
         "factTitle": "Claude Duet 向美国 Pro 和 Max 用户开放研究预览候补"
       },
       "addedAt": "2026-10-22T02:35:38.527369+00:00"
+    },
+    {
+      "sourceId": "litellm-blog",
+      "sourceName": "LiteLLM 官方博客",
+      "date": "2026-10-21T10:00:00.000Z",
+      "url": "https://docs.litellm.ai/blog/security-incident-oct-21-2026",
+      "title": "LiteLLM确认1.107.0发布链遭入侵，受影响软件包和镜像已撤下",
+      "summary": "维护方通报，恶意1.107.0软件包及部分Docker标签包含窃取凭据和加载远程代码的组件，受影响制品已撤下或改指向干净版本。官方称私有企业发行渠道未受影响，并要求受影响用户重建环境、轮换可触及的凭据；初始入侵路径仍在调查。",
+      "reason": "Codex 来源核对 · 已重新读取维护方通报、正文时间线和网页发布日期元数据，并与Wiz原始分析交叉核对；调查仍在进行。",
+      "category": "industry",
+      "quote": "Status: Incident contained, investigation in progress",
+      "tier": "T1",
+      "entity": null,
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "安全/对齐",
+        "部署/工程",
+        "海外AI"
+      ],
+      "selected": true,
+      "event": {
+        "key": "litellm-11070-supply-chain-2026-10-21",
+        "title": "LiteLLM 1.107.0供应链入侵与处置",
+        "factKey": "litellm-11070-compromised-release",
+        "factTitle": "LiteLLM确认1.107.0及关联镜像含恶意组件并撤下"
+      },
+      "addedAt": "2026-10-22T05:25:04.529078+00:00"
+    },
+    {
+      "sourceId": "external-wiz-research",
+      "sourceName": "Wiz Blog",
+      "date": "2026-10-21T09:44:12-04:00",
+      "url": "https://www.wiz.io/blog/litellm-compromised-steals-credentials",
+      "title": "Wiz分析交叉确认LiteLLM恶意版本的凭据窃取行为",
+      "summary": "Wiz原始分析确认恶意1.107.0软件包及关联容器制品，列出Python启动时触发的组件，并报告观察到被盗云凭据遭使用。该文用于交叉核对同一发布链事件；具体仓库的撤下时间以维护方逐项时间线为准。",
+      "reason": "Codex 来源核对 · 已读取安全研究团队原文，与维护方通报支持同一核心事实；仅作交叉核对，不重复精选。",
+      "category": "industry",
+      "quote": "The most recent safe version is v1.106.2.",
+      "tier": "T1",
+      "entity": "google",
+      "subjects": [],
+      "region": "国外",
+      "tags": [
+        "行业动态",
+        "安全/对齐",
+        "部署/工程",
+        "海外AI"
+      ],
+      "selected": false,
+      "event": {
+        "key": "litellm-11070-supply-chain-2026-10-21",
+        "title": "LiteLLM 1.107.0供应链入侵与处置",
+        "factKey": "litellm-11070-compromised-release",
+        "factTitle": "LiteLLM确认1.107.0及关联镜像含恶意组件并撤下"
+      },
+      "addedAt": "2026-10-22T05:25:04.529078+00:00"
     }
   ]
 }
