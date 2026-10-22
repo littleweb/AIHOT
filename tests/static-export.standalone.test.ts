@@ -9,7 +9,7 @@ import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { chromium, expect } from "@playwright/test";
-import { itemDetail } from "../apps/web/tests/web-server.ts";
+import { feedItem, itemDetail } from "../apps/web/tests/web-server.ts";
 import { staticPagePlugin } from "../modules/shendeng/static-pages.ts";
 import { StaticPages } from "../modules/shendeng/static-pages.ts";
 
@@ -59,9 +59,10 @@ test("static details save local bookmarks, open menus and download share cards w
  const item=itemDetail({id:"static-card",title:"静态分享检查",summary:'描述含 </script><script>window.cardInjected=true</script>',source:{name:"公开来源"},publishedAt:"2026-10-21T10:00:00Z",timelineAt:"2026-10-21T10:00:00Z",category:"industry",selected:true,score:null,markdownAvailable:true,body:{zh:"<p>固定正文</p><pre><code>const example = 1;</code></pre>",original:null,zhKind:"translation",complete:true}});
  const html=`<html><head><meta charset="utf-8"><link rel="stylesheet" href="/assets/site.css"></head><body><nav data-pill-track aria-label="筛选"><a href="/"><span>全部</span></a></nav><h1>${item.title}</h1><button aria-label="收藏">收藏</button><button aria-label="更多操作">更多</button><nav aria-label="阅读工具"><button>收藏</button></nav><button aria-label="更多操作">更多</button><a href="/items/static-card">详情</a><a href="/starred">收藏列表</a></body></html>`;
  const api=createServer((req,res)=>{
+  if(req.url?.startsWith("/api/site/timeline")){res.setHeader("content-type","application/json");res.end(JSON.stringify({filters:{channel:"all",category:null,tag:null},cards:[{key:item.id,anchorAt:item.timelineAt,item:feedItem({id:item.id,title:item.title,category:item.category}),group:null}],nextCursor:null,hot:null,dayCounts:{"2026-10-21":1}}));return;}
   if(req.url==="/api/site/items/static-card"){res.setHeader("content-type","application/json");res.end(JSON.stringify(item));return;}
   if(req.url==="/items/static-card/markdown"){res.end("# 静态分享检查\n\n描述");return;}
-  res.setHeader("content-type","text/html");res.end(req.url==="/starred"?'<html><head><meta charset="utf-8"></head><body><main><header><h1 data-page-title>收藏</h1></header></main></body></html>':(req.url?.startsWith("/items/static-card")||req.url==="/more")?html.replace("<body>",'<body><main id="main"><div>').replace("</body>","</div></main></body>"):html);
+  res.setHeader("content-type","text/html");res.end(req.url==="/starred"?'<html><head><meta charset="utf-8"></head><body><main><header><h1 data-page-title>收藏</h1></header></main></body></html>':(req.url?.startsWith("/items/static-card")||req.url==="/more"||req.url==="/"||req.url?.startsWith("/?"))?html.replace("<body>",'<body><main id="main"><div>').replace("</body>","</div></main></body>"):html);
  });
  await new Promise<void>(r=>api.listen(0,"127.0.0.1",r));const port=(api.address() as {port:number}).port;
  let browser:Awaited<ReturnType<typeof chromium.launch>>|undefined;
@@ -93,7 +94,18 @@ test("static details save local bookmarks, open menus and download share cards w
   await page.getByRole("button",{name:`取消收藏：${item.title}`}).click();await expect(page.getByText("还没有收藏内容。在详情页点击收藏即可添加。")).toBeVisible();
   assert.equal(requests.some(url=>new URL(url).pathname.includes("/api/")),false);
   await page.goto(origin+"/news/more/index.html");await expect(page.locator("[data-static-ready=true]")).toBeVisible();await page.getByLabel("字体").selectOption("browser");await expect(page.locator("html")).toHaveAttribute("data-font","browser");
+  await page.goto(origin+"/news/index.html");await expect(page.locator("[data-static-ready=true]")).toBeVisible();
+  const title=page.locator('[data-item-id="static-card"]').getByRole("link",{name:item.title,exact:true});
+  await title.dispatchEvent("pointerdown",{pointerType:"mouse",button:0});await page.waitForTimeout(150);
+  await expect(page.getByText("Unexpected Application Error!",{exact:true})).toHaveCount(0);await expect(title).toBeVisible();
+  await title.click();await page.waitForURL(origin+"/news/items/static-card/index.html");await expect(page.locator("[data-static-ready=true]")).toBeVisible();
   await context.close();
+  const phone=await browser.newContext({viewport:{width:390,height:844},hasTouch:true,isMobile:true});const touchPage=await phone.newPage();
+  await touchPage.goto(origin+"/news/index.html");await expect(touchPage.locator("[data-static-ready=true]")).toBeVisible();
+  const touchTitle=touchPage.locator('[data-item-id="static-card"]').getByRole("link",{name:item.title,exact:true});
+  await touchTitle.dispatchEvent("touchstart");await touchPage.waitForTimeout(150);
+  await expect(touchPage.getByText("Unexpected Application Error!",{exact:true})).toHaveCount(0);await expect(touchTitle).toBeVisible();
+  await touchTitle.dispatchEvent("touchend");await touchTitle.tap();await touchPage.waitForURL(origin+"/news/items/static-card/index.html");await phone.close();
   const denied=await browser.newContext();await denied.addInitScript(()=>{Storage.prototype.setItem=function(){throw new Error("storage denied");};});const blocked=await denied.newPage();await blocked.goto(origin+"/news/items/static-card/index.html");await expect(blocked.locator("[data-static-ready=true]")).toBeVisible();await blocked.getByRole("button",{name:"收藏",exact:true}).first().click();await expect(blocked.getByRole("status")).toContainText("浏览器未能保存收藏");await expect(blocked.getByRole("button",{name:"收藏",exact:true}).first()).toHaveAttribute("aria-pressed","false");await denied.close();
  } finally {
   await browser?.close();if(server)await new Promise<void>(r=>server!.close(()=>r()));await new Promise<void>(r=>api.close(()=>r()));await rm(temp,{recursive:true,force:true});
