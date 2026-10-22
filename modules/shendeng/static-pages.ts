@@ -55,9 +55,12 @@ export class StaticPages {
     this.origin=origin;this.output=output;this.prefix=prefix;this.publishedUrl=publishedUrl;
     this.addPage=addPage;
   }
-  async json(route:string):Promise<any> {
+  async json(route:string, optional=false):Promise<any> {
     if(this.responses.has(route))return this.responses.get(route);
     const res=await fetch(new URL(route,this.origin),{signal:AbortSignal.timeout(30_000)});
+    // Upstream hides absent event followups (e.g. evidence-only stories). Preserve that
+    // response in the static reader without treating a missing optional panel as a failed page.
+    if(optional&&res.status===404){this.responses.set(route,null);return null;}
     if(!res.ok)throw new Error(`Public page snapshot ${route}: ${res.status}`);
     const value:any=await res.json();this.responses.set(route,value);
     const article=(entry:any)=>{if(entry?.id&&entry.source&&/^[a-zA-Z0-9_-]{1,80}$/.test(entry.id))this.addPage(`/items/${entry.id}`);if(entry?.representative)article(entry.representative);};
@@ -84,7 +87,7 @@ export class StaticPages {
       for(const card of data.data.items??[])await this.group(card.group,data.data.filters);
     } else if(/^\/items\/[^/]+(?:\/original)?$/.test(u.pathname)&&item) {
       kind="item";data={item};if(item.hasTranslation)this.addPage(`/items/${item.id}/original`);await this.group(item.group,undefined);
-      if(item.story)await this.json(`/api/site/stories/${encodeURIComponent(item.story.publicId)}/followups`);
+      if(item.story)await this.json(`/api/site/stories/${encodeURIComponent(item.story.publicId)}/followups`,true);
     }
     else if(/^\/story\/[^/]+$/.test(u.pathname)) {kind="story";data={story:await this.json("/api/site/stories/"+u.pathname.split("/").at(-1))};}
     else if(/^\/topics\/[^/]+(?:\/page\/\d+)?$/.test(u.pathname)) {
