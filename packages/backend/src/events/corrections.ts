@@ -12,6 +12,21 @@ import { composeStoryDigest } from "./digest.ts";
 import { mergeStoryInto } from "./merge.ts";
 import { emit } from "../modules.ts";
 
+/** Idempotent event identity for a checked editorial import. Membership still uses moveToFact. */
+export async function ensureImportedFact(input: {storyPublicId:string;factPublicId:string;storyTitle:string;factTitle:string}, reason:string, actor:string) {
+  await sql.begin(async tx => {
+    const [story] = await tx<{id:number}[]>`INSERT INTO stories(public_id,title,origin)
+      VALUES(${input.storyPublicId},${input.storyTitle},'manual')
+      ON CONFLICT(public_id) DO UPDATE SET title=EXCLUDED.title RETURNING id`;
+    const facts = await tx`INSERT INTO facts(public_id,story_id,title,manual)
+      VALUES(${input.factPublicId},${story.id},${input.factTitle},true)
+      ON CONFLICT(public_id) DO UPDATE SET title=EXCLUDED.title
+      WHERE facts.story_id=EXCLUDED.story_id RETURNING id`;
+    if(!facts.length)throw new Conflict("导入事实已属于其他事件，不能隐式移动");
+  });
+  await audit(actor,"event.import",`fact:${input.factPublicId}`,reason,null,{story:input.storyPublicId});
+}
+
 /**
  * Takes an article out of its fact; it is shown on its own again and stays that way (automatic
  * grouping, retries and later revisions do not re-attach it; an explicit regroup does). Its heat
