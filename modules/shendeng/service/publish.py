@@ -99,13 +99,24 @@ def verify_online(pending):
     # Technical-direction topic is part of the existing compatibility smoke check.
     get(base + '/topics/openai/index.html')
     get(base + '/topics/agent/index.html')
-    if 'hot' in pending:
-        hot_body=html.unescape(get(base+'/hot/index.html'))
-        for entry in pending['hot']:
-            if entry['title'] not in hot_body or entry['story'] not in manifest['pages']:
-                raise RuntimeError('Online hot event or its exported detail is missing')
-            event_body=get(base+entry['story']+'/index.html')
-            if '返回' not in event_body:raise RuntimeError('Online event return link missing')
+    if 'hot' in pending: verify_hot(pending, manifest)
+
+def verify_hot(pending, manifest):
+    base=CONFIG['siteUrl']
+    hot_body=html.unescape(get(base+'/hot/index.html'))
+    active=None; verified=[]
+    for entry in pending['hot']:
+        # The 48-hour window can expire while Pages builds. Only an event absent from
+        # both the deployed page and the current public ranking may leave expectations.
+        if entry['title'] not in hot_body and entry['story'] not in hot_body:
+            if active is None: active={e['story'] for e in hot_snapshot()}
+            if entry['story'] not in active: continue
+        if entry['title'] not in hot_body or entry['story'] not in manifest['pages']:
+            raise RuntimeError('Online hot event or its exported detail is missing')
+        event_body=get(base+entry['story']+'/index.html')
+        if '返回' not in event_body:raise RuntimeError('Online event return link missing')
+        verified.append(entry)
+    pending['hot']=verified
 
 def finish_pending(state):
     pending = state['pending']
