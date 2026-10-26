@@ -73,6 +73,44 @@ class HotPublicationTests(unittest.TestCase):
             self.assertEqual(state['pending']['hot'],[])
             finish.assert_called_once_with(state)
 
+class HotVerificationTests(unittest.TestCase):
+    def test_event_expiring_during_build_does_not_block_the_next_news_publication(self):
+        from unittest.mock import patch
+        import publish
+        expired={'title':'Expired event','story':'/story/expired','heat':10.5}
+        current={'title':'Current event','story':'/story/current','heat':12.3}
+        pending={'hot':[expired,current]}
+        with patch.object(publish,'get',side_effect=['Current event /story/current','返回']), patch.object(publish,'hot_snapshot',return_value=[current]):
+            publish.verify_hot(pending,{'pages':['/story/current']})
+        self.assertEqual(pending['hot'],[current])
+
+    def test_missing_active_event_still_blocks_publication(self):
+        from unittest.mock import patch
+        import publish
+        entry={'title':'Current event','story':'/story/current'}
+        pending={'hot':[entry]}
+        with patch.object(publish,'get',return_value='No events'), patch.object(publish,'hot_snapshot',return_value=[entry]):
+            with self.assertRaisesRegex(RuntimeError,'missing'):
+                publish.verify_hot(pending,{'pages':[]})
+        self.assertEqual(pending['hot'],[entry])
+
+    def test_a_link_without_its_exported_detail_is_not_excused_by_expiry(self):
+        from unittest.mock import patch
+        import publish
+        entry={'title':'Expired event','story':'/story/expired'}
+        with patch.object(publish,'get',return_value='Expired event /story/expired'), patch.object(publish,'hot_snapshot',return_value=[]):
+            with self.assertRaisesRegex(RuntimeError,'missing'):
+                publish.verify_hot({'hot':[entry]},{'pages':[]})
+
+    def test_failed_current_ranking_read_does_not_clear_expectations(self):
+        from unittest.mock import patch
+        import publish
+        pending={'hot':[{'title':'Event','story':'/story/event'}]}
+        with patch.object(publish,'get',return_value='No events'), patch.object(publish,'hot_snapshot',side_effect=RuntimeError('API unavailable')):
+            with self.assertRaisesRegex(RuntimeError,'API unavailable'):
+                publish.verify_hot(pending,{'pages':[]})
+        self.assertEqual(len(pending['hot']),1)
+
 class FulltextPublicationTests(unittest.TestCase):
     def test_publication_includes_body_snapshots_but_excludes_runtime_and_model_outputs(self):
         import tempfile
