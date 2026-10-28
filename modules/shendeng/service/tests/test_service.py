@@ -111,6 +111,40 @@ class HotVerificationTests(unittest.TestCase):
                 publish.verify_hot(pending,{'pages':[]})
         self.assertEqual(len(pending['hot']),1)
 
+class CompanyTopicVerificationTests(unittest.TestCase):
+    def test_unknown_subject_does_not_hide_a_later_exported_company_topic(self):
+        from unittest.mock import patch
+        import publish
+        with patch.object(publish,'get',return_value='Meta topic') as get:
+            publish.verify_subject_topic(['amd','meta'], 'Meta', {'pages':['/topics/meta']})
+        get.assert_called_once_with(publish.CONFIG['siteUrl']+'/topics/meta/index.html')
+
+    def test_subject_ids_are_mapped_to_configured_topic_slugs(self):
+        import tempfile
+        from unittest.mock import patch
+        import publish
+        with tempfile.TemporaryDirectory() as temp:
+            root=pathlib.Path(temp);(root/'industry').mkdir()
+            (root/'industry/topics.json').write_text(json.dumps({'topics':[{'entityId':'company-id','slug':'company-page'}]}))
+            with patch.object(publish,'ROOT',root), patch.object(publish,'get') as get:
+                publish.verify_subject_topic(['company-id'], '', {'pages':['/topics/company-page']})
+            get.assert_called_once_with(publish.CONFIG['siteUrl']+'/topics/company-page/index.html')
+
+    def test_advertised_company_topic_without_an_export_fails(self):
+        from unittest.mock import patch
+        import publish
+        with patch.object(publish,'get') as get:
+            with self.assertRaisesRegex(RuntimeError,'company topic link'):
+                publish.verify_subject_topic(['meta'], '<a href="/topics/meta/index.html">Meta</a>', {'pages':[]})
+            get.assert_not_called()
+
+    def test_an_empty_unlinked_company_topic_may_be_skipped(self):
+        from unittest.mock import patch
+        import publish
+        with patch.object(publish,'get') as get:
+            publish.verify_subject_topic(['meta'], 'No topic links', {'pages':[]})
+            get.assert_not_called()
+
 class FulltextPublicationTests(unittest.TestCase):
     def test_publication_includes_body_snapshots_but_excludes_runtime_and_model_outputs(self):
         import tempfile
