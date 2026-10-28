@@ -95,11 +95,26 @@ def verify_online(pending):
             if item['title'] not in html.unescape(detail) or item['url'] not in html.unescape(detail):
                 raise RuntimeError('Online detail does not match published source')
             if '返回' not in detail: raise RuntimeError('Online detail return link missing')
-            for subject in item.get('subjects', [])[:1]: get(base + '/topics/' + subject + '/index.html')
+            verify_subject_topic(item.get('subjects', []), detail, manifest)
     # Technical-direction topic is part of the existing compatibility smoke check.
     get(base + '/topics/openai/index.html')
     get(base + '/topics/agent/index.html')
     if 'hot' in pending: verify_hot(pending, manifest)
+
+def verify_subject_topic(subjects, detail, manifest):
+    # Entity IDs can lack topics or use a different topic slug. Only verify a
+    # configured, exported company topic; an advertised but missing page is an error.
+    topics=json.loads((ROOT/'industry/topics.json').read_text())['topics']
+    slugs={t['entityId']:t['slug'] for t in topics if t.get('entityId')}
+    for subject in subjects:
+        slug=slugs.get(subject)
+        if not slug: continue
+        route='/topics/'+slug
+        if route not in manifest['pages']:
+            if route in detail: raise RuntimeError('Online company topic link has no exported page: '+route)
+            continue
+        get(CONFIG['siteUrl']+route+'/index.html')
+        return
 
 def verify_hot(pending, manifest):
     base=CONFIG['siteUrl']
