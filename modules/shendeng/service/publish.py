@@ -14,6 +14,13 @@ def public_files():
     return {str(p.relative_to(ROOT)): p.read_bytes() for p in paths}
 
 def api(method, path, body=None):
+    # Public repository reads can use GitHub directly. Keep authenticated CLI
+    # access for writes and as a fallback when public requests hit a limit.
+    if method == 'GET':
+        try:
+            return json.loads(get('https://api.github.com/' + path))
+        except (OSError, ValueError):
+            pass
     raw=run(['gh', 'api', '-X', method, path] + (['--input', '-'] if body is not None else []),
             input=json.dumps(body) if body is not None else None, capture=True)
     return json.loads(raw) if raw.strip() else None
