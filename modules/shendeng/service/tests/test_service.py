@@ -16,6 +16,37 @@ class ContinuousServiceTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, 'independently'):
             changed_files({'site/editions/today.json': b'local'}, {'site/editions/today.json': blob(b'remote')}, {'site/editions/today.json': blob(b'base')})
 
+    def test_failed_deployment_is_replaced_by_new_content(self):
+        from unittest.mock import patch
+        import publish
+
+        old_path = 'site/editions/old.json'
+        new_path = 'site/editions/new.json'
+        state = {'remote': {}, 'pending': {
+            'commit': 'failed', 'runId': 7, 'files': {old_path: 'old'}
+        }}
+        files = {old_path: b'old', new_path: b'new'}
+        remote = {old_path: blob(b'old')}
+        with patch.object(publish, 'read_json', return_value=state), \
+             patch.object(publish, 'public_files', return_value=files), \
+             patch.object(publish, 'head_tree', return_value=('failed', 'tree', remote)), \
+             patch.object(publish, 'api', side_effect=[
+                 {'status': 'completed', 'conclusion': 'failure'},
+                 {'sha': 'new-tree'}, {'sha': 'replacement'}, None
+             ]), patch.object(publish, 'DATA', pathlib.Path(self.temp_directory())), \
+             patch.object(publish, 'status'), patch.object(publish, 'node'), \
+             patch.object(publish, 'run'), patch.object(publish, 'write_json'), \
+             patch.object(publish, 'hot_snapshot', return_value=[]), \
+             patch.object(publish, 'finish_pending') as finish:
+            publish.sync()
+            self.assertEqual(state['pending']['commit'], 'replacement')
+            self.assertEqual(state['pending']['files'], {old_path: 'old', new_path: 'new'})
+            finish.assert_called_once_with(state)
+
+    def temp_directory(self):
+        from tempfile import TemporaryDirectory
+        return self.enterContext(TemporaryDirectory())
+
     def test_morning_check_runs_even_when_previous_hour_check_was_recent(self):
         now = datetime.datetime(2026, 10, 23, 5, 30, tzinfo=TZ).timestamp()
         self.assertTrue(due({'lastFinishedAt': now-60, 'morningDate': '2026-10-22'}, now))

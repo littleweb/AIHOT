@@ -164,13 +164,39 @@ def finish_pending(state):
 
 def sync():
     state = read_json(STATE, {'remote': {}, 'pending': None})
-    if state.get('pending'): finish_pending(state); return
+    pending = state.get('pending')
+    if pending:
+        run_id = pending.get('runId')
+        previous = api('GET', REPO + '/actions/runs/' + str(run_id)) if run_id else {}
+        failed = previous.get('status') == 'completed' and previous.get('conclusion') != 'success'
+        if not failed:
+            finish_pending(state)
+            return
+
     files = public_files()
-    # Query the remote only when local public data differs from the last successful baseline.
-    local = {p: blob(data) for p, data in files.items()}
-    if state.get('remote') and all(state['remote'].get(p) == sha for p, sha in local.items()): sync_hot(state);return
-    parent, tree, remote = head_tree()
-    changed = changed_files(files, remote, state.get('remote', {}))
+    if pending:
+        parent, tree, remote = head_tree()
+        if parent != pending['commit']:
+            raise RuntimeError('Failed publication needs review because remote main changed')
+        baseline = dict(state['remote'])
+        for path, data in pending['files'].items():
+            expected = blob(data.encode())
+            if remote.get(path) != expected or path not in files:
+                raise RuntimeError('Failed publication content needs review: ' + path)
+            baseline[path] = expected
+        changed = changed_files(files, remote, baseline)
+        if not changed:
+            raise RuntimeError(f'Pages run {run_id} failed; awaiting new content to create a fresh run')
+        # Check the previously failed content as part of the replacement deployment.
+        changed = {**{p: files[p] for p in pending['files']}, **changed}
+    else:
+        # Query the remote only when local public data differs from the last successful baseline.
+        local = {p: blob(data) for p, data in files.items()}
+        if state.get('remote') and all(state['remote'].get(p) == sha for p, sha in local.items()):
+            sync_hot(state)
+            return
+        parent, tree, remote = head_tree()
+        changed = changed_files(files, remote, state.get('remote', {}))
     if not changed:
         state['remote'] = {p: remote.get(p) for p in files}; write_json(STATE, state)
         status('publish', phase='up-to-date', commit=parent); return
