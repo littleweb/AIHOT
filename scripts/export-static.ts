@@ -73,21 +73,29 @@ async function publicResource(u:URL):Promise<string|null> {
 async function asset(u: URL) {
   if (brandFiles.includes(u.pathname.slice(1))) return `${prefix}${u.pathname}?v=${brandVersions.get(u.pathname.slice(1))}`;
   if (u.pathname.startsWith("/assets/") && !u.search) return prefix + u.pathname;
-  const id = u.pathname + u.search;
+  const imageProxy = u.pathname === "/api/img-proxy";
+  const identity = new URL(u);
+  if (imageProxy) {
+    // Expiring signatures authorize a fetch. The URL and rendition identify the object.
+    identity.searchParams.delete("exp");
+    identity.searchParams.delete("sig");
+    identity.searchParams.sort();
+  }
+  const id = identity.pathname + identity.search;
   return once(assets, id, async () => {
-    const res = await fetch(u, { signal: AbortSignal.timeout(30_000) });
-    if (!res.ok) {
-      // An unavailable upstream image must not block the article's static body and translation.
-      // Keep its public HTTPS source instead of shipping an expiring local proxy address.
-      const source=u.pathname==="/api/img-proxy"?u.searchParams.get("u"):null;
-      if(source) {
-        const original=new URL(source);
-        if(original.protocol==="https:"&&!original.username&&!original.password&&original.origin!==origin.origin) {
-          console.warn(`Image proxy returned ${res.status}; retaining the public source image`);
-          return original.href;
-        }
+    const source = imageProxy ? u.searchParams.get("u") : null;
+    const original = source ? URL.parse(source) : null;
+    const res = await fetch(u, { signal: AbortSignal.timeout(30_000) }).catch(error => {
+      if (!imageProxy) throw error;
+      return null;
+    });
+    if (!res?.ok) {
+      // Unavailable image proxies should not block the article body and translation.
+      if (original?.protocol === "https:" && !original.username && !original.password && original.origin !== origin.origin) {
+        console.warn(`Image proxy returned ${res?.status ?? "a network error"}; retaining the public source image`);
+        return original.href;
       }
-      throw new Error(`public asset ${u.pathname}: ${res.status}`);
+      throw new Error(`public asset ${u.pathname}: ${res?.status ?? "network error"}`);
     }
     const type = res.headers.get("content-type") ?? "";
     const ext = type.includes("svg") ? "svg" : type.includes("png") ? "png" : type.includes("webp") ? "webp" : type.includes("jpeg") ? "jpg" : "bin";
@@ -190,22 +198,23 @@ async function exportPage(u: URL, id: string) {
   console.log(`export ${id}`);
 }
 let cursor = 0;
-while (cursor < pending.length) {
-  const batch: Promise<void>[] = [];
-  while (cursor < pending.length && batch.length < jobs) {
-    const url = pending[cursor++]!;
-    const id = key(new URL(url));
-    if (seen.has(id)) continue;
-    if (seen.size >= maxPages) {
-      await Promise.allSettled(batch);
-      throw new Error(`Export exceeds ${maxPages} pages; no partial deployment`);
+const running = new Set<Promise<void>>();
+try {
+  while (cursor < pending.length || running.size) {
+    while (cursor < pending.length && running.size < jobs) {
+      const url = pending[cursor++]!;
+      const id = key(new URL(url));
+      if (seen.has(id)) continue;
+      if (seen.size >= maxPages) throw new Error(`Export exceeds ${maxPages} pages; no partial deployment`);
+      seen.add(id);
+      const page = exportPage(url, id).finally(() => running.delete(page));
+      running.add(page);
     }
-    seen.add(id);
-    batch.push(exportPage(url, id));
+    if (running.size) await Promise.race(running);
   }
-  const result = await Promise.allSettled(batch);
-  const failed = result.find(item => item.status === "rejected");
-  if (failed) throw failed.reason;
+} catch (error) {
+  await Promise.allSettled(running);
+  throw error;
 }
 await writeFile(path.join(output, ".nojekyll"), "");
 await writeFile(path.join(output, "export-manifest.json"), JSON.stringify({ generatedAt: new Date().toISOString(), pages: [...seen], staticReadingEdition: true }, null, 2));
