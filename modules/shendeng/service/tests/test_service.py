@@ -215,6 +215,30 @@ class OssReleaseTests(unittest.TestCase):
                 oss_release._release(active=True)
             export.assert_not_called()
 
+    def test_recovery_restores_verified_previous_bytes_after_interruption(self):
+        from tempfile import TemporaryDirectory
+        from unittest.mock import patch
+        import oss_release
+        content = {'index.html': b'old page', 'export-manifest.json': b'old manifest'}
+        expected = {name: oss_release.digest(body) for name, body in content.items()}
+        restored = {}
+
+        def download(_base, name):
+            return content[name]
+
+        def upload(_settings, directory, name):
+            restored[name] = (directory / name).read_bytes()
+
+        with TemporaryDirectory() as tmp, \
+             patch.object(oss_release, 'RECOVERY', pathlib.Path(tmp) / 'recovery'), \
+             patch.object(oss_release, 'download', side_effect=download), \
+             patch.object(oss_release, 'upload', side_effect=upload), \
+             patch.object(oss_release, 'status'):
+            oss_release.save_recovery('next', [*content, 'new-only.html'], expected)
+            oss_release.recover({}, {'transaction': 'previous'})
+            self.assertEqual(restored, content)
+            self.assertFalse(oss_release.RECOVERY.exists())
+
     def test_console_requests_are_consumed_once_and_keep_a_run_history(self):
         from tempfile import TemporaryDirectory
         from unittest.mock import patch

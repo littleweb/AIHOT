@@ -150,7 +150,10 @@ def finish_pending(state):
     if pending.get('target') == 'oss':
         status('publish', phase='publishing-oss', commit=pending['commit'])
         try:
-            oss_release(active=True)
+            def verify_oss_publication():
+                status('publish', phase='verifying', commit=pending['commit'])
+                verify_online(pending)
+            oss_release(active=True, validate=verify_oss_publication)
         except Exception as error:
             status('oss', phase='failed', error=str(error))
             raise
@@ -180,8 +183,8 @@ def finish_pending(state):
             time.sleep(20)
         else:
             raise RuntimeError(f'Pages run {run_id} exceeded the wait limit')
-    status('publish', phase='verifying', commit=pending['commit'], runNumber=pending.get('runId'))
-    verify_online(pending)
+        status('publish', phase='verifying', commit=pending['commit'], runNumber=pending.get('runId'))
+        verify_online(pending)
     state['remote'].update({p: blob(data.encode()) for p, data in pending['files'].items()})
     if 'hot' in pending:state['hot']=pending['hot']
     state['lastPublishedAt'] = time.time(); state['lastCommit'] = pending['commit']; state['pending'] = None

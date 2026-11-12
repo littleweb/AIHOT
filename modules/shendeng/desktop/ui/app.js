@@ -15,6 +15,7 @@ const phases = {
   "pages-running": "GitHub Pages 正在构建", "publishing-oss": "正在部署至香港 OSS",
   "up-to-date": "内容已同步", checking: "检查发布配置", exporting: "导出静态页面",
   "local-ready": "本地静态产物已就绪", uploading: "增量上传对象",
+  "saving-previous": "保存线上旧版本", "rolling-back": "恢复上一版",
   verifying: "核验线上内容", published: "发布已验证", failed: "执行失败", disabled: "已关闭",
 };
 const finalPhases = new Set(["checked", "partial", "up-to-date", "local-ready", "published", "failed", "idle", "disabled"]);
