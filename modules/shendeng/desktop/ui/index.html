@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>神灯AI热点控制台</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header>
+    <img src="icon.png" width="48" height="48" alt="">
+    <div><h1>神灯AI热点</h1><p>本机采编与发布控制台</p></div>
+    <span id="connection" class="badge">连接中</span>
+  </header>
+  <main>
+    <section id="summary" aria-label="运行环境"></section>
+    <section id="tasks" aria-label="任务状态"></section>
+    <section class="history">
+      <div class="heading"><h2>执行记录</h2><select id="filter" aria-label="按任务筛选"></select></div>
+      <p id="message" role="status"></p>
+      <ol id="runs"></ol>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "productName": "神灯AI热点控制台",
+  "version": "0.1.0",
+  "identifier": "news.shendeng.desktop",
+  "build": { "frontendDist": "../ui" },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [{ "title": "神灯AI热点控制台", "width": 1050, "height": 760, "minWidth": 700, "minHeight": 550 }],
+    "security": { "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src ipc: http://ipc.localhost" }
+  },
+  "bundle": { "active": true, "targets": ["app"], "icon": ["icons/icon.icns"] }
+}

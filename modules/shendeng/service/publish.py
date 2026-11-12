@@ -1,6 +1,8 @@
 """Synchronize checked public JSON with the local API and existing GitHub Pages pipeline."""
 import datetime, hashlib, html, json, pathlib, sys, time, urllib.request
-from common import ROOT, DATA, CONFIG, read_json, write_json, run, node, lock, status
+from common import ROOT, DATA, CONFIG, read_json, write_json, run, node, lock, status, start_task, take_request
+from oss_release import options as oss_options, release as oss_release
+
 REPO = 'repos/' + CONFIG['repository']
 STATE = DATA / 'publication.json'
 
@@ -52,9 +54,12 @@ def sync_hot(state):
     if state['hot']==current:return
     parent,_,_=head_tree()
     requested=time.time()
-    api('POST',REPO+'/actions/workflows/publish.yml/dispatches',{'ref':'main'})
-    state['pending']={'commit':parent,'parent':parent,'files':{},'hot':current,'dispatchAt':requested}
+    target = 'oss' if oss_options().get('mode') == 'active' else 'pages'
+    if target == 'pages':
+        api('POST', REPO+'/actions/workflows/publish.yml/dispatches', {'ref':'main'})
+    state['pending']={'commit':parent,'parent':parent,'files':{},'hot':current,'dispatchAt':requested,'target':target}
     write_json(STATE,state);finish_pending(state)
+    return True
 
 def verify_online(pending):
     base = CONFIG['siteUrl']
@@ -142,27 +147,49 @@ def finish_pending(state):
         comparison = api('GET', REPO + '/compare/' + pending['commit'] + '...' + head)
         if comparison['status'] not in ['ahead', 'identical']:
             raise RuntimeError('Remote main changed before synchronization; pending publication needs review')
-    status('publish', phase='waiting-for-pages', commit=pending['commit'])
-    run_id = pending.get('runId')
-    if not run_id:
-        for _ in range(30):
-            runs = api('GET', REPO + '/actions/workflows/publish.yml/runs?per_page=20')['workflow_runs']
-            found = next((r for r in runs if r['head_sha'] == pending['commit'] and
-                (not pending.get('dispatchAt') or r['event']=='workflow_dispatch' and
-                 datetime.datetime.fromisoformat(r['created_at'].replace('Z','+00:00')).timestamp()>=pending['dispatchAt']-5)), None)
-            if found: run_id = found['id']; break
-            time.sleep(10)
-        if not run_id: raise RuntimeError('No Pages run for published commit')
-        pending['runId'] = run_id; write_json(STATE, state)
-    run(['gh', 'run', 'watch', str(run_id), '--repo', CONFIG['repository'], '--exit-status', '--interval', '20'], timeout=3000)
+    if pending.get('target') == 'oss':
+        status('publish', phase='publishing-oss', commit=pending['commit'])
+        try:
+            oss_release(active=True)
+        except Exception as error:
+            status('oss', phase='failed', error=str(error))
+            raise
+    else:
+        status('publish', phase='waiting-for-pages', commit=pending['commit'])
+        run_id = pending.get('runId')
+        if not run_id:
+            for _ in range(30):
+                runs = api('GET', REPO + '/actions/workflows/publish.yml/runs?per_page=20')['workflow_runs']
+                found = next((r for r in runs if r['head_sha'] == pending['commit'] and
+                    (not pending.get('dispatchAt') or r['event']=='workflow_dispatch' and
+                     datetime.datetime.fromisoformat(r['created_at'].replace('Z','+00:00')).timestamp()>=pending['dispatchAt']-5)), None)
+                if found: run_id = found['id']; break
+                time.sleep(10)
+            if not run_id: raise RuntimeError('No Pages run for published commit')
+            pending['runId'] = run_id; write_json(STATE, state)
+        for _ in range(150):
+            info = api('GET', REPO + '/actions/runs/' + str(run_id))
+            phase = 'pages-running' if info['status'] == 'in_progress' else 'waiting-for-pages'
+            if info['status'] == 'completed':
+                if info['conclusion'] != 'success':
+                    raise RuntimeError(f"Pages run {run_id} completed with {info['conclusion']}")
+                break
+            current = read_json(DATA / 'publish-status.json', {})
+            if phase != current.get('phase') or not current.get('runUrl'):
+                status('publish', phase=phase, commit=pending['commit'], runNumber=run_id, runUrl=info['html_url'])
+            time.sleep(20)
+        else:
+            raise RuntimeError(f'Pages run {run_id} exceeded the wait limit')
+    status('publish', phase='verifying', commit=pending['commit'], runNumber=pending.get('runId'))
     verify_online(pending)
     state['remote'].update({p: blob(data.encode()) for p, data in pending['files'].items()})
     if 'hot' in pending:state['hot']=pending['hot']
     state['lastPublishedAt'] = time.time(); state['lastCommit'] = pending['commit']; state['pending'] = None
     write_json(STATE, state)
-    status('publish', phase='published', commit=state['lastCommit'], verified=True)
+    status('publish', phase='published', commit=state['lastCommit'], verified=True,
+           runNumber=pending.get('runId'), mode=pending.get('target', 'pages'))
 
-def sync():
+def sync(manual=False):
     state = read_json(STATE, {'remote': {}, 'pending': None})
     pending = state.get('pending')
     if pending:
@@ -186,6 +213,11 @@ def sync():
             baseline[path] = expected
         changed = changed_files(files, remote, baseline)
         if not changed:
+            if manual:
+                api('POST', REPO + '/actions/runs/' + str(run_id) + '/rerun')
+                time.sleep(5)
+                finish_pending(state)
+                return
             raise RuntimeError(f'Pages run {run_id} failed; awaiting new content to create a fresh run')
         # Check the previously failed content as part of the replacement deployment.
         changed = {**{p: files[p] for p in pending['files']}, **changed}
@@ -193,13 +225,15 @@ def sync():
         # Query the remote only when local public data differs from the last successful baseline.
         local = {p: blob(data) for p, data in files.items()}
         if state.get('remote') and all(state['remote'].get(p) == sha for p, sha in local.items()):
-            sync_hot(state)
+            updated = sync_hot(state)
+            if manual and not updated:
+                status('publish', phase='up-to-date', manual=True)
             return
         parent, tree, remote = head_tree()
         changed = changed_files(files, remote, state.get('remote', {}))
     if not changed:
         state['remote'] = {p: remote.get(p) for p in files}; write_json(STATE, state)
-        status('publish', phase='up-to-date', commit=parent); return
+        status('publish', phase='up-to-date', commit=parent, manual=manual); return
     status('publish', phase='validating', files=list(changed))
     node('modules/shendeng/validate-editions.ts')
     run(['npm', 'run', 'typecheck'], timeout=300)
@@ -210,23 +244,40 @@ def sync():
             node('modules/shendeng/import-reviewed.ts', str(snapshot), '--codex', timeout=300)
     node('modules/shendeng/fulltext.ts', 'import', timeout=300)
     node('scripts/smoke.ts', '--base', CONFIG['localUrl'], timeout=300)
+    status('publish', phase='syncing-github', changed=len(changed))
     # Non-forced ref update rejects concurrent remote commits; no unrelated file is uploaded.
     entries = [{'path': p, 'mode': '100644', 'type': 'blob', 'content': data.decode()} for p, data in changed.items()]
     new_tree = api('POST', REPO + '/git/trees', {'base_tree': tree, 'tree': entries})['sha']
     commit = api('POST', REPO + '/git/commits', {'message': 'Sync source-checked AI updates ' + time.strftime('%Y-%m-%d %H:%M'), 'tree': new_tree, 'parents': [parent]})['sha']
     # Persist before ref mutation: a restart can resume the same run, never silently lose it.
     state['remote'] = {p: remote.get(p) for p in files}
-    state['pending'] = {'commit': commit, 'parent': parent, 'files': {p: d.decode() for p, d in changed.items()},'hot':hot_snapshot()}
+    state['pending'] = {'commit': commit, 'parent': parent, 'files': {p: d.decode() for p, d in changed.items()},'hot':hot_snapshot(),
+                        'target': 'oss' if oss_options().get('mode') == 'active' else 'pages'}
     write_json(STATE, state)
     api('PATCH', REPO + '/git/refs/heads/main', {'sha': commit, 'force': False})
     finish_pending(state)
 
 if __name__ == '__main__':
     held = lock('publish')
+    next_sync = 0
     while True:
-        try: sync()
-        except Exception as error:
-            print(str(error), flush=True); status('publish', phase='failed', error=str(error))
-            if '--once' in sys.argv: raise
-        if '--once' in sys.argv: break
-        time.sleep(CONFIG['syncIntervalSeconds'])
+        manual = take_request('publish')
+        if manual or '--once' in sys.argv or time.monotonic() >= next_sync:
+            start_task('publish')
+            try:
+                sync(manual)
+            except Exception as error:
+                print(str(error), flush=True)
+                status('publish', phase='failed', error=str(error))
+                if '--once' in sys.argv:
+                    raise
+            next_sync = time.monotonic() + CONFIG['syncIntervalSeconds']
+        if '--once' in sys.argv:
+            break
+        if take_request('oss'):
+            try:
+                oss_release(active=oss_options().get('mode') == 'active')
+            except Exception as error:
+                print(str(error), flush=True)
+                status('oss', phase='failed', error=str(error))
+        time.sleep(2)

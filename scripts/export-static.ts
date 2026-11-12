@@ -18,7 +18,9 @@ const prefix = `/${arg("--prefix", "").split("/").filter(Boolean).join("/")}`.re
 const publishedUrl = arg("--site-url", "https://shendeng.news").replace(/\/$/, "");
 // Poster QR codes and the printed host must use the final public deployment URL.
 process.env.SITE_URL = publishedUrl;
-const maxPages = Number(arg("--max-pages", "2000"));
+const maxPages = Number(arg("--max-pages", "Infinity"));
+const jobs = Number(arg("--jobs", "1"));
+if (!Number.isSafeInteger(jobs) || jobs < 1 || jobs > 16) throw new Error("--jobs must be between 1 and 16");
 const publicPage = (u: URL) => u.origin === origin.origin && !/^\/(admin|api|img|og|assets)(\/|$)/.test(u.pathname) && !/\.(xml|txt|json|png|ico|svg|webmanifest)$/.test(u.pathname) && !/^\/(feedback|all\/search-busy|search-busy)(\/|$)/.test(u.pathname);
 const key = (u: URL) => { u.hash = ""; u.searchParams.sort(); return u.pathname + u.search; };
 const pageFile = (u: URL) => `${u.pathname.replace(/\/$/, "")}${u.search ? `/query-${createHash("sha256").update(u.search).digest("hex").slice(0, 12)}` : ""}/index.html`.replace(/^\//, "");
@@ -42,49 +44,58 @@ const snapshotVersion=Date.now().toString(36);
 const snapshots=new StaticPages(origin,output,prefix,publishedUrl,route=>pending.push(new URL(route,origin)));
 const pending = ["/", "/all", "/hot", "/daily", "/daily/archive", "/weekly", "/monthly", "/topics", "/about", "/terms", "/privacy", "/changelog", "/more", "/starred"].map((p) => new URL(p, origin));
 const seen = new Set<string>();
-const assets = new Map<string, string>();
-const resources=new Map<string,string>();
+const assets = new Map<string, Promise<string>>();
+const resources = new Map<string, Promise<string>>();
+function once(cache: Map<string, Promise<string>>, id: string, fetch: () => Promise<string>) {
+  let task = cache.get(id);
+  if (!task) {
+    task = fetch();
+    cache.set(id, task);
+  }
+  return task;
+}
 async function publicResource(u:URL):Promise<string|null> {
   if(!/^\/(?:feed(?:\/[^?]+)?\.xml|llms\.txt|robots\.txt|sitemap\.xml|openapi-v1\.json|manifest\.webmanifest)$/.test(u.pathname))return null;
-  if(resources.has(u.pathname))return resources.get(u.pathname)!;
-  const response=await fetch(u,{signal:AbortSignal.timeout(30_000)});
-  if(!response.ok)throw new Error(`Public static resource ${u.pathname}: ${response.status}`);
-  let body=await response.text();
-  body=body.replaceAll(origin.origin,publishedUrl).replaceAll(`${origin.protocol}//localhost:${origin.port}`,publishedUrl);
-  if(u.pathname==="/manifest.webmanifest") {
-    const manifest=JSON.parse(body);manifest.start_url=prefix+"/";manifest.scope=prefix+"/";
-    for(const icon of manifest.icons??[])if(icon.src?.startsWith("/"))icon.src=prefix+icon.src;
-    body=JSON.stringify(manifest);
-  }
-  const target=path.join(output,u.pathname);await mkdir(path.dirname(target),{recursive:true});await writeFile(target,body);
-  const href=prefix+u.pathname;resources.set(u.pathname,href);snapshots.navigation[u.pathname]=href;return href;
+  return once(resources, u.pathname, async () => {
+    const response=await fetch(u,{signal:AbortSignal.timeout(30_000)});
+    if(!response.ok)throw new Error(`Public static resource ${u.pathname}: ${response.status}`);
+    let body=await response.text();
+    body=body.replaceAll(origin.origin,publishedUrl).replaceAll(`${origin.protocol}//localhost:${origin.port}`,publishedUrl);
+    if(u.pathname==="/manifest.webmanifest") {
+      const manifest=JSON.parse(body);manifest.start_url=prefix+"/";manifest.scope=prefix+"/";
+      for(const icon of manifest.icons??[])if(icon.src?.startsWith("/"))icon.src=prefix+icon.src;
+      body=JSON.stringify(manifest);
+    }
+    const target=path.join(output,u.pathname);await mkdir(path.dirname(target),{recursive:true});await writeFile(target,body);
+    const href=prefix+u.pathname;snapshots.navigation[u.pathname]=href;return href;
+  });
 }
 async function asset(u: URL) {
   if (brandFiles.includes(u.pathname.slice(1))) return `${prefix}${u.pathname}?v=${brandVersions.get(u.pathname.slice(1))}`;
   if (u.pathname.startsWith("/assets/") && !u.search) return prefix + u.pathname;
   const id = u.pathname + u.search;
-  if (assets.has(id)) return assets.get(id)!;
-  const res = await fetch(u, { signal: AbortSignal.timeout(30_000) });
-  if (!res.ok) {
-    // An unavailable upstream image must not block the article's static body and translation.
-    // Keep its public HTTPS source instead of shipping an expiring local proxy address.
-    const source=u.pathname==="/api/img-proxy"?u.searchParams.get("u"):null;
-    if(source) {
-      const original=new URL(source);
-      if(original.protocol==="https:"&&!original.username&&!original.password&&original.origin!==origin.origin) {
-        console.warn(`Image proxy returned ${res.status}; retaining the public source image`);
-        assets.set(id,original.href);return original.href;
+  return once(assets, id, async () => {
+    const res = await fetch(u, { signal: AbortSignal.timeout(30_000) });
+    if (!res.ok) {
+      // An unavailable upstream image must not block the article's static body and translation.
+      // Keep its public HTTPS source instead of shipping an expiring local proxy address.
+      const source=u.pathname==="/api/img-proxy"?u.searchParams.get("u"):null;
+      if(source) {
+        const original=new URL(source);
+        if(original.protocol==="https:"&&!original.username&&!original.password&&original.origin!==origin.origin) {
+          console.warn(`Image proxy returned ${res.status}; retaining the public source image`);
+          return original.href;
+        }
       }
+      throw new Error(`public asset ${u.pathname}: ${res.status}`);
     }
-    throw new Error(`public asset ${u.pathname}: ${res.status}`);
-  }
-  const type = res.headers.get("content-type") ?? "";
-  const ext = type.includes("svg") ? "svg" : type.includes("png") ? "png" : type.includes("webp") ? "webp" : type.includes("jpeg") ? "jpg" : "bin";
-  const file = `assets/snapshot/${createHash("sha256").update(id).digest("hex").slice(0, 20)}.${ext}`;
-  await mkdir(path.join(output, "assets/snapshot"), { recursive: true });
-  await writeFile(path.join(output, file), Buffer.from(await res.arrayBuffer()));
-  assets.set(id, `${prefix}/${file}`);
-  return `${prefix}/${file}`;
+    const type = res.headers.get("content-type") ?? "";
+    const ext = type.includes("svg") ? "svg" : type.includes("png") ? "png" : type.includes("webp") ? "webp" : type.includes("jpeg") ? "jpg" : "bin";
+    const file = `assets/snapshot/${createHash("sha256").update(id).digest("hex").slice(0, 20)}.${ext}`;
+    await mkdir(path.join(output, "assets/snapshot"), { recursive: true });
+    await writeFile(path.join(output, file), Buffer.from(await res.arrayBuffer()));
+    return `${prefix}/${file}`;
+  });
 }
 async function snapshotValue(value:any):Promise<any> {
   if(Array.isArray(value))return Promise.all(value.map(snapshotValue));
@@ -110,12 +121,7 @@ async function snapshotValue(value:any):Promise<any> {
   }
   return value;
 }
-while (pending.length) {
-  const u = pending.shift()!;
-  const id = key(new URL(u));
-  if (seen.has(id)) continue;
-  if (seen.size >= maxPages) throw new Error(`Export exceeds ${maxPages} pages; no partial deployment`);
-  seen.add(id);
+async function exportPage(u: URL, id: string) {
   const res = await fetch(u, { signal: AbortSignal.timeout(30_000) });
   if (!res.ok) throw new Error(`public page ${id}: ${res.status}`);
   const $ = load(await res.text());
@@ -182,6 +188,24 @@ while (pending.length) {
   const file = path.join(output, pageFile(u));
   await mkdir(path.dirname(file), { recursive: true }); await writeFile(file, $.html());
   console.log(`export ${id}`);
+}
+let cursor = 0;
+while (cursor < pending.length) {
+  const batch: Promise<void>[] = [];
+  while (cursor < pending.length && batch.length < jobs) {
+    const url = pending[cursor++]!;
+    const id = key(new URL(url));
+    if (seen.has(id)) continue;
+    if (seen.size >= maxPages) {
+      await Promise.allSettled(batch);
+      throw new Error(`Export exceeds ${maxPages} pages; no partial deployment`);
+    }
+    seen.add(id);
+    batch.push(exportPage(url, id));
+  }
+  const result = await Promise.allSettled(batch);
+  const failed = result.find(item => item.status === "rejected");
+  if (failed) throw failed.reason;
 }
 await writeFile(path.join(output, ".nojekyll"), "");
 await writeFile(path.join(output, "export-manifest.json"), JSON.stringify({ generatedAt: new Date().toISOString(), pages: [...seen], staticReadingEdition: true }, null, 2));

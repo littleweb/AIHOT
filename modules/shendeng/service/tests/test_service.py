@@ -188,4 +188,51 @@ class FulltextPublicationTests(unittest.TestCase):
             with patch.object(publish,'ROOT',root):
                 self.assertEqual(set(publish.public_files()),{'site/editions/day.json','site/rankings/models.json','site/fulltext/article.json'})
 
+
+
+
+class OssReleaseTests(unittest.TestCase):
+    def test_upload_plan_orders_dependencies_and_skips_unchanged_pages(self):
+        from oss_release import upload_plan
+        current = {'assets/script.js': 'new', 'index.html': 'new', 'daily/index.html': 'old',
+                   'items/new/index.html': 'new', 'export-manifest.json': 'time'}
+        pages = ['/', '/daily', '/items/new']
+        previous = {'objects': {'daily/index.html': 'old', 'export-manifest.json': 'old'},
+                    'pages': ['/', '/daily']}
+        self.assertEqual(upload_plan(current, {'pages': pages}, previous),
+                         [['assets/script.js'], ['items/new/index.html'], ['index.html'], ['export-manifest.json']])
+        self.assertEqual(upload_plan(current, {'pages': pages}, {'objects': current, 'pages': pages}), [])
+        self.assertEqual(upload_plan(current, {'pages': ['/']}, {'objects': current, 'pages': pages}),
+                         [[], [], [], ['export-manifest.json']])
+
+    def test_active_oss_refuses_to_export_if_public_domain_is_still_on_pages(self):
+        from unittest.mock import patch
+        import oss_release
+        with patch.object(oss_release, 'can_upload', return_value=True), \
+             patch.object(oss_release, 'download', side_effect=[b'pages', b'oss']), \
+             patch.object(oss_release, 'status'), patch.object(oss_release, 'export') as export:
+            with self.assertRaisesRegex(RuntimeError, 'Public HTTPS domain'):
+                oss_release._release(active=True)
+            export.assert_not_called()
+
+    def test_console_requests_are_consumed_once_and_keep_a_run_history(self):
+        from tempfile import TemporaryDirectory
+        from unittest.mock import patch
+        import common
+        with TemporaryDirectory() as tmp, patch.object(common, 'DATA', pathlib.Path(tmp)), \
+             patch.object(common, 'RUNS', {}):
+            inbox = common.DATA / 'requests'
+            inbox.mkdir()
+            (inbox / 'research').touch()
+            self.assertTrue(common.take_request('research'))
+            self.assertFalse(common.take_request('research'))
+            common.start_task('research')
+            common.status('research', phase='researching', steps=2, privateData='hidden')
+            common.status('research', phase='checked')
+            lines = (common.DATA / 'research-events.jsonl').read_text().splitlines()
+            events = [json.loads(line) for line in lines]
+            self.assertEqual(events[0]['runId'], events[1]['runId'])
+            self.assertEqual(events[0]['steps'], 2)
+            self.assertNotIn('privateData', events[0])
+
 if __name__ == '__main__': unittest.main()

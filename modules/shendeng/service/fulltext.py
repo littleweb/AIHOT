@@ -1,32 +1,37 @@
 """Fetch original bodies and translate with the existing local Codex login, then publish snapshots."""
 import json, subprocess, sys, time
-from common import ROOT, DATA, read_json, write_json, runtime, environment, node, lock, status
+from common import ROOT, DATA, read_json, write_json, runtime, environment, node, lock, status, start_task, take_request, wait_for_request
 CONFIG_FILE = ROOT / 'site/fulltext.json'
 STATE = DATA / 'fulltext.json'
 
 
-def enrich():
+def enrich(manual):
+    start_task('fulltext')
     config = read_json(CONFIG_FILE)
     if not config['enabled']:
-        status('fulltext', phase='disabled'); return
+        status('fulltext', phase='disabled', manual=manual); return
     if config['translationProvider'] != 'local-codex':
         raise RuntimeError('Unsupported translation provider; configure local-codex')
     node('modules/shendeng/fulltext.ts', 'enable', timeout=300)
     queue = json.loads(node('modules/shendeng/fulltext.ts', 'queue', capture=True))
     state = read_json(STATE, {'failures': {}})
     candidates = [i for i in queue if time.time() - state['failures'].get(i, {}).get('at', 0) >= config['failedRetryHours'] * 3600][:config['batchSize']]
+    if not candidates:
+        status('fulltext', phase='idle', remaining=len(queue), manual=manual)
+        return
     completed = 0
-    for article_id in candidates:
+    for position, article_id in enumerate(candidates):
+        progress = dict(completed=position, total=len(candidates), remaining=len(queue) - completed)
         job = DATA / 'fulltext-job.json'
         answer = DATA / 'fulltext-answer.json'
         schema = DATA / 'fulltext-schema.json'
-        status('fulltext', phase='fetching', articleId=article_id, remaining=len(queue))
+        status('fulltext', phase='fetching', articleId=article_id, **progress)
         try:
             node('modules/shendeng/fulltext.ts', 'prepare', article_id, str(job), timeout=90)
             proposal = read_json(job)
             segments = proposal['segments']
             if segments:
-                status('fulltext', phase='translating', articleId=article_id, remaining=len(queue))
+                status('fulltext', phase='translating', articleId=article_id, **progress)
                 # Treat source text as untrusted data. The CLI runs read-only with web search disabled; deterministic code checks count, links, code and media afterwards.
                 write_json(schema, {'type':'object','additionalProperties':False,'required':['t'],
                     'properties':{'t':{'type':'array','items':{'type':'string'},'minItems':len(segments),'maxItems':len(segments)}}})
@@ -50,16 +55,17 @@ def enrich():
             print(f'{article_id}: {error}',flush=True)
         write_json(STATE,state)
     failures = {i:v for i,v in state['failures'].items() if i in queue}
-    status('fulltext',phase='checked' if not failures else 'partial',completed=completed,remaining=len(queue)-completed,
+    status('fulltext',phase='checked' if not failures else 'partial',completed=completed,total=len(candidates),remaining=len(queue)-completed,
         failed=len(failures),failures=failures)
 
 
 if __name__ == '__main__':
     held = lock('fulltext')
     while True:
-        try: enrich()
+        manual = take_request('fulltext')
+        try: enrich(manual)
         except Exception as error:
             status('fulltext',phase='failed',error=str(error));print(str(error),flush=True)
             if '--once' in sys.argv: raise
         if '--once' in sys.argv: break
-        time.sleep(read_json(CONFIG_FILE)['intervalSeconds'])
+        wait_for_request('fulltext', read_json(CONFIG_FILE)['intervalSeconds'])
