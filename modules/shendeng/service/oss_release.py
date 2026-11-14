@@ -178,11 +178,11 @@ def recover(settings, previous, base=ORIGIN):
         old = plan['objects']
         # Use the same ordering for recovery as for a forward deployment.
         batches = upload_plan(old, {'pages': []}, {})
-        for batch in batches:
-            for name in batch:
-                if name in old:
-                    upload(settings, RECOVERY / 'objects', name, base)
-        verify(base, old, old)
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            for batch in batches:
+                list(pool.map(lambda name: upload(settings, RECOVERY / 'objects', name, base),
+                              (name for name in batch if name in old)))
+            list(pool.map(lambda name: verify(base, old, (name,)), old))
     shutil.rmtree(RECOVERY)
 
 

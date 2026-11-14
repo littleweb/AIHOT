@@ -47,6 +47,27 @@ class ContinuousServiceTests(unittest.TestCase):
         from tempfile import TemporaryDirectory
         return self.enterContext(TemporaryDirectory())
 
+    def test_pending_oss_release_uses_the_latest_ranking_snapshot(self):
+        from unittest.mock import patch
+        import publish
+
+        path = 'site/rankings/skills.json'
+        state = {'remote': {}, 'pending': {'target': 'oss', 'commit': 'previous', 'parent': 'parent',
+                                            'files': {path: 'older'}}}
+        with patch.object(publish, 'read_json', return_value=state), \
+             patch.object(publish, 'public_files', return_value={path: b'newer'}), \
+             patch.object(publish, 'oss_options', return_value={'mode': 'active'}), \
+             patch.object(publish, 'head_tree', return_value=('previous', 'tree', {path: blob(b'older')})), \
+             patch.object(publish, 'api', side_effect=[{'sha': 'new-tree'}, {'sha': 'new-head'}, None]), \
+             patch.object(publish, 'DATA', pathlib.Path(self.temp_directory())), \
+             patch.object(publish, 'status'), patch.object(publish, 'node'), patch.object(publish, 'run'), \
+             patch.object(publish, 'write_json'), patch.object(publish, 'hot_snapshot', return_value=[]), \
+             patch.object(publish, 'finish_pending') as finish:
+            publish.sync()
+            self.assertEqual(state['pending']['files'], {path: 'newer'})
+            self.assertEqual(state['pending']['commit'], 'new-head')
+            finish.assert_called_once_with(state)
+
     def test_morning_check_runs_even_when_previous_hour_check_was_recent(self):
         now = datetime.datetime(2026, 10, 23, 5, 30, tzinfo=TZ).timestamp()
         self.assertTrue(due({'lastFinishedAt': now-60, 'morningDate': '2026-10-22'}, now))
@@ -208,11 +229,13 @@ class OssReleaseTests(unittest.TestCase):
                          [[], [], [], ['export-manifest.json']])
 
     def test_active_oss_rejects_a_manifest_other_than_its_verified_baseline(self):
+        from tempfile import TemporaryDirectory
         from unittest.mock import patch
         import oss_release
         baseline = {'objects': {'export-manifest.json': oss_release.digest(b'oss')}}
         with patch.object(oss_release, 'can_upload', return_value=True), \
              patch.object(oss_release, 'read_json', return_value=baseline), \
+             patch.object(oss_release, 'RECOVERY', pathlib.Path(self.enterContext(TemporaryDirectory()))), \
              patch.object(oss_release, 'recover'), \
              patch.object(oss_release, 'download', return_value=b'other') as download, \
              patch.object(oss_release, 'status'), patch.object(oss_release, 'export') as export:

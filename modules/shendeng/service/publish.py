@@ -202,22 +202,30 @@ def finish_pending(state):
 def sync(manual=False):
     state = read_json(STATE, {'remote': {}, 'pending': None})
     pending = state.get('pending')
+    files = None
     if pending:
         run_id = pending.get('runId')
         previous = api('GET', REPO + '/actions/runs/' + str(run_id)) if run_id else {}
         failed = previous.get('status') == 'completed' and previous.get('conclusion') != 'success'
-        if not failed:
+        superseded = False
+        if pending.get('target') == 'oss' and any(path.startswith('site/rankings/') for path in pending['files']):
+            files = public_files()
+            superseded = any(path.startswith('site/rankings/') and path in files and files[path] != data.encode()
+                             for path, data in pending['files'].items())
+        if not failed and not superseded:
             finish_pending(state)
             return
 
-    files = public_files()
+    if files is None:
+        files = public_files()
     if pending:
         parent, tree, remote = head_tree()
-        if parent != pending['commit']:
+        pending_is_remote = parent == pending['commit']
+        if not pending_is_remote and not (superseded and parent == pending.get('parent')):
             raise RuntimeError('Failed publication needs review because remote main changed')
         baseline = dict(state['remote'])
         for path, data in pending['files'].items():
-            expected = blob(data.encode())
+            expected = blob(data.encode()) if pending_is_remote else baseline.get(path)
             if remote.get(path) != expected or path not in files:
                 raise RuntimeError('Failed publication content needs review: ' + path)
             baseline[path] = expected
