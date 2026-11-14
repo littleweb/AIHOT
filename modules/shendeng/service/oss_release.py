@@ -126,17 +126,21 @@ def download(base, name, require_oss=False):
 
 def verify(base, expected, names):
     for name in names:
-        if digest(download(base, name)) != expected[name]:
+        if digest(download(base, name, require_oss=base != ORIGIN)) != expected[name]:
             raise RuntimeError('OSS verification mismatch: ' + name)
 
 
-def upload(settings, directory, name):
+def upload(settings, directory, name, base=ORIGIN):
     extension = Path(name).suffix
     content_type = CONTENT_TYPES.get(extension) or mimetypes.guess_type(name)[0] or 'application/octet-stream'
     args = [settings['cli'], 'cp', str(directory / name), 'oss://' + BUCKET + '/' + name,
             '--config-file', settings['configFile'], '--profile', 'shendeng-news',
-            '--region', REGION, '--endpoint', ENDPOINT, '--force', '--quiet',
+            '--region', REGION, '--force', '--quiet',
             '--content-type', content_type, '--cache-control', 'no-cache']
+    if base == ORIGIN:
+        args.extend(['--endpoint', ENDPOINT])
+    else:
+        args.extend(['--endpoint', base, '--addressing-style', 'cname', '--proxy', 'env'])
     run(args, timeout=120, capture=True)
 
 
@@ -149,11 +153,11 @@ def release(active=False, validate=None):
         held.close()
 
 
-def save_recovery(transaction, names, previous):
+def save_recovery(transaction, names, previous, base=ORIGIN):
     old = {name: previous[name] for name in names if name in previous}
 
     def save(name):
-        data = download(ORIGIN, name)
+        data = download(base, name, require_oss=base != ORIGIN)
         if digest(data) != old[name]:
             raise RuntimeError('OSS object changed outside the publisher: ' + name)
         target = RECOVERY / 'objects' / name
@@ -165,7 +169,7 @@ def save_recovery(transaction, names, previous):
     write_json(RECOVERY / 'rollback.json', {'transaction': transaction, 'objects': old})
 
 
-def recover(settings, previous):
+def recover(settings, previous, base=ORIGIN):
     plan = read_json(RECOVERY / 'rollback.json')
     if not plan:
         return
@@ -177,8 +181,8 @@ def recover(settings, previous):
         for batch in batches:
             for name in batch:
                 if name in old:
-                    upload(settings, RECOVERY / 'objects', name)
-        verify(ORIGIN, old, old)
+                    upload(settings, RECOVERY / 'objects', name, base)
+        verify(base, old, old)
     shutil.rmtree(RECOVERY)
 
 
@@ -201,16 +205,21 @@ def _release(active, validate=None):
     if active and not can_upload(settings):
         raise RuntimeError('OSS upload profile is missing')
     previous = read_json(STATE, {})
-    if can_upload(settings):
-        recover(settings, previous)
+    base = CONFIG['siteUrl'] if active else ORIGIN
+    manifest_name = 'export-manifest.json'
+    if active and not previous.get('objects', {}).get(manifest_name):
+        raise RuntimeError('Complete and verify an OSS preview before activating publication')
     if active:
-        # A matching manifest alone is insufficient when Pages serves the initial
-        # snapshot too. Require the response to identify a live OSS request.
-        manifest_name = 'export-manifest.json'
-        if download(CONFIG['siteUrl'], manifest_name, require_oss=True) != download(ORIGIN, manifest_name):
-            raise RuntimeError('Public HTTPS domain does not serve the Hong Kong OSS manifest')
-        if not previous.get('objects'):
-            raise RuntimeError('Complete and verify an OSS preview before activating publication')
+        online_manifest = download(base, manifest_name, require_oss=True)
+        interrupted = (RECOVERY / 'rollback.json').is_file()
+    if can_upload(settings):
+        recover(settings, previous, base)
+    if active:
+        # A pending rollback can restore a different manifest from the first read.
+        if interrupted:
+            online_manifest = download(base, manifest_name, require_oss=True)
+        if digest(online_manifest) != previous['objects'][manifest_name]:
+            raise RuntimeError('Public HTTPS domain does not serve the last verified OSS manifest')
     manifest = export()
     current = hashes(DESTINATION)
     if not can_upload(settings):
@@ -223,13 +232,13 @@ def _release(active, validate=None):
     transaction = uuid.uuid4().hex
     if active and total:
         status('oss', phase='saving-previous')
-        save_recovery(transaction, (name for batch in batches for name in batch), previous['objects'])
+        save_recovery(transaction, (name for batch in batches for name in batch), previous['objects'], base)
     try:
         status('oss', phase='uploading', completed=completed, total=total)
         if total:
             with ThreadPoolExecutor(max_workers=8) as pool:
                 for batch in batches:
-                    for _ in pool.map(lambda name: upload(settings, DESTINATION, name), batch):
+                    for _ in pool.map(lambda name: upload(settings, DESTINATION, name, base), batch):
                         completed += 1
                         if completed % 10 == 0 or completed == total:
                             status('oss', phase='uploading', completed=completed, total=total)
@@ -244,20 +253,18 @@ def _release(active, validate=None):
                 name = route.lstrip('/') + '/index.html'
                 if name in current:
                     samples.append(name)
-        verify(ORIGIN, current, samples)
-        if active:
-            verify(CONFIG['siteUrl'], current, samples)
+        verify(base, current, samples)
         if validate:
             validate()
         write_json(STATE, {'objects': current, 'pages': manifest['pages'], 'verifiedAt': time.time(), 'transaction': transaction})
     except Exception:
         try:
-            recover(settings, previous)
+            recover(settings, previous, base)
         except Exception as recovery_error:
             raise RuntimeError('OSS upload failed and recovery must be retried: ' + str(recovery_error)) from None
         raise
     if active and total:
-        recover(settings, {'transaction': transaction})
+        recover(settings, {'transaction': transaction}, base)
     status('oss', phase='published', completed=completed, total=total, verified=True,
            mode='active' if active else 'preview')
 

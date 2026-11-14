@@ -75,7 +75,8 @@ class HotPublicationTests(unittest.TestCase):
         old={'rank':1,'title':'Event','story':'/story/checked','participants':2,'heat':10.5}
         new={**old,'heat':10.1}
         state={'remote':{},'pending':None,'hot':[old]}
-        with patch.object(publish,'hot_snapshot',return_value=[new]), patch.object(publish,'head_tree',return_value=('head','tree',{})), patch.object(publish,'write_json'), patch.object(publish,'finish_pending') as finish, patch.object(publish,'api') as api:
+        with patch.object(publish,'oss_options',return_value={'mode':'preview'}), \
+             patch.object(publish,'hot_snapshot',return_value=[new]), patch.object(publish,'head_tree',return_value=('head','tree',{})), patch.object(publish,'write_json'), patch.object(publish,'finish_pending') as finish, patch.object(publish,'api') as api:
             publish.sync_hot(state)
             api.assert_called_once_with('POST',publish.REPO+'/actions/workflows/publish.yml/dispatches',{'ref':'main'})
             self.assertEqual(state['pending']['files'],{})
@@ -97,7 +98,8 @@ class HotPublicationTests(unittest.TestCase):
         from unittest.mock import patch
         import publish
         state={'remote':{},'pending':None,'hot':[{'rank':1,'title':'Expired','story':'/story/expired','participants':2}]}
-        with patch.object(publish,'hot_snapshot',return_value=[]), patch.object(publish,'head_tree',return_value=('head','tree',{})), patch.object(publish,'write_json'), patch.object(publish,'finish_pending') as finish, patch.object(publish,'api') as api:
+        with patch.object(publish,'oss_options',return_value={'mode':'preview'}), \
+             patch.object(publish,'hot_snapshot',return_value=[]), patch.object(publish,'head_tree',return_value=('head','tree',{})), patch.object(publish,'write_json'), patch.object(publish,'finish_pending') as finish, patch.object(publish,'api') as api:
             publish.sync_hot(state)
             api.assert_called_once_with('POST',publish.REPO+'/actions/workflows/publish.yml/dispatches',{'ref':'main'})
             self.assertEqual(state['pending']['files'],{})
@@ -205,15 +207,31 @@ class OssReleaseTests(unittest.TestCase):
         self.assertEqual(upload_plan(current, {'pages': ['/']}, {'objects': current, 'pages': pages}),
                          [[], [], [], ['export-manifest.json']])
 
-    def test_active_oss_refuses_to_export_if_public_domain_is_still_on_pages(self):
+    def test_active_oss_rejects_a_manifest_other_than_its_verified_baseline(self):
         from unittest.mock import patch
         import oss_release
+        baseline = {'objects': {'export-manifest.json': oss_release.digest(b'oss')}}
         with patch.object(oss_release, 'can_upload', return_value=True), \
-             patch.object(oss_release, 'download', side_effect=[b'pages', b'oss']), \
+             patch.object(oss_release, 'read_json', return_value=baseline), \
+             patch.object(oss_release, 'recover'), \
+             patch.object(oss_release, 'download', return_value=b'other') as download, \
              patch.object(oss_release, 'status'), patch.object(oss_release, 'export') as export:
             with self.assertRaisesRegex(RuntimeError, 'Public HTTPS domain'):
                 oss_release._release(active=True)
+            download.assert_called_once_with(oss_release.CONFIG['siteUrl'], 'export-manifest.json', require_oss=True)
             export.assert_not_called()
+
+    def test_active_oss_checks_the_public_domain_before_rolling_back(self):
+        from unittest.mock import patch
+        import oss_release
+        baseline = {'objects': {'export-manifest.json': oss_release.digest(b'oss')}}
+        with patch.object(oss_release, 'can_upload', return_value=True), \
+             patch.object(oss_release, 'read_json', return_value=baseline), \
+             patch.object(oss_release, 'download', side_effect=RuntimeError('Public HTTPS domain is not served by OSS')), \
+             patch.object(oss_release, 'status'), patch.object(oss_release, 'recover') as recover:
+            with self.assertRaisesRegex(RuntimeError, 'Public HTTPS domain'):
+                oss_release._release(active=True)
+            recover.assert_not_called()
 
     def test_recovery_restores_verified_previous_bytes_after_interruption(self):
         from tempfile import TemporaryDirectory
@@ -223,10 +241,15 @@ class OssReleaseTests(unittest.TestCase):
         expected = {name: oss_release.digest(body) for name, body in content.items()}
         restored = {}
 
-        def download(_base, name):
+        base = oss_release.CONFIG['siteUrl']
+
+        def download(request_base, name, require_oss):
+            self.assertEqual(request_base, base)
+            self.assertTrue(require_oss)
             return content[name]
 
-        def upload(_settings, directory, name):
+        def upload(_settings, directory, name, endpoint):
+            self.assertEqual(endpoint, base)
             restored[name] = (directory / name).read_bytes()
 
         with TemporaryDirectory() as tmp, \
@@ -234,8 +257,8 @@ class OssReleaseTests(unittest.TestCase):
              patch.object(oss_release, 'download', side_effect=download), \
              patch.object(oss_release, 'upload', side_effect=upload), \
              patch.object(oss_release, 'status'):
-            oss_release.save_recovery('next', [*content, 'new-only.html'], expected)
-            oss_release.recover({}, {'transaction': 'previous'})
+            oss_release.save_recovery('next', [*content, 'new-only.html'], expected, base)
+            oss_release.recover({}, {'transaction': 'previous'}, base)
             self.assertEqual(restored, content)
             self.assertFalse(oss_release.RECOVERY.exists())
 
