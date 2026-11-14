@@ -1,73 +1,8 @@
 import datetime, hashlib, json, pathlib, sys, unittest
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
-from publish import blob, changed_files
 from research import due, TZ
 
 class ContinuousServiceTests(unittest.TestCase):
-    def test_git_object_hash_matches_git_framing(self):
-        self.assertEqual(blob(b'hello\n'), 'ce013625030ba8dba906f756967f9e9ca394464a')
-
-    def test_no_change_does_not_publish_and_local_new_content_can_publish(self):
-        old = blob(b'old'); new = b'new'
-        self.assertEqual(changed_files({'site/editions/today.json': b'old'}, {'site/editions/today.json': old}, {}), {})
-        self.assertEqual(changed_files({'site/editions/today.json': new}, {'site/editions/today.json': old}, {'site/editions/today.json': old}), {'site/editions/today.json': new})
-
-    def test_independent_remote_edit_is_not_overwritten(self):
-        with self.assertRaisesRegex(RuntimeError, 'independently'):
-            changed_files({'site/editions/today.json': b'local'}, {'site/editions/today.json': blob(b'remote')}, {'site/editions/today.json': blob(b'base')})
-
-    def test_failed_deployment_is_replaced_by_new_content(self):
-        from unittest.mock import patch
-        import publish
-
-        old_path = 'site/editions/old.json'
-        new_path = 'site/editions/new.json'
-        state = {'remote': {}, 'pending': {
-            'commit': 'failed', 'runId': 7, 'files': {old_path: 'old'}
-        }}
-        files = {old_path: b'old', new_path: b'new'}
-        remote = {old_path: blob(b'old')}
-        with patch.object(publish, 'read_json', return_value=state), \
-             patch.object(publish, 'public_files', return_value=files), \
-             patch.object(publish, 'head_tree', return_value=('failed', 'tree', remote)), \
-             patch.object(publish, 'api', side_effect=[
-                 {'status': 'completed', 'conclusion': 'failure'},
-                 {'sha': 'new-tree'}, {'sha': 'replacement'}, None
-             ]), patch.object(publish, 'DATA', pathlib.Path(self.temp_directory())), \
-             patch.object(publish, 'status'), patch.object(publish, 'node'), \
-             patch.object(publish, 'run'), patch.object(publish, 'write_json'), \
-             patch.object(publish, 'hot_snapshot', return_value=[]), \
-             patch.object(publish, 'finish_pending') as finish:
-            publish.sync()
-            self.assertEqual(state['pending']['commit'], 'replacement')
-            self.assertEqual(state['pending']['files'], {old_path: 'old', new_path: 'new'})
-            finish.assert_called_once_with(state)
-
-    def temp_directory(self):
-        from tempfile import TemporaryDirectory
-        return self.enterContext(TemporaryDirectory())
-
-    def test_pending_oss_release_uses_the_latest_ranking_snapshot(self):
-        from unittest.mock import patch
-        import publish
-
-        path = 'site/rankings/skills.json'
-        state = {'remote': {}, 'pending': {'target': 'oss', 'commit': 'previous', 'parent': 'parent',
-                                            'files': {path: 'older'}}}
-        with patch.object(publish, 'read_json', return_value=state), \
-             patch.object(publish, 'public_files', return_value={path: b'newer'}), \
-             patch.object(publish, 'oss_options', return_value={'mode': 'active'}), \
-             patch.object(publish, 'head_tree', return_value=('previous', 'tree', {path: blob(b'older')})), \
-             patch.object(publish, 'api', side_effect=[{'sha': 'new-tree'}, {'sha': 'new-head'}, None]), \
-             patch.object(publish, 'DATA', pathlib.Path(self.temp_directory())), \
-             patch.object(publish, 'status'), patch.object(publish, 'node'), patch.object(publish, 'run'), \
-             patch.object(publish, 'write_json'), patch.object(publish, 'hot_snapshot', return_value=[]), \
-             patch.object(publish, 'finish_pending') as finish:
-            publish.sync()
-            self.assertEqual(state['pending']['files'], {path: 'newer'})
-            self.assertEqual(state['pending']['commit'], 'new-head')
-            finish.assert_called_once_with(state)
-
     def test_morning_check_runs_even_when_previous_hour_check_was_recent(self):
         now = datetime.datetime(2026, 10, 23, 5, 30, tzinfo=TZ).timestamp()
         self.assertTrue(due({'lastFinishedAt': now-60, 'morningDate': '2026-10-22'}, now))
@@ -75,7 +10,6 @@ class ContinuousServiceTests(unittest.TestCase):
         self.assertTrue(due({'lastFinishedAt': now-3700, 'morningDate': '2026-10-23'}, now))
 
 
-class HotPublicationTests(unittest.TestCase):
     def test_snapshot_reads_visible_heat_without_treating_clock_changes_as_new_content(self):
         from unittest.mock import patch
         import publish
@@ -90,42 +24,6 @@ class HotPublicationTests(unittest.TestCase):
             self.assertEqual(first[0]['story'],'/story/checked')
             get.assert_called_with(publish.CONFIG['localUrl']+'/api/site/hot')
 
-    def test_heat_change_republishes_when_rank_and_participant_count_are_unchanged(self):
-        from unittest.mock import patch
-        import publish
-        old={'rank':1,'title':'Event','story':'/story/checked','participants':2,'heat':10.5}
-        new={**old,'heat':10.1}
-        state={'remote':{},'pending':None,'hot':[old]}
-        with patch.object(publish,'oss_options',return_value={'mode':'preview'}), \
-             patch.object(publish,'hot_snapshot',return_value=[new]), patch.object(publish,'head_tree',return_value=('head','tree',{})), patch.object(publish,'write_json'), patch.object(publish,'finish_pending') as finish, patch.object(publish,'api') as api:
-            publish.sync_hot(state)
-            api.assert_called_once_with('POST',publish.REPO+'/actions/workflows/publish.yml/dispatches',{'ref':'main'})
-            self.assertEqual(state['pending']['files'],{})
-            self.assertEqual(state['pending']['hot'],[new])
-            finish.assert_called_once_with(state)
-
-    def test_initial_and_unchanged_hot_lists_do_not_trigger_republication(self):
-        from unittest.mock import patch
-        import publish
-        hot=[{'rank':1,'title':'Event','story':'/story/checked','participants':2}]
-        with patch.object(publish,'hot_snapshot',return_value=hot), patch.object(publish,'write_json'), patch.object(publish,'api') as api:
-            state={'remote':{},'pending':None}
-            publish.sync_hot(state)
-            self.assertEqual(state['hot'],hot)
-            publish.sync_hot(state)
-            api.assert_not_called()
-
-    def test_expired_event_republishes_the_same_public_source_without_fake_content_commit(self):
-        from unittest.mock import patch
-        import publish
-        state={'remote':{},'pending':None,'hot':[{'rank':1,'title':'Expired','story':'/story/expired','participants':2}]}
-        with patch.object(publish,'oss_options',return_value={'mode':'preview'}), \
-             patch.object(publish,'hot_snapshot',return_value=[]), patch.object(publish,'head_tree',return_value=('head','tree',{})), patch.object(publish,'write_json'), patch.object(publish,'finish_pending') as finish, patch.object(publish,'api') as api:
-            publish.sync_hot(state)
-            api.assert_called_once_with('POST',publish.REPO+'/actions/workflows/publish.yml/dispatches',{'ref':'main'})
-            self.assertEqual(state['pending']['files'],{})
-            self.assertEqual(state['pending']['hot'],[])
-            finish.assert_called_once_with(state)
 
 class HotVerificationTests(unittest.TestCase):
     def test_event_expiring_during_build_does_not_block_the_next_news_publication(self):

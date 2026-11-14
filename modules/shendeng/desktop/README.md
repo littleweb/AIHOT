@@ -26,7 +26,7 @@ npm exec --yes --package=@tauri-apps/cli@2.12.4 -- tauri build --bundles app
 
 正式发布经已绑定到香港桶的站点 HTTPS 域名读取、上传和校验对象。发布器检查 OSS 响应标识和上次验证过的发布清单，确认域名指向预期的部署。
 
-确认 OSS 上已有完整快照，并且 `https://shendeng.news/` 在 TLS 下实际返回同一份清单和站点内容后，将 `mode` 设为 `active`。常驻发布服务仍先将已校验的公开数据同步 GitHub，再直接发布 OSS 并检查正式站点。切换模式前须完成已排队的发布。预览期间 GitHub Pages 继续提供正式站点。
+确认 OSS 上已有完整快照，并且 `https://shendeng.news/` 在 TLS 下实际返回同一份清单和站点内容后，将 `mode` 设为 `active`。常驻发布服务检测本地公开内容和热点榜变化，导出后使用本机 OSS 凭据上传变更文件并验证正式站点。发布进度以本地校验记录和 OSS 对象哈希为准。
 
 维护时在项目根目录运行以下验证。
 

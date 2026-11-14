@@ -4,15 +4,14 @@ const taskInfo = {
   research: ["新闻采编", "Codex CLI", "采编一次"],
   rankings: ["榜单更新", "模型榜与 SKILL 榜", "刷新榜单"],
   fulltext: ["正文翻译", "Codex CLI", "检查正文"],
-  publish: ["线上发布", "同步 GitHub 并验证网站", "检查并发布"],
+  publish: ["线上发布", "从本机同步到香港 OSS 并验证网站", "检查并发布"],
   oss: ["香港 OSS", "shendeng-news-hk", "导出并同步"],
 };
 const phases = {
   idle: "无待处理任务", discovering: "发现候选信源", "reading-sources": "读取候选原文",
   researching: "Codex 正在采编", validating: "校验内容", checked: "完成",
   fetching: "读取原始数据", translating: "Codex 正在翻译", partial: "部分完成",
-  "syncing-github": "同步公开内容到 GitHub", "waiting-for-pages": "等待 GitHub Pages",
-  "pages-running": "GitHub Pages 正在构建", "publishing-oss": "正在部署至香港 OSS",
+  "publishing-oss": "正在部署至香港 OSS",
   "up-to-date": "内容已同步", checking: "检查发布配置", exporting: "导出静态页面",
   "local-ready": "本地静态产物已就绪", uploading: "增量上传对象",
   "saving-previous": "保存线上旧版本", "rolling-back": "恢复上一版",
@@ -62,7 +61,6 @@ function details(status) {
   if (status.failed) parts.push(`${status.failed} 条待重试`);
   if (status.remaining) parts.push(`${status.remaining} 条待处理`);
   if (status.changed) parts.push(`${status.changed} 个公开文件`);
-  if (status.runNumber) parts.push(`GitHub 运行 #${status.runNumber}`);
   return parts.join(" · ");
 }
 

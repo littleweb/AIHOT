@@ -1,9 +1,6 @@
 name: 神灯AI热点 · 原界面静态发布
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths: ['site/**', 'industry/**', 'scripts/export-static.ts', 'apps/web/app/features/report/**', 'modules/shendeng/**', 'modules/rankings/**', '.github/workflows/publish.yml']
 permissions:
   contents: read
   pages: write

@@ -1,43 +1,14 @@
-"""Synchronize checked public JSON with the local API and existing GitHub Pages pipeline."""
-import datetime, hashlib, html, json, pathlib, sys, time, urllib.request
-from common import ROOT, DATA, CONFIG, read_json, write_json, run, node, lock, status, start_task, take_request
+"""Publish locally reviewed content directly to Hong Kong OSS."""
+import datetime, hashlib, html, json, sys, time, urllib.request
+from common import ROOT, DATA, CONFIG, read_json, write_json, node, lock, status, start_task, take_request
 from oss_release import options as oss_options, release as oss_release
 
-REPO = 'repos/' + CONFIG['repository']
-STATE = DATA / 'publication.json'
+STATE = DATA / 'oss-publication-inputs.json'
 
-def blob(data):
-    return hashlib.sha1(b'blob ' + str(len(data)).encode() + b'\0' + data).hexdigest()
 
 def public_files():
     paths = sorted((ROOT / 'site/editions').glob('*.json')) + sorted((ROOT / 'site/rankings').glob('*.json')) + sorted((ROOT / 'site/fulltext').glob('*.json'))
     return {str(p.relative_to(ROOT)): p.read_bytes() for p in paths}
-
-def api(method, path, body=None):
-    # Public repository reads can use GitHub directly. Keep authenticated CLI
-    # access for writes and as a fallback when public requests hit a limit.
-    if method == 'GET':
-        try:
-            return json.loads(get('https://api.github.com/' + path))
-        except (OSError, ValueError):
-            pass
-    raw=run(['gh', 'api', '-X', method, path] + (['--input', '-'] if body is not None else []),
-            input=json.dumps(body) if body is not None else None, capture=True)
-    return json.loads(raw) if raw.strip() else None
-
-def head_tree():
-    parent = api('GET', REPO + '/git/ref/heads/main')['object']['sha']
-    tree = api('GET', REPO + '/git/commits/' + parent)['tree']['sha']
-    entries = api('GET', REPO + '/git/trees/' + tree + '?recursive=1')
-    if entries.get('truncated'): raise RuntimeError('Remote tree truncated; publication stopped')
-    return parent, tree, {e['path']: e['sha'] for e in entries['tree'] if e['type'] == 'blob'}
-
-def changed_files(files, remote, baseline):
-    changed = {p: data for p, data in files.items() if blob(data) != remote.get(p)}
-    for path in changed:
-        if path in baseline and baseline[path] != remote.get(path):
-            raise RuntimeError('Remote public content changed independently: ' + path)
-    return changed
 
 def get(url):
     request = urllib.request.Request(url, headers={'User-Agent': 'ShendengNews-Service/1.0', 'Cache-Control': 'no-cache'})
@@ -54,23 +25,9 @@ def hot_snapshot():
              'badges':i['badges'],'spark':i['spark'],'latest':i['latest']}
             for i in data['entries']]
 
-def sync_hot(state):
-    current=hot_snapshot()
-    if 'hot' not in state:
-        state['hot']=current;write_json(STATE,state);return
-    if state['hot']==current:return
-    parent,_,_=head_tree()
-    requested=time.time()
-    target = 'oss' if oss_options().get('mode') == 'active' else 'pages'
-    if target == 'pages':
-        api('POST', REPO+'/actions/workflows/publish.yml/dispatches', {'ref':'main'})
-    state['pending']={'commit':parent,'parent':parent,'files':{},'hot':current,'dispatchAt':requested,'target':target}
-    write_json(STATE,state);finish_pending(state)
-    return True
-
 def verify_online(pending):
     base = CONFIG['siteUrl']
-    manifest = json.loads(get(base + '/export-manifest.json?commit=' + pending['commit']))
+    manifest = json.loads(get(base + '/export-manifest.json?verify=' + str(time.time_ns())))
     if '/leaderboard' not in manifest['pages'] or '/skills' not in manifest['pages']:
         raise RuntimeError('Online manifest is missing ranking pages')
     for path in ['/', '/daily/index.html', '/topics/index.html', '/leaderboard/index.html', '/skills/index.html']:
@@ -145,135 +102,41 @@ def verify_hot(pending, manifest):
         verified.append(entry)
     pending['hot']=verified
 
-def finish_pending(state):
-    pending = state['pending']
-    head = api('GET', REPO + '/git/ref/heads/main')['object']['sha']
-    if head == pending['parent'] and not pending.get('dispatchAt'):
-        api('PATCH', REPO + '/git/refs/heads/main', {'sha': pending['commit'], 'force': False})
-    elif head != pending['commit']:
-        comparison = api('GET', REPO + '/compare/' + pending['commit'] + '...' + head)
-        if comparison['status'] not in ['ahead', 'identical']:
-            raise RuntimeError('Remote main changed before synchronization; pending publication needs review')
-    if pending.get('target') == 'oss':
-        status('publish', phase='publishing-oss', commit=pending['commit'])
-        try:
-            def verify_oss_publication():
-                status('publish', phase='verifying', commit=pending['commit'])
-                verify_online(pending)
-            oss_release(active=True, validate=verify_oss_publication)
-        except Exception as error:
-            status('oss', phase='failed', error=str(error))
-            raise
-    else:
-        status('publish', phase='waiting-for-pages', commit=pending['commit'])
-        run_id = pending.get('runId')
-        if not run_id:
-            for _ in range(30):
-                runs = api('GET', REPO + '/actions/workflows/publish.yml/runs?per_page=20')['workflow_runs']
-                found = next((r for r in runs if r['head_sha'] == pending['commit'] and
-                    (not pending.get('dispatchAt') or r['event']=='workflow_dispatch' and
-                     datetime.datetime.fromisoformat(r['created_at'].replace('Z','+00:00')).timestamp()>=pending['dispatchAt']-5)), None)
-                if found: run_id = found['id']; break
-                time.sleep(10)
-            if not run_id: raise RuntimeError('No Pages run for published commit')
-            pending['runId'] = run_id; write_json(STATE, state)
-        for _ in range(150):
-            info = api('GET', REPO + '/actions/runs/' + str(run_id))
-            phase = 'pages-running' if info['status'] == 'in_progress' else 'waiting-for-pages'
-            if info['status'] == 'completed':
-                if info['conclusion'] != 'success':
-                    raise RuntimeError(f"Pages run {run_id} completed with {info['conclusion']}")
-                break
-            current = read_json(DATA / 'publish-status.json', {})
-            if phase != current.get('phase') or not current.get('runUrl'):
-                status('publish', phase=phase, commit=pending['commit'], runNumber=run_id, runUrl=info['html_url'])
-            time.sleep(20)
-        else:
-            raise RuntimeError(f'Pages run {run_id} exceeded the wait limit')
-        status('publish', phase='verifying', commit=pending['commit'], runNumber=pending.get('runId'))
-        verify_online(pending)
-    state['remote'].update({p: blob(data.encode()) for p, data in pending['files'].items()})
-    if 'hot' in pending:state['hot']=pending['hot']
-    state['lastPublishedAt'] = time.time(); state['lastCommit'] = pending['commit']; state['pending'] = None
-    write_json(STATE, state)
-    status('publish', phase='published', commit=state['lastCommit'], verified=True,
-           runNumber=pending.get('runId'), mode=pending.get('target', 'pages'))
-
 def sync(manual=False):
-    state = read_json(STATE, {'remote': {}, 'pending': None})
-    pending = state.get('pending')
-    files = None
-    if pending:
-        run_id = pending.get('runId')
-        previous = api('GET', REPO + '/actions/runs/' + str(run_id)) if run_id else {}
-        failed = previous.get('status') == 'completed' and previous.get('conclusion') != 'success'
-        superseded = False
-        if pending.get('target') == 'oss' and any(path.startswith('site/rankings/') for path in pending['files']):
-            files = public_files()
-            superseded = any(path.startswith('site/rankings/') and path in files and files[path] != data.encode()
-                             for path, data in pending['files'].items())
-        if not failed and not superseded:
-            finish_pending(state)
-            return
+    if oss_options().get('mode') != 'active':
+        status('publish', phase='disabled', manual=manual)
+        return
+    previous = read_json(STATE, {})
+    files = public_files()
+    hashes = {path: hashlib.sha256(data).hexdigest() for path, data in files.items()}
+    hot = hot_snapshot()
+    current = {'files': hashes, 'hot': hot}
+    if current == previous and not manual:
+        return
+    changed = {path: data for path, data in files.items()
+               if hashes[path] != previous.get('files', {}).get(path)}
+    if changed:
+        status('publish', phase='validating', changed=len(changed))
+        node('modules/shendeng/validate-editions.ts')
+        snapshot_dir = DATA / 'publication-input'
+        snapshot_dir.mkdir(exist_ok=True)
+        for path, data in changed.items():
+            if path.startswith('site/editions/'):
+                snapshot = snapshot_dir / path.rsplit('/', 1)[-1]
+                snapshot.write_bytes(data)
+                node('modules/shendeng/import-reviewed.ts', str(snapshot), '--codex', timeout=300)
+        if any(path.startswith('site/fulltext/') for path in changed):
+            node('modules/shendeng/fulltext.ts', 'import', timeout=300)
+    status('publish', phase='publishing-oss')
+    def validate():
+        status('publish', phase='verifying')
+        latest = public_files()
+        verify_online({'files': {path: data.decode() for path, data in changed.items()
+                                 if latest.get(path) == data}, 'hot': hot})
+    oss_release(active=True, validate=validate)
+    write_json(STATE, current)
+    status('publish', phase='published', verified=True, mode='oss')
 
-    if files is None:
-        files = public_files()
-    if pending:
-        parent, tree, remote = head_tree()
-        pending_is_remote = parent == pending['commit']
-        if not pending_is_remote and not (superseded and parent == pending.get('parent')):
-            raise RuntimeError('Failed publication needs review because remote main changed')
-        baseline = dict(state['remote'])
-        for path, data in pending['files'].items():
-            expected = blob(data.encode()) if pending_is_remote else baseline.get(path)
-            if remote.get(path) != expected or path not in files:
-                raise RuntimeError('Failed publication content needs review: ' + path)
-            baseline[path] = expected
-        changed = changed_files(files, remote, baseline)
-        if not changed:
-            if manual:
-                api('POST', REPO + '/actions/runs/' + str(run_id) + '/rerun')
-                time.sleep(5)
-                finish_pending(state)
-                return
-            raise RuntimeError(f'Pages run {run_id} failed; awaiting new content to create a fresh run')
-        # Check the previously failed content as part of the replacement deployment.
-        changed = {**{p: files[p] for p in pending['files']}, **changed}
-    else:
-        # Query the remote only when local public data differs from the last successful baseline.
-        local = {p: blob(data) for p, data in files.items()}
-        if state.get('remote') and all(state['remote'].get(p) == sha for p, sha in local.items()):
-            updated = sync_hot(state)
-            if manual and not updated:
-                status('publish', phase='up-to-date', manual=True)
-            return
-        parent, tree, remote = head_tree()
-        changed = changed_files(files, remote, state.get('remote', {}))
-    if not changed:
-        state['remote'] = {p: remote.get(p) for p in files}; write_json(STATE, state)
-        status('publish', phase='up-to-date', commit=parent, manual=manual); return
-    status('publish', phase='validating', files=list(changed))
-    node('modules/shendeng/validate-editions.ts')
-    run(['npm', 'run', 'typecheck'], timeout=300)
-    snapshot_dir = DATA / 'publication-input'; snapshot_dir.mkdir(exist_ok=True)
-    for path, data in changed.items():
-        if path.startswith('site/editions/'):
-            snapshot = snapshot_dir / pathlib.Path(path).name; snapshot.write_bytes(data)
-            node('modules/shendeng/import-reviewed.ts', str(snapshot), '--codex', timeout=300)
-    node('modules/shendeng/fulltext.ts', 'import', timeout=300)
-    node('scripts/smoke.ts', '--base', CONFIG['localUrl'], timeout=300)
-    status('publish', phase='syncing-github', changed=len(changed))
-    # Non-forced ref update rejects concurrent remote commits; no unrelated file is uploaded.
-    entries = [{'path': p, 'mode': '100644', 'type': 'blob', 'content': data.decode()} for p, data in changed.items()]
-    new_tree = api('POST', REPO + '/git/trees', {'base_tree': tree, 'tree': entries})['sha']
-    commit = api('POST', REPO + '/git/commits', {'message': 'Sync source-checked AI updates ' + time.strftime('%Y-%m-%d %H:%M'), 'tree': new_tree, 'parents': [parent]})['sha']
-    # Persist before ref mutation: a restart can resume the same run, never silently lose it.
-    state['remote'] = {p: remote.get(p) for p in files}
-    state['pending'] = {'commit': commit, 'parent': parent, 'files': {p: d.decode() for p, d in changed.items()},'hot':hot_snapshot(),
-                        'target': 'oss' if oss_options().get('mode') == 'active' else 'pages'}
-    write_json(STATE, state)
-    api('PATCH', REPO + '/git/refs/heads/main', {'sha': commit, 'force': False})
-    finish_pending(state)
 
 if __name__ == '__main__':
     held = lock('publish')
